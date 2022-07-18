@@ -1,0 +1,47 @@
+{
+	"name": "nextjs",
+	"version": "0.1.0",
+	"private": true,
+	"volta": {
+		"node": "14.19.3"
+	},
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"test": "jest  --coverage --testPathIgnorePatterns='e2e/*'",
+		"test:watch": "jest --testPathIgnorePatterns='e2e/*' --watchAll",
+		"test:all": "jest --coverage --runInBand --detectOpenHandles",
+		"lint": "next lint",
+		"lint:fix": "next lint --fix",
+		"format": "npx prettier --check 'app/**/*.js' 'test/**/*.js' 'pages/**/*.js'",
+		"fromat:fix": "npx prettier --write 'app/**/*.js' 'test/**/*.js' 'pages/**/*.js'",
+		"start": "next start",
+		"start-server": "next start -H 0.0.0.0 -p ${PORT:-8080}"
+	},
+	"dependencies": {
+		"@hapi/joi": "^17.1.1",
+		"@hashgraph/sdk": "^2.6.0",
+		"axios": "^0.21.1",
+		"dotenv": "^8.2.0",
+		"next": "^12.2.2",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	},
+	"devDependencies": {
+		"@babel/preset-typescript": "^7.18.6",
+		"@types/jest": "^28.1.6",
+		"@types/next": "^9.0.0",
+		"@types/node": "^18.0.4",
+		"@types/react": "^18.0.15",
+		"eslint": "^8.20.0",
+		"eslint-config-next": "^12.2.2",
+		"eslint-config-prettier": "^8.5.0",
+		"jest": "^26.4.0",
+		"node-mocks-http": "^1.8.1",
+		"prettier": "^2.7.1",
+		"typescript": "^4.7.4"
+	}
+}

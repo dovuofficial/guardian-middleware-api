@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "2c026d8f-795d-48c7-8554-4bbc17f797ac",
+		"name": "Guardian Middleware",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/status",
+					"host": ["{{domain}}"],
+					"path": ["api", "status"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example Webhook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "12cd627672dab4619c3c8be02c3aa56b534c7614d9c9e56afafa0fb760627978",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"topicId\": \"0.0.134383\",\n        \"consensusTimestamp\": { \"seconds\": 1598306688, \"nanos\": 750728007 },\n        \"transactionId\": \"0.0.116507@1598338540.979000000\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/webhook",
+					"host": ["{{domain}}"],
+					"path": ["api", "webhook"]
+				}
+			},
+			"response": [
+				{
+					"name": "[FAIL] - Example Webhook - Method not allowed",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/webhook",
+							"host": ["{{domain}}"],
+							"path": ["api", "webhook"]
+						}
+					},
+					"status": "Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-nextjs-page",
+							"value": "/api/webhook"
+						},
+						{
+							"key": "content-length",
+							"value": "52"
+						},
+						{
+							"key": "date",
+							"value": "Mon, 31 Aug 2020 13:33:31 GMT"
+						},
+						{
+							"key": "cache-control",
+							"value": "public, max-age=0, must-revalidate"
+						},
+						{
+							"key": "etag",
+							"value": "\"34-9ZtOcc/iHJy0tpwVLnAMsgMSKtY\""
+						},
+						{
+							"key": "x-vercel-cache",
+							"value": "MISS"
+						},
+						{
+							"key": "age",
+							"value": "0"
+						},
+						{
+							"key": "server",
+							"value": "Vercel"
+						},
+						{
+							"key": "x-vercel-id",
+							"value": "lhr1::sfo1::7hjwn-1598880810803-4a2854fcf17f"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=63072000; includeSubDomains; preload"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"reason\": \"Method GET is not allowed on this route\"\n}"
+				}
+			]
+		}
+	]
+}
