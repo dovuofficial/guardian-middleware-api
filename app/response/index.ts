@@ -1,27 +1,28 @@
 import Language from 'app/constants/language'
 import Status from 'app/constants/status'
+import { NextApiResponse } from 'next'
 
 const { notAllowed } = Language.middleware.onlyPostResponse
 
-function methodNotAllowed(res, method) {
+function methodNotAllowed(res: NextApiResponse, method) {
 	return res
 		.status(Status.METHOD_NOT_ALLOWED)
 		.send({ reason: notAllowed(method) })
 }
 
-function unauthorised(res, reason) {
+function unauthorised(res: NextApiResponse, reason) {
 	return res.status(Status.UNAUTHORIZED).send({ reason })
 }
 
-function unprocessibleEntity(res, errors) {
+function unprocessibleEntity(res: NextApiResponse, errors) {
 	return res.status(Status.UNPROCESSIBLE_ENTITY).send({ errors })
 }
 
-function badRequest(res) {
+function badRequest(res: NextApiResponse) {
 	return res.status(Status.BAD_REQUEST).send({})
 }
 
-function json(res, data) {
+function json(res: NextApiResponse, data) {
 	res.json({ data })
 }
 

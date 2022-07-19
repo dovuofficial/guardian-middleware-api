@@ -1,8 +1,16 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
-require('dotenv').config({ path: '.env.test' })
+const nextJest = require('next/jest')
 
-module.exports = {
+const createJestConfig = nextJest({
+	// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+	dir: './',
+})
+
+// Add any custom config to be passed to Jest
+const customJestConfig = {
+	// If using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
+	// An array of directory names to be searched recursively up from the requiring module's location
+	moduleDirectories: ['node_modules', '<rootDir>/'],
+
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -34,6 +42,7 @@ module.exports = {
 	// coverageReporters: [
 	//   "json",
 	//   "text",
+
 	//   "lcov",
 	//   "clover"
 	// ],
@@ -61,11 +70,6 @@ module.exports = {
 
 	// The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
 	// maxWorkers: "50%",
-
-	// An array of directory names to be searched recursively up from the requiring module's location
-	// moduleDirectories: [
-	//   "node_modules"
-	// ],
 
 	// An array of file extensions your modules use
 	// moduleFileExtensions: [
@@ -116,7 +120,7 @@ module.exports = {
 	// restoreMocks: false,
 
 	// The root directory that Jest should scan for tests and modules within
-	// rootDir: undefined,
+	rootDir: './',
 
 	// A list of paths to directories that Jest should use to search for files in
 	// roots: [
@@ -130,7 +134,7 @@ module.exports = {
 	// setupFiles: [],
 
 	// A list of paths to modules that run some code to configure or set up the testing framework before each test
-	// setupFilesAfterEnv: [],
+	// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 
 	// The number of seconds after which a test is considered as slow and reported as such in the results.
 	// slowTestThreshold: 5,
@@ -194,3 +198,6 @@ module.exports = {
 	// Whether to use watchman for file crawling
 	// watchman: true,
 }
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+module.exports = createJestConfig(customJestConfig)

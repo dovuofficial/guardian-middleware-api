@@ -15,6 +15,8 @@ function Home() {
 					src="/decentralized-on-HH_black.jpg"
 					alt="Vercel Logo"
 					className={styles.supportIcon}
+					width={400}
+					height={128}
 				/>
 
 				<h1 className={styles.title}>Welcome to your Guardian API</h1>
@@ -31,6 +33,8 @@ function Home() {
 						src="/vercel.svg"
 						alt="Vercel Logo"
 						className={styles.logo}
+						width={50}
+						height={50}
 					/>
 				</a>
 			</footer>

@@ -1,1 +1,7 @@
-export { default } from './checkAuthenticationKey'
+import checkAuthenticationKey from './checkAuthenticationKey'
+
+const validators = {
+	checkAuthenticationKey,
+}
+
+export default validators
