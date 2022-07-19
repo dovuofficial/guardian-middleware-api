@@ -10,7 +10,7 @@ const language = {
 				'Unable to process encryption action, 32 character length "ENCRYPTION_KEY" not set in config',
 		},
 		onlyPostResponse: {
-			notAllowed: (method) =>
+			notAllowed: (method: string) =>
 				`Method ${method} is not allowed on this route`,
 		},
 	},

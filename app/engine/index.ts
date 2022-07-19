@@ -1,12 +1,22 @@
+import { BlockData } from 'app/guardian/policies'
 import Guardian from '../guardian'
 
-const executeRootBlock = async (accessToken, policyId, doc) => {
+const executeRootBlock = async (
+	accessToken: string,
+	policyId: string,
+	doc: Document
+) => {
 	const rootBlock = await Guardian.policies.blocks(accessToken, policyId)
 	await executeBlock(accessToken, policyId, rootBlock.id, doc)
 	console.log(`Finished root block execution for policy: ${policyId}`)
 }
 
-const executeTag = async (accessToken, policyId, tag, doc) => {
+const executeTag = async (
+	accessToken: string,
+	policyId: string,
+	tag: string,
+	doc: Document
+) => {
 	const blockId = await Guardian.policies.blockByTag(
 		accessToken,
 		policyId,
@@ -16,7 +26,11 @@ const executeTag = async (accessToken, policyId, tag, doc) => {
 	await executeBlock(accessToken, policyId, blockId, doc)
 }
 
-const fetchBlockSubmissions = async (accessToken, policyId, tag) => {
+const fetchBlockSubmissions = async (
+	accessToken: string,
+	policyId: string,
+	tag: string
+) => {
 	const blockId = await Guardian.policies.blockByTag(
 		accessToken,
 		policyId,
@@ -26,7 +40,12 @@ const fetchBlockSubmissions = async (accessToken, policyId, tag) => {
 	return await Guardian.policies.blockById(accessToken, policyId, blockId)
 }
 
-const sendActionToBlock = async (accessToken, policyId, blockId, doc) => {
+const sendActionToBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockId: string,
+	doc: Document
+) => {
 	// console.log(doc)
 	console.log(blockId)
 
@@ -34,7 +53,12 @@ const sendActionToBlock = async (accessToken, policyId, blockId, doc) => {
 	await Guardian.policies.sendToBlock(accessToken, policyId, blockId, doc)
 }
 
-const executeBlock = async (accessToken, policyId, blockId, doc) => {
+const executeBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockId: string,
+	doc: Document
+): Promise<void | boolean> => {
 	const data = await Guardian.policies.blockById(
 		accessToken,
 		policyId,
@@ -54,7 +78,7 @@ const executeBlock = async (accessToken, policyId, blockId, doc) => {
 		case 'interfaceStepBlock':
 			return await interfaceStepBlock(accessToken, policyId, data, doc)
 		case 'policyRolesBlock':
-			return await policyRolesBlock(accessToken, policyId, data, doc)
+			return await policyRolesBlock(accessToken, policyId, data)
 		case 'requestVcDocumentBlock':
 			return await requestVcDocument(accessToken, policyId, data, doc)
 		case 'interfaceActionBlock':
@@ -62,28 +86,23 @@ const executeBlock = async (accessToken, policyId, blockId, doc) => {
 		case 'buttonBlock': // This has been added as a "buttonBlock" is a thing
 			return await sendActionToBlock(accessToken, policyId, blockId, doc)
 		case 'informationBlock':
-			return await informationBlock(data)
+			return informationBlock(data)
 
 		default:
 			// Guardian does not send some data for this blocks
 			if (data.roles) {
 				// policyRolesBlock
-				return await policyRolesBlock(
-					accessToken,
-					policyId,
-					{
-						id: blockId,
-						roles: data.roles,
-						uiMetaData: data.uiMetaData,
-						blockType: 'policyRolesBlock',
-					},
-					doc
-				)
+				return await policyRolesBlock(accessToken, policyId, {
+					id: blockId,
+					roles: data.roles,
+					uiMetaData: data.uiMetaData,
+					blockType: 'policyRolesBlock',
+				})
 			} else if (
 				Object.getOwnPropertyNames(data).length == 1 &&
 				data.uiMetaData
 			) {
-				return await informationBlock({
+				return informationBlock({
 					id: blockId,
 					uiMetaData: data.uiMetaData,
 					blockType: 'informationBlock',
@@ -95,10 +114,10 @@ const executeBlock = async (accessToken, policyId, blockId, doc) => {
 }
 
 const interfaceContainerBlock = async (
-	accessToken,
-	policyId,
-	blockData,
-	doc
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData,
+	doc: Document
 ) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
@@ -122,7 +141,11 @@ const interfaceContainerBlock = async (
 	}
 }
 
-const policyRolesBlock = async (accessToken, policyId, blockData, doc) => {
+const policyRolesBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
@@ -141,8 +164,7 @@ const policyRolesBlock = async (accessToken, policyId, blockData, doc) => {
 				accessToken,
 				policyId,
 				blockData.id,
-				data,
-				doc
+				data
 			)
 			return
 		}
@@ -150,7 +172,12 @@ const policyRolesBlock = async (accessToken, policyId, blockData, doc) => {
 	}
 }
 
-const interfaceStepBlock = async (accessToken, policyId, blockData, doc) => {
+const interfaceStepBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData,
+	doc: Document
+) => {
 	const blocks = blockData.blocks.filter((element) => element != null)
 	for (let i = 0; i < blocks.length; i++) {
 		const stop = await executeBlock(
@@ -167,20 +194,35 @@ const interfaceStepBlock = async (accessToken, policyId, blockData, doc) => {
 	}
 }
 
-const requestVcDocument = async (accessToken, policyId, blockData, doc) => {
+interface Document {
+	document: DocumentDetail
+}
+interface DocumentDetail extends Record<string, any> {
+	'@context': string
+	type: string
+	name: string
+}
+
+const requestVcDocument = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData,
+	doc: Document
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 
 	// We adjust the doc with injecting context and schema types were appropriate
 	doc.document['@context'] = blockData.schema.contextURL
-	doc.document['type'] = blockData.schema.type
+	doc.document.type = blockData.schema.type
 
 	blockData.schema.fields.map((field) => {
 		if (!field.isRef) {
 			return
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		doc.document[field.name].type = field.type.substring(1)
 	})
 
@@ -194,7 +236,7 @@ const requestVcDocument = async (accessToken, policyId, blockData, doc) => {
 	)
 }
 
-const informationBlock = async (blockData) => {
+const informationBlock = (blockData: BlockData) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
@@ -206,13 +248,21 @@ const informationBlock = async (blockData) => {
 // Engine.usePolicy(policyId).authorise(token).executeBlock(block)
 // Engine.usePolicy(policyId).authorise(token).withTag('tag').executeBlock(doc)
 const engine = {
-	executeRootBlock: (token, policyId, doc) =>
+	executeRootBlock: (token: string, policyId: string, doc: Document) =>
 		executeRootBlock(token, policyId, doc),
-	executeBlock: (token, policyId, blockId, doc) =>
-		executeBlock(token, policyId, blockId, doc),
-	executeBlockViaTag: (token, policyId, tag, doc) =>
-		executeTag(token, policyId, tag, doc),
-	fetchBlockSubmissions: (token, policyId, tag) =>
+	executeBlock: (
+		token: string,
+		policyId: string,
+		blockId: string,
+		doc: Document
+	) => executeBlock(token, policyId, blockId, doc),
+	executeBlockViaTag: (
+		token: string,
+		policyId: string,
+		tag: string,
+		doc: Document
+	) => executeTag(token, policyId, tag, doc),
+	fetchBlockSubmissions: (token: string, policyId: string, tag: string) =>
 		fetchBlockSubmissions(token, policyId, tag),
 }
 

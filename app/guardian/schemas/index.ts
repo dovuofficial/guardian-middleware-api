@@ -1,22 +1,38 @@
+import { AxiosInstance } from 'axios'
+
 const ENDPOINTS = {
 	schemas: '/schemas',
-	createFn: (topicId) => `/schemas/${topicId}`,
-	publishFn: (schemaId) => `/schemas/${schemaId}/publish`,
+	createFn: (topicId: string) => `/schemas/${topicId}`,
+	publishFn: (schemaId: string) => `/schemas/${schemaId}/publish`,
 }
 
-const create = async (api, accessToken, payload, topicId) => {
-	const result = await api.post(ENDPOINTS.createFn(topicId), payload, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+const create = async (
+	api: AxiosInstance,
+	accessToken: string,
+	payload: Record<string, unknown>,
+	topicId: string
+) => {
+	const result = await api.post<Array<Record<string, unknown>>>(
+		ENDPOINTS.createFn(topicId),
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	// Return the schema object that was just created. Not every single schema!
 	const { data } = result
 	return data[data.length - 1]
 }
 
-const publish = async (api, accessToken, schemaId, payload) => {
+const publish = async (
+	api: AxiosInstance,
+	accessToken: string,
+	schemaId: string,
+	payload: Record<string, unknown>
+) => {
 	const result = await api.put(ENDPOINTS.publishFn(schemaId), payload, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -26,7 +42,11 @@ const publish = async (api, accessToken, schemaId, payload) => {
 	return result
 }
 
-const update = async (api, accessToken, payload) => {
+const update = async (
+	api: AxiosInstance,
+	accessToken: string,
+	payload: Record<string, unknown>
+) => {
 	if (!payload.id) {
 		throw new Error('Schema update payload is missing an `id`')
 	}
@@ -40,22 +60,33 @@ const update = async (api, accessToken, payload) => {
 	return result
 }
 
-const all = async (api, accessToken) => {
-	const { data } = await api.get(ENDPOINTS.schemas, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+const all = async (api: AxiosInstance, accessToken: string) => {
+	const { data } = await api.get<Array<Record<string, unknown>>>(
+		ENDPOINTS.schemas,
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	return data
 }
 
-const schemas = (api) => ({
-	create: (token, payload, topicId) => create(api, token, payload, topicId),
-	publish: (token, schemaId, payload) =>
-		publish(api, token, schemaId, payload),
-	update: (token, payload) => update(api, token, payload),
-	all: (token) => all(api, token),
+const schemas = (api: AxiosInstance) => ({
+	create: (
+		token: string,
+		payload: Record<string, unknown>,
+		topicId: string
+	) => create(api, token, payload, topicId),
+	publish: (
+		token: string,
+		schemaId: string,
+		payload: Record<string, unknown>
+	) => publish(api, token, schemaId, payload),
+	update: (token: string, payload: Record<string, unknown>) =>
+		update(api, token, payload),
+	all: (token: string) => all(api, token),
 })
 
 export default schemas

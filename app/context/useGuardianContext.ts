@@ -1,8 +1,9 @@
 import guardian from '../guardian'
 import engine from '../engine'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-function useGuardianContext(handler) {
-	return async (req, res) => {
+function useGuardianContext(handler: NextApiHandler) {
+	return (req: NextApiRequest, res: NextApiResponse) => {
 		req.context = {
 			guardian,
 			engine,

@@ -10,11 +10,11 @@ function methodNotAllowed(res: NextApiResponse, method) {
 		.send({ reason: notAllowed(method) })
 }
 
-function unauthorised(res: NextApiResponse, reason) {
+function unauthorised(res: NextApiResponse, reason: string) {
 	return res.status(Status.UNAUTHORIZED).send({ reason })
 }
 
-function unprocessibleEntity(res: NextApiResponse, errors) {
+function unprocessibleEntity(res: NextApiResponse, errors: Array<string>) {
 	return res.status(Status.UNPROCESSIBLE_ENTITY).send({ errors })
 }
 
@@ -22,7 +22,7 @@ function badRequest(res: NextApiResponse) {
 	return res.status(Status.BAD_REQUEST).send({})
 }
 
-function json(res: NextApiResponse, data) {
+function json(res: NextApiResponse, data: Record<string, unknown>) {
 	res.json({ data })
 }
 

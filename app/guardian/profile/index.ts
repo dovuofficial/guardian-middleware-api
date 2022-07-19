@@ -1,8 +1,15 @@
+import { AxiosInstance } from 'axios'
+
 const ENDPOINTS = {
 	profile: '/profiles/',
 }
 
-const save = async (api, accessToken, payload, username) => {
+const save = async (
+	api: AxiosInstance,
+	accessToken: string,
+	payload: Record<string, unknown>,
+	username: string
+) => {
 	const result = await api.put(ENDPOINTS.profile + username, payload, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -12,20 +19,28 @@ const save = async (api, accessToken, payload, username) => {
 	return result
 }
 
-const fetch = async (api, accessToken, username) => {
+const fetch = async (
+	api: AxiosInstance,
+	accessToken: string,
+	username: string
+) => {
 	//TODO: Dunno if we need null for payload for GET
-	const result = await api.get(ENDPOINTS.profile + username, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+	const result = await api.get<Record<string, unknown>>(
+		ENDPOINTS.profile + username,
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	return result.data
 }
 
-const profile = (api) => ({
-	save: (token, payload, username) => save(api, token, payload, username),
-	fetch: (token, username) => fetch(api, token, username),
+const profile = (api: AxiosInstance) => ({
+	save: (token: string, payload: Record<string, unknown>, username: string) =>
+		save(api, token, payload, username),
+	fetch: (token: string, username: string) => fetch(api, token, username),
 })
 
 export default profile

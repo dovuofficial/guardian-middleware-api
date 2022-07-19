@@ -4,9 +4,19 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const { statusRequest } = Language
 
-async function ConnectionStatusHandler(
+export type StatusResponse = {
+	message: string
+	environment_status: {
+		hederaAccountId: boolean
+		hederaPrivateKey: boolean
+		authenticationKey: boolean
+	}
+	meta: { hint: string }
+}
+
+function ConnectionStatusHandler(
 	_req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse<StatusResponse | 'ok'>
 ) {
 	res.statusCode = 200
 

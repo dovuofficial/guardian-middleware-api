@@ -1,10 +1,11 @@
 import Config from 'app/config'
 import Language from 'app/constants/language'
 import axios from 'axios'
+import { StatusResponse } from 'pages/api/status'
 
 const { apiUrl, hideStatus } = Config
 
-test("Check 'API_URL' does not end in a '/'", async () => {
+test("Check 'API_URL' does not end in a '/'", () => {
 	if (!apiUrl) {
 		console.warn(
 			"Skipping test as 'API_URL' not found in environment, for these tests to pass your external service needs to be redeployed"
@@ -25,7 +26,7 @@ test("Check external '/api/status' returns a valid response, is it ready to be u
 		return
 	}
 
-	const { data } = await axios.get(`${apiUrl}/api/status`)
+	const { data } = await axios.get<StatusResponse>(`${apiUrl}/api/status`)
 
 	if (hideStatus) {
 		expect(data).toBe('ok')

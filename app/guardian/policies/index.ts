@@ -1,14 +1,35 @@
+import { AxiosInstance } from 'axios'
+
+export type BlockData = {
+	id: string
+	uiMetaData: { title: string; description: string }
+	blocks?: Array<{ id: string }>
+	roles?: Array<string>
+	blockType: string
+	schema?: {
+		type: string
+		contextURL: string
+		fields: Array<{
+			name: string
+			type: string
+			isRef: boolean
+		}>
+	}
+}
+
 const ENDPOINTS = {
 	policies: '/policies',
 	import: '/policies/import/file',
-	publishFn: (policyId) => `/policies/${policyId}/publish`,
-	updateFn: (policyId) => `/policies/${policyId}`,
-	blocksFn: (policyId) => `/policies/${policyId}/blocks`,
-	blockByIdFn: (policyId, uuid) => `/policies/${policyId}/blocks/${uuid}`,
-	blockByTagFn: (policyId, tag) => `/policies/${policyId}/tag/${tag}`,
+	publishFn: (policyId: string) => `/policies/${policyId}/publish`,
+	updateFn: (policyId: string) => `/policies/${policyId}`,
+	blocksFn: (policyId: string) => `/policies/${policyId}/blocks`,
+	blockByIdFn: (policyId: string, uuid: string) =>
+		`/policies/${policyId}/blocks/${uuid}`,
+	blockByTagFn: (policyId: string, tag: string) =>
+		`/policies/${policyId}/tag/${tag}`,
 }
 
-const importFile = async (api, accessToken, file) => {
+const importFile = async (api: AxiosInstance, accessToken: string, file) => {
 	const result = await api.post(ENDPOINTS.import, file, {
 		headers: {
 			'Content-Type': 'binary/octet-stream',
@@ -19,7 +40,12 @@ const importFile = async (api, accessToken, file) => {
 	return result
 }
 
-const publish = async (api, accessToken, policyId, payload) => {
+const publish = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string,
+	payload: Record<string, unknown>
+) => {
 	const result = await api.put(ENDPOINTS.publishFn(policyId), payload, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -29,7 +55,12 @@ const publish = async (api, accessToken, policyId, payload) => {
 	return result
 }
 
-const update = async (api, accessToken, policyId, payload) => {
+const update = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string,
+	payload: Record<string, unknown>
+) => {
 	const result = await api.put(ENDPOINTS.updateFn(policyId), payload, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -39,17 +70,20 @@ const update = async (api, accessToken, policyId, payload) => {
 	return result
 }
 
-const list = async (api, accessToken) => {
-	const result = await api.get(ENDPOINTS.policies, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+const list = async (api: AxiosInstance, accessToken: string) => {
+	const result = await api.get<Array<Record<string, unknown>>>(
+		ENDPOINTS.policies,
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	return result.data
 }
 
-const policyByName = async (api, accessToken, name) => {
+const policyByName = async (api: AxiosInstance, accessToken: string, name) => {
 	const policies = await list(api, accessToken)
 	const policy = policies.find((policy) => policy.name === name)
 
@@ -60,8 +94,12 @@ const policyByName = async (api, accessToken, name) => {
 	return policy
 }
 
-const blocks = async (api, accessToken, policyId) => {
-	const result = await api.get(ENDPOINTS.blocksFn(policyId), {
+const blocks = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string
+) => {
+	const result = await api.get<{ id: string }>(ENDPOINTS.blocksFn(policyId), {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
@@ -70,28 +108,50 @@ const blocks = async (api, accessToken, policyId) => {
 	return result.data
 }
 
-const blockById = async (api, accessToken, policyId, uuid) => {
-	const result = await api.get(ENDPOINTS.blockByIdFn(policyId, uuid), {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+const blockById = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string,
+	uuid: string
+) => {
+	const result = await api.get<BlockData>(
+		ENDPOINTS.blockByIdFn(policyId, uuid),
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	return result.data
 }
 
-const blockByTag = async (api, accessToken, policyId, tag) => {
-	const result = await api.get(ENDPOINTS.blockByTagFn(policyId, tag), {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+const blockByTag = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string,
+	tag: string
+): Promise<string> => {
+	const result = await api.get<{ id: string }>(
+		ENDPOINTS.blockByTagFn(policyId, tag),
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
 
 	return result.data.id
 }
 
-const sendToBlock = async (api, accessToken, policyId, uuid, payload) => {
-	const result = await api.post(
+const sendToBlock = async (
+	api: AxiosInstance,
+	accessToken: string,
+	policyId: string,
+	uuid: string,
+	payload: Record<string, unknown>
+) => {
+	const result = await api.post<Record<string, unknown>>(
 		ENDPOINTS.blockByIdFn(policyId, uuid),
 		payload,
 		{
@@ -106,18 +166,33 @@ const sendToBlock = async (api, accessToken, policyId, uuid, payload) => {
 	return result.data
 }
 
-const policies = (api) => ({
-	importFile: (token, payload) => importFile(api, token, payload),
-	publish: (token, policyId, payload) =>
-		publish(api, token, policyId, payload),
-	update: (token, policyId, payload) => update(api, token, policyId, payload),
-	list: (token) => list(api, token),
-	blocks: (token, policyId) => blocks(api, token, policyId),
-	blockByTag: (token, policyId, tag) => blockByTag(api, token, policyId, tag),
-	policyByName: (token, name) => policyByName(api, token, name),
-	blockById: (token, policyId, uuid) => blockById(api, token, policyId, uuid),
-	sendToBlock: (token, policyId, uuid, payload) =>
-		sendToBlock(api, token, policyId, uuid, payload),
+const policies = (api: AxiosInstance) => ({
+	importFile: (token: string, payload: Record<string, unknown>) =>
+		importFile(api, token, payload),
+	publish: (
+		token: string,
+		policyId: string,
+		payload: Record<string, unknown>
+	) => publish(api, token, policyId, payload),
+	update: (
+		token: string,
+		policyId: string,
+		payload: Record<string, unknown>
+	) => update(api, token, policyId, payload),
+	list: (token: string) => list(api, token),
+	blocks: (token: string, policyId: string) => blocks(api, token, policyId),
+	blockByTag: (token: string, policyId: string, tag: string) =>
+		blockByTag(api, token, policyId, tag),
+	policyByName: (token: string, name: string) =>
+		policyByName(api, token, name),
+	blockById: (token: string, policyId: string, uuid: string) =>
+		blockById(api, token, policyId, uuid),
+	sendToBlock: (
+		token: string,
+		policyId: string,
+		uuid: string,
+		payload: Record<string, any>
+	) => sendToBlock(api, token, policyId, uuid, payload),
 })
 
 export default policies

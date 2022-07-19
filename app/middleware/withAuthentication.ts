@@ -1,15 +1,14 @@
-import Language from "app/constants/language"
-import Validation from "app/validators"
-import Response from "app/response"
+import Language from 'app/constants/language'
+import Validation from 'app/validators'
+import Response from 'app/response'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-const {
-	noApikey,
-	invalidApikey
-} = Language.middleware.withAuthenticationResponse
+const { noApikey, invalidApikey } =
+	Language.middleware.withAuthenticationResponse
 
-function withAuthentication(handler) {
-	return async (req, res) => {
-		const apiKey = req.headers && req.headers["x-api-key"]
+function withAuthentication(handler: NextApiHandler) {
+	return (req: NextApiRequest, res: NextApiResponse) => {
+		const apiKey = req.headers?.['x-api-key']
 
 		if (apiKey === undefined || !apiKey.length) {
 			return Response.unauthorised(res, noApikey)

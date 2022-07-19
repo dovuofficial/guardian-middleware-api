@@ -1,9 +1,9 @@
-import crypto from 'crypto'
+import crypto, { BinaryLike } from 'crypto'
 import Config from 'app/config'
 
 const IV_LENGTH = 16 // For AES, this is always 16
 
-function encrypt(text, encryptionKey = Config.encryptionKey) {
+function encrypt(text: BinaryLike, encryptionKey = Config.encryptionKey) {
 	const iv = Buffer.from(crypto.randomBytes(IV_LENGTH))
 		.toString('hex')
 		.slice(0, IV_LENGTH)
@@ -18,7 +18,7 @@ function encrypt(text, encryptionKey = Config.encryptionKey) {
 	return iv + ':' + buffer.toString('hex')
 }
 
-function decrypt(text, encryptionKey = Config.encryptionKey) {
+function decrypt(text: string, encryptionKey = Config.encryptionKey) {
 	const textParts = text.includes(':') ? text.split(':') : []
 	const iv = Buffer.from(textParts.shift() || '', 'binary')
 	const encryptedText = Buffer.from(textParts.join(':'), 'hex')
