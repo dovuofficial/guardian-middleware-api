@@ -16,11 +16,6 @@
 		"jsx": "preserve",
 		"baseUrl": "."
 	},
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"__mocks__/apiRequest.js"
-	],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
 }

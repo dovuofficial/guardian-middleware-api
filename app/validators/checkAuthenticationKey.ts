@@ -1,6 +1,6 @@
 import Config from '../config'
 
-const checkAuthenticationKey = (authenticationKey) => {
+const checkAuthenticationKey = (authenticationKey): boolean => {
 	return Config.authenticationKey === authenticationKey
 }
 

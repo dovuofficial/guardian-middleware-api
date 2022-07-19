@@ -12,7 +12,7 @@ import Crypto from 'crypto'
  * and the server will be able to duplicate the signature.
  */
 
-function generateHash(payloadAsString) {
+function generateHash(payloadAsString): string {
 	if (typeof payloadAsString !== 'string') {
 		throw 'Your payload object must be converted in to a string'
 	}
@@ -22,7 +22,7 @@ function generateHash(payloadAsString) {
 		.digest('hex')
 }
 
-function validateSignature(payloadAsString, signature) {
+function validateSignature(payloadAsString, signature): boolean {
 	const hash = generateHash(payloadAsString)
 
 	return hash === signature

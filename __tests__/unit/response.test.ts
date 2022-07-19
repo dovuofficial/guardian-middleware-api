@@ -1,10 +1,9 @@
-import { NextApiResponse } from 'next'
 import Response from 'app/response'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 describe('Response', () => {
 	it('responds with method not allowed', async () => {
-		await testApiHandler({
+		await testApiHandler<{ reason: string }>({
 			handler: (_, res) => Response.methodNotAllowed(res, 'GET'),
 			test: async ({ fetch }) => {
 				const res = await fetch()
@@ -18,7 +17,7 @@ describe('Response', () => {
 	})
 	it('responds with unauthorised', async () => {
 		const reason = 'You are not authorised to access this resource'
-		await testApiHandler({
+		await testApiHandler<{ reason: string }>({
 			handler: (_, res) => Response.unauthorised(res, reason),
 			test: async ({ fetch }) => {
 				const res = await fetch()
@@ -30,7 +29,7 @@ describe('Response', () => {
 	})
 	it('responds with unprocessible entity', async () => {
 		const reason = { foo: 'bar' }
-		await testApiHandler({
+		await testApiHandler<{ errors: string | Array<string> }>({
 			handler: (_, res) => Response.unprocessibleEntity(res, reason),
 			test: async ({ fetch }) => {
 				const res = await fetch()
@@ -41,7 +40,7 @@ describe('Response', () => {
 		})
 	})
 	it('responds with bad request', async () => {
-		await testApiHandler({
+		await testApiHandler<null>({
 			handler: (_, res) => Response.badRequest(res),
 			test: async ({ fetch }) => {
 				const res = await fetch()
@@ -53,7 +52,7 @@ describe('Response', () => {
 	})
 	it('responds with json', async () => {
 		const data = { foo: 'bar' }
-		await testApiHandler({
+		await testApiHandler<{ data: Record<string, unknown> }>({
 			handler: (_, res) => Response.json(res, data),
 			test: async ({ fetch }) => {
 				const res = await fetch()

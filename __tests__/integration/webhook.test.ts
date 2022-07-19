@@ -69,5 +69,5 @@ test('Check webhook has been hit, with a good signature and body', async () => {
 
 	const response = await axios.post(webhookUrl, mockResponse, config)
 
-	await expect(response.status).toBe(Status.OK)
+	expect(response.status).toBe(Status.OK)
 })

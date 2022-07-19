@@ -7,11 +7,11 @@ const ExplorerUrl = {
 	[Environment.MAINNET]: 'https://ledger.hashlog.io/tx/',
 }
 
-function getExplorerUrl(tx) {
-	const network = Config.HEDERA_NETWORK || Environment.TESTNET
+function getExplorerUrl(tx: string): string {
+	const network = Config.network || Environment.TESTNET
 
 	if (network) {
-		return ExplorerUrl[network] + tx
+		return `${ExplorerUrl[network]}${tx}`
 	}
 }
 
