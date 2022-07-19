@@ -1,10 +1,4 @@
 import Guardian from '../guardian'
-import readline from 'readline'
-
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-})
 
 const executeRootBlock = async (accessToken, policyId, doc) => {
 	const rootBlock = await Guardian.policies.blocks(accessToken, policyId)
@@ -68,7 +62,7 @@ const executeBlock = async (accessToken, policyId, blockId, doc) => {
 		case 'buttonBlock': // This has been added as a "buttonBlock" is a thing
 			return await sendActionToBlock(accessToken, policyId, blockId, doc)
 		case 'informationBlock':
-			return await informationBlock(accessToken, policyId, data, doc)
+			return await informationBlock(data)
 
 		default:
 			// Guardian does not send some data for this blocks
@@ -89,7 +83,7 @@ const executeBlock = async (accessToken, policyId, blockId, doc) => {
 				Object.getOwnPropertyNames(data).length == 1 &&
 				data.uiMetaData
 			) {
-				return await informationBlock(accessToken, policyId, {
+				return await informationBlock({
 					id: blockId,
 					uiMetaData: data.uiMetaData,
 					blockType: 'informationBlock',
@@ -140,7 +134,7 @@ const policyRolesBlock = async (accessToken, policyId, blockData, doc) => {
 	while (true) {
 		// rl.question('Rol: ? ', async function (rol) {
 		// let ix = parseInt(rol);
-		let ix = 0
+		const ix = 0
 		if (!isNaN(ix) && blockData.roles.length > ix && ix >= 0) {
 			const data = { role: blockData.roles[ix] }
 			await Guardian.policies.sendToBlock(
@@ -178,15 +172,6 @@ const requestVcDocument = async (accessToken, policyId, blockData, doc) => {
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 
-	// console.log('blockData: ');
-	// console.log(blockData);
-	// console.log('end blockData');
-
-	// console.log('Fields: ');
-	// blockData.schema.fields.forEach(field => {
-	//     console.log(`Name: ${field.name} Type: ${field.type} Title: ${field.title} Req: ${field.required}`);
-	// });
-
 	// We adjust the doc with injecting context and schema types were appropriate
 	doc.document['@context'] = blockData.schema.contextURL
 	doc.document['type'] = blockData.schema.type
@@ -209,14 +194,14 @@ const requestVcDocument = async (accessToken, policyId, blockData, doc) => {
 	)
 }
 
-const informationBlock = async (accessToken, policyId, blockData, doc) => {
+const informationBlock = async (blockData) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 	return true // stop processing
 }
 
-// This should be more fluent with injecting policy id and modifying auth
+// TODO: This should be more fluent with injecting policy id and modifying auth
 // Possible signature:
 // Engine.usePolicy(policyId).authorise(token).executeBlock(block)
 // Engine.usePolicy(policyId).authorise(token).withTag('tag').executeBlock(doc)

@@ -1,5 +1,17 @@
 'use strict'
 
+export type Config = {
+	authenticationKeyValid: () => boolean
+	network: string
+	accountId: string
+	privateKey: string
+	authenticationKey: string
+	encryptionKey: string
+	apiUrl: string
+	hideStatus: string
+	webhookUrl: string
+}
+
 const {
 	HEDERA_NETWORK,
 	HEDERA_ACCOUNT_ID,
@@ -12,10 +24,10 @@ const {
 } = process.env
 
 const AUTH_KEY_MIN_LENGTH = 10
-const authenticationKeyValid = () =>
+const authenticationKeyValid = (): boolean =>
 	API_SECRET_KEY && API_SECRET_KEY.length >= AUTH_KEY_MIN_LENGTH
 
-const config = {
+const config: Config = {
 	authenticationKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
 	accountId: HEDERA_ACCOUNT_ID,
