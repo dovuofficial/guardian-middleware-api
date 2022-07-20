@@ -3,6 +3,14 @@ import Config from '@app/config'
 
 const placeholderTx = 'test'
 
+test('Ensure that a default testnet explorer url returns', () => {
+	Config.network = undefined
+
+	const url = Explorer.getExplorerUrl(placeholderTx)
+
+	expect(url).toBe(`https://ledger-testnet.hashlog.io/tx/${placeholderTx}`)
+})
+
 test('Ensure that a testnet explorer url returns', () => {
 	Config.network = 'testnet'
 
