@@ -3,7 +3,7 @@
 ## Developing and testing locally
 
 -   Setup your environment variables
--   Run the linter and basic tests
+-   Run the linter, formatter and basic tests
 
 ```
 yarn lint
