@@ -1,4 +1,19 @@
 'use strict'
+type OpenApiDefinition = {
+	info: {
+		title: string
+		version: string
+	}
+	openapi: string
+}
+
+const openApiDefinition: OpenApiDefinition = {
+	openapi: '3.0.0',
+	info: {
+		title: 'Guardian Middleware API',
+		version: '0.0.1',
+	},
+}
 
 export type Config = {
 	authenticationKeyValid: () => boolean
@@ -10,6 +25,7 @@ export type Config = {
 	apiUrl: string
 	hideStatus: string
 	webhookUrl: string
+	openApiDefinition: OpenApiDefinition
 }
 
 const {
@@ -37,6 +53,7 @@ const config: Config = {
 	apiUrl: API_URL,
 	hideStatus: HIDE_STATUS,
 	webhookUrl: WEBHOOK_URL,
+	openApiDefinition,
 }
 
 export default config

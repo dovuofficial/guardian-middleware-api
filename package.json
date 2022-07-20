@@ -30,9 +30,11 @@
 		"axios": "^0.21.1",
 		"dotenv": "^8.2.0",
 		"next": "^12.2.2",
+		"next-swagger-doc": "^0.3.4",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"source-map": "^0.7.4"
+		"source-map": "^0.7.4",
+		"swagger-ui-react": "^4.13.0"
 	},
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.18.6",
