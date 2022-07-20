@@ -11,6 +11,10 @@
  *
  */
 
-const prepare = (...fns) => x => fns.reverse().reduce((v, f) => f(v), x)
+const prepare =
+	(...fns) =>
+	(x) =>
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+		fns.reverse().reduce((v, f) => f(v), x)
 
 export default prepare

@@ -197,7 +197,7 @@ const interfaceStepBlock = async (
 interface Document {
 	document: DocumentDetail
 }
-interface DocumentDetail extends Record<string, any> {
+interface DocumentDetail {
 	'@context': string
 	type: string
 	name: string

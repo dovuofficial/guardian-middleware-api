@@ -1,12 +1,17 @@
+import { BlockData } from 'app/guardian/policies'
 import Guardian from '../guardian'
 
-const executeRootBlock = async (accessToken, policyId) => {
+const executeRootBlock = async (accessToken: string, policyId: string) => {
 	const rootBlock = await Guardian.policies.blocks(accessToken, policyId)
 	await executeBlock(accessToken, policyId, rootBlock.id)
 	console.log(`Finished root block execution for policy: ${policyId}`)
 }
 
-const executeBlock = async (accessToken, policyId, blockId) => {
+const executeBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockId: string
+): Promise<boolean | void> => {
 	const data = await Guardian.policies.blockById(
 		accessToken,
 		policyId,
@@ -23,7 +28,7 @@ const executeBlock = async (accessToken, policyId, blockId) => {
 		case 'requestVcDocumentBlock':
 			return await requestVcDocument(accessToken, policyId, data)
 		case 'informationBlock':
-			return await informationBlock(accessToken, policyId, data)
+			return informationBlock(accessToken, policyId, data)
 
 		default:
 			// Guardian does not send some data for this blocks
@@ -39,7 +44,7 @@ const executeBlock = async (accessToken, policyId, blockId) => {
 				Object.getOwnPropertyNames(data).length == 1 &&
 				data.uiMetaData
 			) {
-				return await informationBlock(accessToken, policyId, {
+				return informationBlock(accessToken, policyId, {
 					id: blockId,
 					uiMetaData: data.uiMetaData,
 					blockType: 'informationBlock',
@@ -50,7 +55,11 @@ const executeBlock = async (accessToken, policyId, blockId) => {
 	return null
 }
 
-const interfaceContainerBlock = async (accessToken, policyId, blockData) => {
+const interfaceContainerBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 
@@ -65,7 +74,11 @@ const interfaceContainerBlock = async (accessToken, policyId, blockData) => {
 	}
 }
 
-const policyRolesBlock = async (accessToken, policyId, blockData) => {
+const policyRolesBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
@@ -89,7 +102,11 @@ const policyRolesBlock = async (accessToken, policyId, blockData) => {
 	}
 }
 
-const interfaceStepBlock = async (accessToken, policyId, blockData) => {
+const interfaceStepBlock = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const blocks = blockData.blocks.filter((element) => element != null)
 	for (let i = 0; i < blocks.length; i++) {
 		const stop = await executeBlock(accessToken, policyId, blocks[i].id)
@@ -101,7 +118,11 @@ const interfaceStepBlock = async (accessToken, policyId, blockData) => {
 	}
 }
 
-const requestVcDocument = async (accessToken, policyId, blockData) => {
+const requestVcDocument = async (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
@@ -109,7 +130,9 @@ const requestVcDocument = async (accessToken, policyId, blockData) => {
 	console.log('Fields: ')
 	blockData.schema.fields.forEach((field) => {
 		console.log(
-			`Name: ${field.name} Type: ${field.type} Title: ${field.title} Req: ${field.required}`
+			`Name: ${field.name} Type: ${field.type} Title: ${
+				field.title
+			} Req: ${field.required ? 'true' : 'false'}`
 		)
 	})
 
@@ -137,7 +160,11 @@ const requestVcDocument = async (accessToken, policyId, blockData) => {
 	)
 }
 
-const informationBlock = async (accessToken, policyId, blockData) => {
+const informationBlock = (
+	accessToken: string,
+	policyId: string,
+	blockData: BlockData
+) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
@@ -145,7 +172,8 @@ const informationBlock = async (accessToken, policyId, blockData) => {
 }
 
 const indexHedera = {
-	executeRootBlock: (token, policyId) => executeRootBlock(token, policyId),
+	executeRootBlock: (token: string, policyId: string) =>
+		executeRootBlock(token, policyId),
 }
 
 export default indexHedera

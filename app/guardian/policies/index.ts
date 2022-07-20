@@ -10,9 +10,11 @@ export type BlockData = {
 		type: string
 		contextURL: string
 		fields: Array<{
+			title: string
 			name: string
 			type: string
 			isRef: boolean
+			required: boolean
 		}>
 	}
 }
@@ -191,7 +193,7 @@ const policies = (api: AxiosInstance) => ({
 		token: string,
 		policyId: string,
 		uuid: string,
-		payload: Record<string, any>
+		payload: Record<string, unknown>
 	) => sendToBlock(api, token, policyId, uuid, payload),
 })
 
