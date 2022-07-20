@@ -6,7 +6,7 @@ function Home() {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Serverless Hashgraph</title>
+				<title>Guardian Middleware API</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
@@ -19,7 +19,7 @@ function Home() {
 					height={128}
 				/>
 
-				<h1 className={styles.title}>Welcome to your Guardian API</h1>
+				<h1 className={styles.title}>Guardian Middleware API</h1>
 			</main>
 
 			<footer className={styles.footer}>

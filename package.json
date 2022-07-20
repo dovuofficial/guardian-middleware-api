@@ -16,8 +16,8 @@
 		"test:all": "jest --coverage --runInBand --detectOpenHandles",
 		"lint": "next lint",
 		"lint:fix": "next lint --fix",
-		"format": "npx prettier --check 'app/**/*.js' 'test/**/*.js' 'pages/**/*.js'",
-		"fromat:fix": "npx prettier --write 'app/**/*.js' 'test/**/*.js' 'pages/**/*.js'",
+		"format": "prettier --check '**/*.{js,jsx,ts,tsx}'",
+		"format:fix": "prettier --write '**/*.{js,jsx,ts,tsx}'",
 		"start": "next start",
 		"start-server": "next start -H 0.0.0.0 -p ${PORT:-8080}"
 	},
