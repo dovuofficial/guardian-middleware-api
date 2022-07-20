@@ -1,4 +1,4 @@
-import { BlockData } from 'app/guardian/policies'
+import { BlockData } from '@app/guardian/policies'
 import Guardian from '../guardian'
 
 const executeRootBlock = async (accessToken: string, policyId: string) => {

@@ -1,6 +1,6 @@
-import Language from 'app/constants/language'
-import Validation from 'app/validators'
-import Response from 'app/response'
+import Language from '@app/constants/language'
+import Validation from '@app/validators'
+import Response from '@app/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 const { noApikey, invalidApikey } =

@@ -1,5 +1,5 @@
-import Language from 'app/constants/language'
-import Status from 'app/constants/status'
+import Language from '@app/constants/language'
+import Status from '@app/constants/status'
 import { NextApiResponse } from 'next'
 
 const { notAllowed } = Language.middleware.onlyPostResponse

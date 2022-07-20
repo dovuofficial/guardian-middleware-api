@@ -1,11 +1,11 @@
 // App imports
-import Config from 'app/config'
-import Language from 'app/constants/language'
-import withAuthentication from 'app/middleware/withAuthentication'
+import Config from '@app/config'
+import Language from '@app/constants/language'
+import withAuthentication from '@app/middleware/withAuthentication'
 
 // Mocks
-import MockedApiResponse from 'mocks/apiResponse'
-import MockedApiRequest from 'mocks/apiRequest'
+import MockedApiResponse from '@mocks/apiResponse'
+import MockedApiRequest from '@mocks/apiRequest'
 
 const { withAuthenticationResponse } = Language.middleware
 

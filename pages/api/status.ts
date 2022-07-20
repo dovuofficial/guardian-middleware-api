@@ -1,10 +1,10 @@
-import Config from 'app/config'
-import Language from 'app/constants/language'
+import Config from '@app/config'
+import Language from '@app/constants/language'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const { statusRequest } = Language
 
-export type StatusResponse = {
+export interface StatusResponse {
 	message: string
 	environment_status: {
 		hederaAccountId: boolean

@@ -5,11 +5,11 @@ class mockedApiResponse {
 		return new mockedApiResponse()
 	}
 
-	status(status) {
+	status(_status: number) {
 		return this
 	}
 
-	send(body) {
+	send(body: Record<string, unknown>) {
 		return body
 	}
 }

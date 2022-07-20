@@ -1,6 +1,6 @@
-import Status from 'app/constants/status'
-import Config from 'app/config'
-import Hmac from 'app/utils/hmac'
+import Status from '@app/constants/status'
+import Config from '@app/config'
+import Hmac from '@app/utils/hmac'
 import axios from 'axios'
 
 const { webhookUrl } = Config

@@ -3,7 +3,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { createSwaggerSpec } from 'next-swagger-doc'
 import dynamic from 'next/dynamic'
 import 'swagger-ui-react/swagger-ui.css'
-import Config from 'app/config'
+import Config from '@app/config'
 
 const SwaggerUI = dynamic<{
 	spec: any

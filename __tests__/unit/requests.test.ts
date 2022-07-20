@@ -1,4 +1,4 @@
-import Request from 'app/constants/request'
+import Request from '@app/constants/request'
 
 test('Request type is GET', () => {
 	expect(Request.GET).toBe('GET')

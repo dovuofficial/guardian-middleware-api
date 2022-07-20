@@ -1,5 +1,5 @@
 'use strict'
-type OpenApiDefinition = {
+interface OpenApiDefinition {
 	info: {
 		title: string
 		version: string
@@ -15,7 +15,7 @@ const openApiDefinition: OpenApiDefinition = {
 	},
 }
 
-export type Config = {
+export interface Config {
 	authenticationKeyValid: () => boolean
 	network: string
 	accountId: string

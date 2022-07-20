@@ -1,4 +1,4 @@
-import Config from 'app/config'
+import Config from '@app/config'
 import Crypto from 'crypto'
 
 /*

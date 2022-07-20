@@ -1,4 +1,4 @@
-import Response from 'app/response'
+import Response from '@app/response'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 describe('Response', () => {

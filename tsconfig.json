@@ -14,7 +14,11 @@
 		"isolatedModules": true,
 		"moduleResolution": "node",
 		"jsx": "preserve",
-		"baseUrl": "."
+		"baseUrl": ".",
+		"paths": {
+			"@mocks/*": ["__mocks__/*"],
+			"@app/*": ["app/*"]
+		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]

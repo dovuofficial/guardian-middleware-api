@@ -1,5 +1,5 @@
-import Request from 'app/constants/request'
-import Response from 'app/response'
+import Request from '@app/constants/request'
+import Response from '@app/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 function denyPost(handler: NextApiHandler) {

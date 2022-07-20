@@ -1,5 +1,5 @@
-import Response from 'app/response'
-import Hmac from 'app/utils/hmac'
+import Response from '@app/response'
+import Hmac from '@app/utils/hmac'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 function ExampleWebhookHandler(req: NextApiRequest, res: NextApiResponse) {

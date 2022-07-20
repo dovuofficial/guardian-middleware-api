@@ -1,11 +1,11 @@
 // App imports
-import Config from 'app/config'
-import Language from 'app/constants/language'
-import onlyPost from 'app/middleware/onlyPost'
+import Config from '@app/config'
+import Language from '@app/constants/language'
+import onlyPost from '@app/middleware/onlyPost'
 
 // Mocks
-import MockedApiResponse from 'mocks/apiResponse'
-import MockedApiRequest from 'mocks/apiRequest'
+import MockedApiResponse from '@mocks/apiResponse'
+import MockedApiRequest from '@mocks/apiRequest'
 
 const { onlyPostResponse } = Language.middleware
 

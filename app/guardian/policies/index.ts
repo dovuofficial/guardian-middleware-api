@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 
-export type BlockData = {
+export interface BlockData {
 	id: string
 	uiMetaData: { title: string; description: string }
 	blocks?: Array<{ id: string }>

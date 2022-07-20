@@ -1,4 +1,4 @@
-import Config from 'app/config'
+import Config from '@app/config'
 
 const { HEDERA_ACCOUNT_ID, HEDERA_PRIVATE_KEY, API_SECRET_KEY } = process.env
 

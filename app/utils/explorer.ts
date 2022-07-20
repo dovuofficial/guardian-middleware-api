@@ -1,5 +1,5 @@
-import Environment from 'app/constants/environment'
-import Config from 'app/config'
+import Environment from '@app/constants/environment'
+import Config from '@app/config'
 
 const ExplorerUrl = {
 	[Environment.TESTNET]: 'https://ledger-testnet.hashlog.io/tx/',

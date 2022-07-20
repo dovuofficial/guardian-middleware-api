@@ -1,5 +1,5 @@
-import Config from 'app/config'
-import Validation from 'app/validators'
+import Config from '@app/config'
+import Validation from '@app/validators'
 
 test('Ensure that the authentication key is valid', () => {
 	const isValidKey = Validation.checkAuthenticationKey(
