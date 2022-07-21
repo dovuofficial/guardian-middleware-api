@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 async function CreateAccountHandler(req: NextApiRequest, res: NextApiResponse) {
 	const { body }: { body: Record<string, unknown> } = req
 
-	const { Guardian } = req.context
+	const { guardian } = req.context
 
 	// TODO: Validate the request input
 	console.log(`body: ${JSON.stringify(body)}`)
@@ -20,15 +20,15 @@ async function CreateAccountHandler(req: NextApiRequest, res: NextApiResponse) {
 	}
 
 	// Register user
-	await Guardian.account.register(userData)
+	await guardian.account.register(userData)
 
 	console.log('user registered')
 	console.log(userData)
 
-	const loginUser = await Guardian.account.login(userCredentials)
+	const loginUser = await guardian.account.login(userCredentials)
 	console.log('login user ok')
 
-	const randomKey = await Guardian.demo.randomKey()
+	const randomKey = await guardian.demo.randomKey()
 
 	console.log('randomKey generated for user')
 
@@ -39,7 +39,7 @@ async function CreateAccountHandler(req: NextApiRequest, res: NextApiResponse) {
 
 	console.log(JSON.stringify(userProfile))
 
-	await Guardian.profile.save(
+	await guardian.profile.save(
 		loginUser.accessToken,
 		userProfile,
 		userData.username
