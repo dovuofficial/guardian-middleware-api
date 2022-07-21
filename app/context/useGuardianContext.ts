@@ -1,12 +1,21 @@
-import guardian from '../guardian'
-import engine from '../engine'
+import guardian, { Guardian } from '../guardian'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-function useGuardianContext(handler: NextApiHandler) {
-	return (req: NextApiRequest, res: NextApiResponse) => {
+export interface GuardianMiddlewareRequest extends NextApiRequest {
+	context: {
+		guardian: Guardian
+	}
+}
+
+type GuardianHandler<T = any> = (
+	req: GuardianMiddlewareRequest,
+	res: NextApiResponse<T>
+) => unknown | Promise<unknown>
+
+function useGuardianContext(handler: NextApiHandler): GuardianHandler {
+	return (req: GuardianMiddlewareRequest, res: NextApiResponse) => {
 		req.context = {
 			guardian,
-			engine,
 		}
 
 		return handler(req, res)

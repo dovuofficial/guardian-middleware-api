@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
-
 export interface BlockData {
 	id: string
 	uiMetaData: { title: string; description: string }
@@ -169,11 +168,7 @@ const sendToBlock = async (
 }
 
 export interface Policies {
-	importFile: (
-		api: AxiosInstance,
-		accessToken: string,
-		file
-	) => Promise<AxiosResponse<any>>
+	importFile: (token: string, payload: any) => Promise<AxiosResponse<any>>
 	publish: (
 		token: string,
 		policyId: string,
@@ -185,13 +180,7 @@ export interface Policies {
 		payload: Record<string, unknown>
 	) => Promise<AxiosResponse<any>>
 	list: (token: string) => Promise<Record<string, unknown>[]>
-	blocks: (
-		api: AxiosInstance,
-		accessToken: string,
-		policyId: string
-	) => Promise<{
-		id: string
-	}>
+	blocks: (token: string, policyId: string) => Promise<{ id: string }>
 	blockByTag: (
 		token: string,
 		policyId: string,
@@ -214,8 +203,8 @@ export interface Policies {
 	) => Promise<Record<string, unknown>>
 }
 
-const policies = (api: AxiosInstance) => ({
-	importFile: (token: string, payload: Record<string, unknown>) =>
+const policies = (api: AxiosInstance): Policies => ({
+	importFile: (token: string, payload: any) =>
 		importFile(api, token, payload),
 	publish: (
 		token: string,

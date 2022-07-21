@@ -1,5 +1,4 @@
 // App imports
-import Config from '@app/config'
 import Language from '@app/constants/language'
 import onlyPost from '@app/middleware/onlyPost'
 

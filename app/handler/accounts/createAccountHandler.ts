@@ -1,27 +1,25 @@
-import { Guardian } from '@app/guardian'
+import { GuardianMiddlewareRequest } from '@app/context/useGuardianContext'
 import Response from 'app/response'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiResponse } from 'next'
 
 type Credentials = {
 	username: string
 	password: string
 }
 
-interface Request extends NextApiRequest {
-	context: {
-		guardian: Guardian
-		engine: Engine
-	}
+interface CreateAccountRequest extends GuardianMiddlewareRequest {
 	body: Credentials
 }
 
-async function CreateAccountHandler(req: Request, res: NextApiResponse) {
+async function CreateAccountHandler(
+	req: CreateAccountRequest,
+	res: NextApiResponse
+) {
 	const { body: userCredentials } = req
 
 	const { guardian } = req.context
 
 	// TODO: Validate the request input
-	console.log(`body: ${JSON.stringify(body)}`)
 
 	const userData = {
 		...userCredentials,

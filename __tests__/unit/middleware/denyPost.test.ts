@@ -1,5 +1,4 @@
 // App imports
-import Config from '@app/config'
 import Language from '@app/constants/language'
 import denyPost from '@app/middleware/denyPost'
 

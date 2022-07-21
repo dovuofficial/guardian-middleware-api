@@ -4,7 +4,7 @@ import { NextApiResponse } from 'next'
 
 const { notAllowed } = Language.middleware.onlyPostResponse
 
-function methodNotAllowed(res: NextApiResponse, method) {
+function methodNotAllowed(res: NextApiResponse, method: string) {
 	return res
 		.status(Status.METHOD_NOT_ALLOWED)
 		.send({ reason: notAllowed(method) })

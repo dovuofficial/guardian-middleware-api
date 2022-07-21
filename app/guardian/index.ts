@@ -15,7 +15,7 @@ export interface Guardian {
 	policies: Policies
 }
 
-const guardian = {
+const guardian: Guardian = {
 	account: account(API),
 	demo: demo(API),
 	profile: profile(API),
