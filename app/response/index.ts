@@ -22,7 +22,7 @@ function badRequest(res: NextApiResponse) {
 	return res.status(Status.BAD_REQUEST).send({})
 }
 
-function json(res: NextApiResponse, data: Record<string, unknown>) {
+function json(res: NextApiResponse, data: Record<string, any>) {
 	res.json({ data })
 }
 

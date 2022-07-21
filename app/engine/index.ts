@@ -1,21 +1,21 @@
 import { BlockData } from '@app/guardian/policies'
 import Guardian from '../guardian'
 
-const executeRootBlock = async (
-	accessToken: string,
-	policyId: string,
-	doc: Document
+const executeRootBlock: ExecuteRootBlock = async (
+	accessToken,
+	policyId,
+	doc
 ) => {
 	const rootBlock = await Guardian.policies.blocks(accessToken, policyId)
 	await executeBlock(accessToken, policyId, rootBlock.id, doc)
 	console.log(`Finished root block execution for policy: ${policyId}`)
 }
 
-const executeTag = async (
-	accessToken: string,
-	policyId: string,
-	tag: string,
-	doc: Document
+const executeBlockViaTag: ExecuteBlockViaTag = async (
+	accessToken,
+	policyId,
+	tag,
+	doc
 ) => {
 	const blockId = await Guardian.policies.blockByTag(
 		accessToken,
@@ -26,10 +26,10 @@ const executeTag = async (
 	await executeBlock(accessToken, policyId, blockId, doc)
 }
 
-const fetchBlockSubmissions = async (
-	accessToken: string,
-	policyId: string,
-	tag: string
+const fetchBlockSubmissions: FetchBlockSubmissions = async (
+	accessToken,
+	policyId,
+	tag
 ) => {
 	const blockId = await Guardian.policies.blockByTag(
 		accessToken,
@@ -44,7 +44,7 @@ const sendActionToBlock = async (
 	accessToken: string,
 	policyId: string,
 	blockId: string,
-	doc: Document
+	doc: Record<string, unknown>
 ) => {
 	// console.log(doc)
 	console.log(blockId)
@@ -53,12 +53,12 @@ const sendActionToBlock = async (
 	await Guardian.policies.sendToBlock(accessToken, policyId, blockId, doc)
 }
 
-const executeBlock = async (
-	accessToken: string,
-	policyId: string,
-	blockId: string,
-	doc: Document
-): Promise<void | boolean> => {
+const executeBlock: ExecuteBlock = async (
+	accessToken,
+	policyId,
+	blockId,
+	doc
+) => {
 	const data = await Guardian.policies.blockById(
 		accessToken,
 		policyId,
@@ -117,7 +117,7 @@ const interfaceContainerBlock = async (
 	accessToken: string,
 	policyId: string,
 	blockData: BlockData,
-	doc: Document
+	doc: Record<string, unknown>
 ) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
@@ -176,7 +176,7 @@ const interfaceStepBlock = async (
 	accessToken: string,
 	policyId: string,
 	blockData: BlockData,
-	doc: Document
+	doc: Record<string, unknown>
 ) => {
 	const blocks = blockData.blocks.filter((element) => element != null)
 	for (let i = 0; i < blocks.length; i++) {
@@ -207,7 +207,7 @@ const requestVcDocument = async (
 	accessToken: string,
 	policyId: string,
 	blockData: BlockData,
-	doc: Document
+	doc: Record<string, unknown>
 ) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
@@ -215,6 +215,8 @@ const requestVcDocument = async (
 
 	// We adjust the doc with injecting context and schema types were appropriate
 	doc.document['@context'] = blockData.schema.contextURL
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	doc.document.type = blockData.schema.type
 
 	blockData.schema.fields.map((field) => {
@@ -243,27 +245,47 @@ const informationBlock = (blockData: BlockData) => {
 	return true // stop processing
 }
 
+type ExecuteRootBlock = (
+	accessToken: string,
+	policyId: string,
+	doc: Record<string, unknown>
+) => Promise<void>
+
+type ExecuteBlock = (
+	accessToken: string,
+	policyId: string,
+	blockId: string,
+	doc: Record<string, unknown>
+) => Promise<void | boolean>
+
+type ExecuteBlockViaTag = (
+	accessToken: string,
+	policyId: string,
+	tag: string,
+	doc: Record<string, unknown>
+) => Promise<void>
+
+type FetchBlockSubmissions = (
+	accessToken: string,
+	policyId: string,
+	tag: string
+) => Promise<BlockData>
+export interface Engine {
+	executeRootBlock: ExecuteRootBlock
+	executeBlock: ExecuteBlock
+	executeBlockViaTag: ExecuteBlockViaTag
+	fetchBlockSubmissions: FetchBlockSubmissions
+}
+
 // TODO: This should be more fluent with injecting policy id and modifying auth
 // Possible signature:
 // Engine.usePolicy(policyId).authorise(token).executeBlock(block)
 // Engine.usePolicy(policyId).authorise(token).withTag('tag').executeBlock(doc)
-const engine = {
-	executeRootBlock: (token: string, policyId: string, doc: Document) =>
-		executeRootBlock(token, policyId, doc),
-	executeBlock: (
-		token: string,
-		policyId: string,
-		blockId: string,
-		doc: Document
-	) => executeBlock(token, policyId, blockId, doc),
-	executeBlockViaTag: (
-		token: string,
-		policyId: string,
-		tag: string,
-		doc: Document
-	) => executeTag(token, policyId, tag, doc),
-	fetchBlockSubmissions: (token: string, policyId: string, tag: string) =>
-		fetchBlockSubmissions(token, policyId, tag),
+const engine: Engine = {
+	executeRootBlock,
+	executeBlock,
+	executeBlockViaTag,
+	fetchBlockSubmissions,
 }
 
 export default engine
