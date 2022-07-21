@@ -1,17 +1,27 @@
+import { Guardian } from '@app/guardian'
 import Response from 'app/response'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-async function CreateAccountHandler(req: NextApiRequest, res: NextApiResponse) {
-	const { body }: { body: Record<string, unknown> } = req
+type Credentials = {
+	username: string
+	password: string
+}
+
+interface Request extends NextApiRequest {
+	context: {
+		guardian: Guardian
+		engine: Engine
+	}
+	body: Credentials
+}
+
+async function CreateAccountHandler(req: Request, res: NextApiResponse) {
+	const { body: userCredentials } = req
 
 	const { guardian } = req.context
 
 	// TODO: Validate the request input
 	console.log(`body: ${JSON.stringify(body)}`)
-
-	const userCredentials = {
-		...body,
-	}
 
 	const userData = {
 		...userCredentials,
@@ -42,7 +52,7 @@ async function CreateAccountHandler(req: NextApiRequest, res: NextApiResponse) {
 	await guardian.profile.save(
 		loginUser.accessToken,
 		userProfile,
-		userData.username
+		userCredentials.username
 	)
 
 	Response.json(res, { accessToken: loginUser.accessToken })

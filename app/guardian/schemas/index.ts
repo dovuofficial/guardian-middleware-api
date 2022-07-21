@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 
 const ENDPOINTS = {
 	schemas: '/schemas',
@@ -72,8 +72,25 @@ const all = async (api: AxiosInstance, accessToken: string) => {
 
 	return data
 }
+export interface Schemas {
+	create: (
+		token: string,
+		payload: Record<string, unknown>,
+		topicId: string
+	) => Promise<Record<string, unknown>>
+	publish: (
+		token: string,
+		schemaId: string,
+		payload: Record<string, unknown>
+	) => Promise<AxiosResponse<any>>
+	update: (
+		token: string,
+		payload: Record<string, unknown>
+	) => Promise<AxiosResponse<any>>
+	all: (token: string) => Promise<Array<Record<string, unknown>>>
+}
 
-const schemas = (api: AxiosInstance) => ({
+const schemas = (api: AxiosInstance): Schemas => ({
 	create: (
 		token: string,
 		payload: Record<string, unknown>,

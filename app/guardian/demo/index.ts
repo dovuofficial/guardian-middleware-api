@@ -10,7 +10,11 @@ const randomKey = async (api: AxiosInstance) => {
 	return result.data
 }
 
-const demo = (api: AxiosInstance) => ({
+export interface Demo {
+	randomKey: () => Promise<Record<string, unknown>>
+}
+
+const demo = (api: AxiosInstance): Demo => ({
 	randomKey: () => randomKey(api),
 })
 

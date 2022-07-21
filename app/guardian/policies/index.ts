@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 
 export interface BlockData {
 	id: string
@@ -166,6 +166,52 @@ const sendToBlock = async (
 	console.log(result.data)
 
 	return result.data
+}
+
+export interface Policies {
+	importFile: (
+		api: AxiosInstance,
+		accessToken: string,
+		file
+	) => Promise<AxiosResponse<any>>
+	publish: (
+		token: string,
+		policyId: string,
+		payload: Record<string, unknown>
+	) => Promise<AxiosResponse<any>>
+	update: (
+		token: string,
+		policyId: string,
+		payload: Record<string, unknown>
+	) => Promise<AxiosResponse<any>>
+	list: (token: string) => Promise<Record<string, unknown>[]>
+	blocks: (
+		api: AxiosInstance,
+		accessToken: string,
+		policyId: string
+	) => Promise<{
+		id: string
+	}>
+	blockByTag: (
+		token: string,
+		policyId: string,
+		tag: string
+	) => Promise<string>
+	policyByName: (
+		token: string,
+		name: string
+	) => Promise<Record<string, unknown>>
+	blockById: (
+		token: string,
+		policyId: string,
+		uuid: string
+	) => Promise<BlockData>
+	sendToBlock: (
+		token: string,
+		policyId: string,
+		uuid: string,
+		payload: Record<string, unknown>
+	) => Promise<Record<string, unknown>>
 }
 
 const policies = (api: AxiosInstance) => ({

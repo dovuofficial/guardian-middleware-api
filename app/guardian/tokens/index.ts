@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 
 const ENDPOINTS = {
 	tokens: '/tokens',
@@ -42,7 +42,16 @@ const associate = async (
 	return result
 }
 
-const tokens = (api: AxiosInstance) => ({
+export interface Tokens {
+	save: (
+		token: string,
+		payload: Record<string, unknown>
+	) => Promise<AxiosResponse<any>>
+	list: (token: string) => Promise<Record<string, unknown>>
+	associate: (token: string, tokenId: string) => Promise<AxiosResponse<any>>
+}
+
+const tokens = (api: AxiosInstance): Tokens => ({
 	save: (token: string, payload: Record<string, unknown>) =>
 		save(api, token, payload),
 	list: (token: string) => list(api, token),

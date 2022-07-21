@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 
 const ENDPOINTS = {
 	profile: '/profiles/',
@@ -37,7 +37,16 @@ const fetch = async (
 	return result.data
 }
 
-const profile = (api: AxiosInstance) => ({
+export interface Profile {
+	save: (
+		token: string,
+		payload: Record<string, unknown>,
+		username: string
+	) => Promise<AxiosResponse<any>>
+	fetch: (token: string, username: string) => Promise<Record<string, unknown>>
+}
+
+const profile = (api: AxiosInstance): Profile => ({
 	save: (token: string, payload: Record<string, unknown>, username: string) =>
 		save(api, token, payload, username),
 	fetch: (token: string, username: string) => fetch(api, token, username),
