@@ -5,24 +5,11 @@ import registerAccountToPolicyHandler from '@app/handler/policies/registerAccoun
 
 /**
  * @swagger
- * /api/policies/{id}/register:
+ * /api/policies/{id}/role:
  *   post:
- *     description: Creates a new account
+ *     description: Set the role of the account
  *     produces:
  *       - application/json
- *     parameters:
- *       -
- *         name: username
- *         description: Username for the new user.
- *         type: string
- *         in: body
- *         required: true
- *       -
- *         name: password
- *         description: Password for the new user.
- *         type: string
- *         in: body
- *         required: true
  *     responses:
  *       200:
  *         description: Account created
