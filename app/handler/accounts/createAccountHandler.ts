@@ -53,7 +53,7 @@ async function CreateAccountHandler(
 		userCredentials.username
 	)
 
-	Response.json(res, { accessToken: loginUser.accessToken })
+	Response.json(res, loginUser)
 }
 
 export default CreateAccountHandler
