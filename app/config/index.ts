@@ -26,6 +26,7 @@ export interface Config {
 	hideStatus: string
 	webhookUrl: string
 	openApiDefinition: OpenApiDefinition
+	guardianApiUrl: string
 }
 
 const {
@@ -37,6 +38,7 @@ const {
 	HIDE_STATUS,
 	WEBHOOK_URL,
 	ENCRYPTION_KEY,
+	GUARDIAN_API_URL,
 } = process.env
 
 const AUTH_KEY_MIN_LENGTH = 10
@@ -54,6 +56,7 @@ const config: Config = {
 	hideStatus: HIDE_STATUS,
 	webhookUrl: WEBHOOK_URL,
 	openApiDefinition,
+	guardianApiUrl: GUARDIAN_API_URL,
 }
 
 export default config
