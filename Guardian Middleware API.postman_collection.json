@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"justyn3\",\n    \"password\": \"secret\"\n}",
+							"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -48,10 +48,71 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Creates a new account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"1cb-WpIty1HSZDyPwP1baIo7aP+QX/Y\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "459"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 15:58:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"username\": \"justyn\",\n        \"did\": \"did:hedera:testnet:Evkgr8TnmSHxNEWXoShEEcQmbyrMdQHN7oz6Y3ehXEDZ;hedera:testnet:tid=0.0.47741853\",\n        \"role\": \"USER\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1c3R5bjExIiwiZGlkIjoiZGlkOmhlZGVyYTp0ZXN0bmV0OkV2a2dyOFRubVNIeE5FV1hvU2hFRWNRbWJ5ck1kUUhON296NlkzZWhYRURaO2hlZGVyYTp0ZXN0bmV0OnRpZD0wLjAuNDc3NDE4NTMiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY1ODc2NDcyNX0.osyrOl7zq8UVnH9Xyvdxca5UrfuLT2OwBvDI3MPz4HA\"\n    }\n}"
+						}
+					]
 				},
 				{
-					"name": "Login to get access token",
+					"name": "Log in an account",
 					"event": [
 						{
 							"listen": "test",
@@ -72,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"justyn3\",\n    \"password\": \"secret\"\n}",
+							"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,7 +151,69 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Log in an account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/accounts/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"1c6-C7UHuAm8I/dpGGAwOJmABkbqOXY\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "454"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 16:03:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"username\": \"justyn\",\n        \"did\": \"did:hedera:testnet:GNf5TwXzFiMw8U91FmQKLiAffX3HETY5XFu1WuDz49Mq;hedera:testnet:tid=0.0.47718187\",\n        \"role\": \"USER\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1c3R5biIsImRpZCI6ImRpZDpoZWRlcmE6dGVzdG5ldDpHTmY1VHdYekZpTXc4VTkxRm1RS0xpQWZmWDNIRVRZNVhGdTFXdUR6NDlNcTtoZWRlcmE6dGVzdG5ldDp0aWQ9MC4wLjQ3NzE4MTg3Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NTg3NjUwMDN9.yLre8iBSEl_B9rHoKAp8zqC1nhJHHNMd7QCoJ9dcB6U\"\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -98,76 +221,166 @@
 			"name": "policies",
 			"item": [
 				{
-					"name": "{policyId}",
-					"item": [
-						{
-							"name": "role",
-							"item": [
+					"name": "Assigns account to policy with a role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/policies/:policyId/role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policies",
+								":policyId",
+								"role"
+							],
+							"variable": [
 								{
-									"name": "Assigns account to policy with a role",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/policies/:policyId/role",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"policies",
-												":policyId",
-												"role"
-											],
-											"variable": [
-												{
-													"key": "policyId",
-													"value": "62d98142a8075c6027dfcf90"
-												}
-											]
-										}
-									},
-									"response": []
+									"key": "policyId",
+									"value": "62d98142a8075c6027dfcf90"
 								}
 							]
+						}
+					},
+					"response": [
+						{
+							"name": "Assigns account to policy with a role",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/role",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"role"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "62d98142a8075c6027dfcf90"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 16:08:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Registers a new ecological project application",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"document\": {\n        \"field0\": \"Blanditiis consequuntur repellat voluptatem quod et aperiam voluptas.\",\n        \"field1\": \"A at mollitia corporis molestiae ut debitis.\",\n        \"field2\": 57779,\n        \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n        \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n        \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n        \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n        \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n        \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\",\n        \"type\": null,\n        \"@context\": \"\"\n    },\n    \"ref\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"name": "register",
-							"item": [
+						"url": {
+							"raw": "{{baseUrl}}/policies/:policyId/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policies",
+								":policyId",
+								"register"
+							],
+							"variable": [
 								{
-									"name": "Registers a new ecological project application",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"document\": {\n        \"field0\": \"Blanditiis consequuntur repellat voluptatem quod et aperiam voluptas.\",\n        \"field1\": \"A at mollitia corporis molestiae ut debitis.\",\n        \"field2\": 57779,\n        \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n        \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n        \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n        \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n        \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n        \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\",\n        \"type\": null,\n        \"@context\": \"\"\n    },\n    \"ref\": null\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/policies/:policyId/register",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"policies",
-												":policyId",
-												"register"
-											],
-											"variable": [
-												{
-													"key": "policyId",
-													"value": "62d98142a8075c6027dfcf90"
-												}
-											]
-										}
-									},
-									"response": []
+									"key": "policyId",
+									"value": "62d98142a8075c6027dfcf90"
 								}
 							]
+						}
+					},
+					"response": [
+						{
+							"name": "Registers a new ecological project application",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"document\": {\n        \"field0\": \"Blanditiis consequuntur repellat voluptatem quod et aperiam voluptas.\",\n        \"field1\": \"A at mollitia corporis molestiae ut debitis.\",\n        \"field2\": 57779,\n        \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n        \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n        \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n        \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n        \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n        \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\",\n        \"type\": null,\n        \"@context\": \"\"\n    },\n    \"ref\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"register"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "62d98142a8075c6027dfcf90"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 16:08:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": null
 						}
 					]
 				}
