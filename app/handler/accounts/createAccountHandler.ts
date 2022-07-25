@@ -27,7 +27,6 @@ async function CreateAccountHandler(
 		role: 'USER',
 	}
 
-	// Register user
 	await guardian.account.register(userData)
 
 	console.log('user registered')
@@ -36,6 +35,7 @@ async function CreateAccountHandler(
 	const loginUser = await guardian.account.login(userCredentials)
 	console.log('login user ok')
 
+	// TODO: Replace with Hashgraph JS SDK call
 	const randomKey = await guardian.demo.randomKey()
 
 	console.log('randomKey generated for user')
@@ -53,7 +53,10 @@ async function CreateAccountHandler(
 		userCredentials.username
 	)
 
-	Response.json(res, loginUser)
+	// The DID is missing from the initial login call so we call again to saturate the DID before returning the response
+	const accountData = await guardian.account.login(userCredentials)
+
+	Response.json(res, accountData)
 }
 
 export default CreateAccountHandler
