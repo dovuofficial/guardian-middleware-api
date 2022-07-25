@@ -18,7 +18,7 @@ test('Check webhook cannot consumed with a GET request', async () => {
 	)
 })
 
-test('Check webhook has been hit, if a signature does not exist, return 400', async () => {
+test('Check webhook has been hit, if a signature does not exist, return 401', async () => {
 	if (!webhookUrl) {
 		console.warn(
 			"Skipping test as 'WEBHOOK_URL' not found in environment, for these tests to pass your external service needs to be redeployed"
@@ -27,7 +27,7 @@ test('Check webhook has been hit, if a signature does not exist, return 400', as
 	}
 
 	await expect(axios.post(webhookUrl)).rejects.toThrow(
-		'Request failed with status code 400'
+		'Request failed with status code 401'
 	)
 })
 
@@ -49,7 +49,7 @@ test('Check webhook has been hit, with a bad signature', async () => {
 				},
 			}
 		)
-	).rejects.toThrow('Request failed with status code 400')
+	).rejects.toThrow('Request failed with status code 401')
 })
 
 test('Check webhook has been hit, with a good signature and body', async () => {

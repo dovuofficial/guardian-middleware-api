@@ -19,7 +19,7 @@ test('Expect that a request with a POST method fails', async () => {
 		mockedApiResponse
 	)
 
-	expect(response.reason).toBe(onlyPostResponse.notAllowed('POST'))
+	expect(response.message).toBe(onlyPostResponse.notAllowed('POST'))
 })
 
 test('Expect that a request with a GET method succeeds', async () => {

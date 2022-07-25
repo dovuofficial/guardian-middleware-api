@@ -2,6 +2,7 @@ import onlyPost from '@app/middleware/onlyPost'
 import prepare from '@app/utils/prepare'
 import CreateAccountHandler from '@app/handler/accounts/createAccountHandler'
 import useGuardianContext from '@app/context/useGuardianContext'
+import withHmac from '@app/middleware/withHmac'
 
 /**
  * @swagger
@@ -27,4 +28,8 @@ import useGuardianContext from '@app/context/useGuardianContext'
  *       200:
  *         description: Account created
  */
-export default prepare(onlyPost, useGuardianContext)(CreateAccountHandler)
+export default prepare(
+	onlyPost,
+	withHmac,
+	useGuardianContext
+)(CreateAccountHandler)

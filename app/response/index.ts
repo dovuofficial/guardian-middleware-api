@@ -7,14 +7,17 @@ const { notAllowed } = Language.middleware.onlyPostResponse
 function methodNotAllowed(res: NextApiResponse, method: string) {
 	return res
 		.status(Status.METHOD_NOT_ALLOWED)
-		.send({ reason: notAllowed(method) })
+		.send({ message: notAllowed(method) })
 }
 
-function unauthorised(res: NextApiResponse, reason: string) {
-	return res.status(Status.UNAUTHORIZED).send({ reason })
+function unauthorised(res: NextApiResponse, message: string) {
+	return res.status(Status.UNAUTHORIZED).send({ message })
 }
 
-function unprocessibleEntity(res: NextApiResponse, errors: Array<string>) {
+function unprocessibleEntity(
+	res: NextApiResponse,
+	errors: Record<string, unknown>
+) {
 	return res.status(Status.UNPROCESSIBLE_ENTITY).send({ errors })
 }
 
