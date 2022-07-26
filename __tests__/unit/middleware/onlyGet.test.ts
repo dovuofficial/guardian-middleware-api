@@ -1,6 +1,6 @@
 // App imports
-import Language from '@app/constants/language'
-import onlyGet from '@app/middleware/onlyGet'
+import Language from '@lib/constants/language'
+import onlyGet from '@lib/middleware/onlyGet'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'

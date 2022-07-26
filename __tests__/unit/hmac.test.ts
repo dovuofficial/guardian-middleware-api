@@ -1,4 +1,4 @@
-import Hmac from '@app/utils/hmac'
+import Hmac from '@lib/utils/hmac'
 
 const mockResponsePayload = {
 	data: {

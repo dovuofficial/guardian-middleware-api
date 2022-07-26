@@ -1,7 +1,7 @@
 // App imports
-import Config from '@app/config'
-import Language from '@app/constants/language'
-import withAuthentication from '@app/middleware/withAuthentication'
+import Config from '@lib/config'
+import Language from '@lib/constants/language'
+import withAuthentication from '@lib/middleware/withAuthentication'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'

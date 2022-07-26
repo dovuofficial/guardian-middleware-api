@@ -1,4 +1,4 @@
-import Status from '@app/constants/status'
+import Status from '@lib/constants/status'
 
 test('UNAUTHORIZED status code is 401', () => {
 	expect(Status.UNAUTHORIZED).toBe(401)

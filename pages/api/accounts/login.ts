@@ -1,6 +1,6 @@
-import prepare from '@app/utils/prepare'
-import loginHandler from '@app/handler/accounts/loginHandler'
-import useGuardianContext from '@app/context/useGuardianContext'
-import onlyPost from '@app/middleware/onlyPost'
+import prepare from 'lib/utils/prepare'
+import loginHandler from 'lib/handler/accounts/loginHandler'
+import useGuardianContext from 'lib/context/useGuardianContext'
+import onlyPost from 'lib/middleware/onlyPost'
 
 export default prepare(onlyPost, useGuardianContext)(loginHandler)

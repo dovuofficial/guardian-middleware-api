@@ -1,6 +1,6 @@
-import onlyPost from '@app/middleware/onlyPost'
-import prepare from '@app/utils/prepare'
-import ExampleWebhookHandler from '@app/handler/exampleWebhookHandler'
-import withHmac from '@app/middleware/withHmac'
+import onlyPost from 'lib/middleware/onlyPost'
+import prepare from 'lib/utils/prepare'
+import ExampleWebhookHandler from 'lib/handler/exampleWebhookHandler'
+import withHmac from 'lib/middleware/withHmac'
 
 export default prepare(onlyPost, withHmac)(ExampleWebhookHandler)

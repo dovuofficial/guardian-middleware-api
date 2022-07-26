@@ -1,7 +1,7 @@
-import onlyPost from '@app/middleware/onlyPost'
-import prepare from '@app/utils/prepare'
-import useGuardianContext from '@app/context/useGuardianContext'
-import registerAccountToPolicyHandler from '@app/handler/policies/registerAccountToPolicyHandler'
+import onlyPost from 'lib/middleware/onlyPost'
+import prepare from 'lib/utils/prepare'
+import useGuardianContext from 'lib/context/useGuardianContext'
+import registerAccountToPolicyHandler from 'lib/handler/policies/registerAccountToPolicyHandler'
 
 export default prepare(
 	onlyPost,

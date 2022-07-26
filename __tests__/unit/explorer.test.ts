@@ -1,5 +1,5 @@
-import Explorer from '@app/utils/explorer'
-import Config from '@app/config'
+import Explorer from '@lib/utils/explorer'
+import Config from '@lib/config'
 
 const placeholderTx = 'test'
 

@@ -17,9 +17,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@mocks/*": ["__mocks__/*"],
-			"@app/*": ["app/*"]
+			"@lib/*": ["lib/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules", "__tests__"]
+	"exclude": ["node_modules", "__tests__", "lib/spec/openapi.ts"]
 }

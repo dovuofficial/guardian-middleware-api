@@ -1,6 +1,6 @@
 // App imports
-import Language from '@app/constants/language'
-import onlyPost from '@app/middleware/onlyPost'
+import Language from '@lib/constants/language'
+import onlyPost from '@lib/middleware/onlyPost'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'
