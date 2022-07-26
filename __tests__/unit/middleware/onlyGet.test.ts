@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // App imports
 import Language from '@lib/constants/language'
 import onlyGet from '@lib/middleware/onlyGet'
@@ -29,5 +31,5 @@ test('Expect that a request with a POST method fails', async () => {
 		mockedApiResponse
 	)
 
-	expect(response.message).toBe(onlyPostResponse.notAllowed('POST'))
+	expect(response.error.message).toBe(onlyPostResponse.notAllowed('POST'))
 })

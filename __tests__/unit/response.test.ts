@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Response from '@lib/response'
 import { testApiHandler } from 'next-test-api-route-handler'
 
@@ -9,7 +10,7 @@ describe('Response', () => {
 				const res = await fetch()
 				expect(res.status).toBe(405)
 				const json = await res.json()
-				expect(json.message).toBe(
+				expect(json.error.message).toBe(
 					'Method GET is not allowed on this route'
 				)
 			},
@@ -23,19 +24,22 @@ describe('Response', () => {
 				const res = await fetch()
 				expect(res.status).toBe(401)
 				const json = await res.json()
-				expect(json.message).toBe(message)
+				expect(json.error.message).toBe(message)
 			},
 		})
 	})
 	it('responds with unprocessible entity', async () => {
-		const errors = { foo: 'bar' }
+		const errorMessage = "These inputs aren't valid"
+		const errors = [{ message: 'Should be an integer' }]
 		await testApiHandler<{ errors: string | Array<string> }>({
-			handler: (_, res) => Response.unprocessibleEntity(res, errors),
+			handler: (_, res) =>
+				Response.unprocessibleEntity(res, errorMessage, errors),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(422)
 				const json = await res.json()
-				expect(json.errors).toEqual(errors)
+				expect(json.error.message).toEqual(errorMessage)
+				expect(json.error.errors).toEqual(errors)
 			},
 		})
 	})

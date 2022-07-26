@@ -1,3 +1,4 @@
+// @ts-nocheck
 // App imports
 import Config from '@lib/config'
 import Language from '@lib/constants/language'
@@ -20,7 +21,7 @@ test('Expect that a request with no api key fails', async () => {
 		mockedApiResponse
 	)
 
-	expect(response.message).toBe(withAuthenticationResponse.noApikey)
+	expect(response.error.message).toBe(withAuthenticationResponse.noApikey)
 })
 
 test('Expect that a request with an invalid api key fails', async () => {
@@ -30,7 +31,9 @@ test('Expect that a request with an invalid api key fails', async () => {
 		mockedApiResponse
 	)
 
-	expect(response.message).toBe(withAuthenticationResponse.invalidApikey)
+	expect(response.error.message).toBe(
+		withAuthenticationResponse.invalidApikey
+	)
 })
 
 test('Expect that a request with a valid api key is successfull', async () => {

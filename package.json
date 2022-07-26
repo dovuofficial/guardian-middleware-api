@@ -11,6 +11,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"ci": "yarn test && yarn lint && yarn types && yarn format",
 		"test": "jest  --coverage --testPathIgnorePatterns='e2e/*'",
 		"test:watch": "jest --testPathIgnorePatterns='e2e/*' --watchAll",
 		"test:all": "jest --coverage --runInBand --detectOpenHandles",

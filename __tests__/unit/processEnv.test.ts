@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const {
 	HEDERA_NETWORK,
 	HEDERA_ACCOUNT_ID,
@@ -34,3 +36,5 @@ test('Make sure that hedera private keys exists', () => {
 test('Make sure that a secret Auth key exists', () => {
 	expect(API_SECRET_KEY.length)
 })
+
+export {}

@@ -8,7 +8,7 @@ const ExplorerUrl = {
 }
 
 function getExplorerUrl(tx: string): string {
-	const { network } = config
+	const { network = Environment.TESTNET } = config
 
 	return `${ExplorerUrl[network]}${tx}`
 }
