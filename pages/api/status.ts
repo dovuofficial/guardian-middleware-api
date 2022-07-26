@@ -1,4 +1,4 @@
-import Config from '@app/config'
+import config from '@app/config'
 import Language from '@app/constants/language'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -20,17 +20,17 @@ function ConnectionStatusHandler(
 ) {
 	res.statusCode = 200
 
-	if (!!Config.hideStatus) {
+	if (config.hideStatus) {
 		return res.send('ok')
 	}
 
 	return res.json({
 		message: statusRequest.message,
 		environment_status: {
-			hederaAccountId: !!Config.accountId,
-			hederaPrivateKey: !!Config.privateKey,
+			hederaAccountId: !!config.accountId,
+			hederaPrivateKey: !!config.privateKey,
 			authenticationKey:
-				!!Config.authenticationKey && Config.authenticationKeyValid(),
+				!!config.authenticationKey && config.authenticationKeyValid(),
 		},
 		meta: {
 			hint: statusRequest.meta_hint,

@@ -1,20 +1,3 @@
-'use strict'
-interface OpenApiDefinition {
-	info: {
-		title: string
-		version: string
-	}
-	openapi: string
-}
-
-const openApiDefinition: OpenApiDefinition = {
-	openapi: '3.0.0',
-	info: {
-		title: 'Guardian Middleware API',
-		version: '0.0.1',
-	},
-}
-
 export interface Config {
 	authenticationKeyValid: () => boolean
 	network: string
@@ -25,12 +8,11 @@ export interface Config {
 	apiUrl: string
 	hideStatus: string
 	webhookUrl: string
-	openApiDefinition: OpenApiDefinition
 	guardianApiUrl: string
 }
 
 const {
-	HEDERA_NETWORK,
+	HEDERA_NETWORK = 'testnet',
 	HEDERA_ACCOUNT_ID,
 	HEDERA_PRIVATE_KEY,
 	API_SECRET_KEY,
@@ -43,9 +25,9 @@ const {
 
 const AUTH_KEY_MIN_LENGTH = 10
 const authenticationKeyValid = (): boolean =>
-	API_SECRET_KEY && API_SECRET_KEY.length >= AUTH_KEY_MIN_LENGTH
+	Boolean(API_SECRET_KEY && API_SECRET_KEY.length >= AUTH_KEY_MIN_LENGTH)
 
-const config: Config = {
+export default {
 	authenticationKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
 	accountId: HEDERA_ACCOUNT_ID,
@@ -55,8 +37,5 @@ const config: Config = {
 	apiUrl: API_URL,
 	hideStatus: HIDE_STATUS,
 	webhookUrl: WEBHOOK_URL,
-	openApiDefinition,
 	guardianApiUrl: GUARDIAN_API_URL,
 }
-
-export default config

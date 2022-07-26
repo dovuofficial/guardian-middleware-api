@@ -22,7 +22,7 @@ async function RegisterProjectHandler(
 	}
 
 	if (!data) {
-		response.unprocessibleEntity(res, ['Missing data in request body'])
+		response.unprocessibleEntity(res, 'Missing data in request body')
 		return
 	}
 

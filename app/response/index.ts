@@ -22,9 +22,12 @@ function unauthorised(res: NextApiResponse<ErrorApiResponse>, message: string) {
 
 function unprocessibleEntity(
 	res: NextApiResponse<ErrorApiResponse>,
-	errors: Record<string, unknown>
+	message: string,
+	errors?: Array<{ message: string }>
 ) {
-	return res.status(Status.UNPROCESSIBLE_ENTITY).send({ error: { errors } })
+	return res
+		.status(Status.UNPROCESSIBLE_ENTITY)
+		.send({ error: { message, ...(errors ? { errors } : {}) } })
 }
 
 function badRequest(res: NextApiResponse<ErrorApiResponse>) {

@@ -98,7 +98,8 @@ const executeBlock: ExecuteBlock = async (
 					uiMetaData: data.uiMetaData,
 					blockType: 'policyRolesBlock',
 				})
-			} else if (
+			}
+			if (
 				Object.getOwnPropertyNames(data).length == 1 &&
 				data.uiMetaData
 			) {
@@ -110,7 +111,7 @@ const executeBlock: ExecuteBlock = async (
 			}
 			break
 	}
-	return null
+	return true
 }
 
 const interfaceContainerBlock = async (
@@ -125,6 +126,10 @@ const interfaceContainerBlock = async (
 	console.log('stuck')
 	console.log(blockData)
 
+	if (!blockData.blocks) {
+		return
+	}
+
 	const blocks = blockData.blocks.filter((element) => element != null)
 	for (let i = 0; i < blocks.length; i++) {
 		const stop = await executeBlock(
@@ -135,9 +140,8 @@ const interfaceContainerBlock = async (
 		)
 		if (stop) {
 			return true
-		} else {
-			return await executeBlock(accessToken, policyId, blockData.id, doc) // Re-execute this block
 		}
+		return await executeBlock(accessToken, policyId, blockData.id, doc) // Re-execute this block
 	}
 }
 
@@ -149,6 +153,10 @@ const policyRolesBlock = async (
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
+
+	if (!blockData.roles) {
+		return
+	}
 
 	blockData.roles.forEach((element, ix) => {
 		console.log(`[${ix}] - ${element}`)
@@ -178,6 +186,10 @@ const interfaceStepBlock = async (
 	blockData: BlockData,
 	doc: Record<string, unknown>
 ) => {
+	if (!blockData.blocks) {
+		return
+	}
+
 	const blocks = blockData.blocks.filter((element) => element != null)
 	for (let i = 0; i < blocks.length; i++) {
 		const stop = await executeBlock(
@@ -188,9 +200,8 @@ const interfaceStepBlock = async (
 		)
 		if (stop) {
 			return true
-		} else {
-			await executeBlock(accessToken, policyId, blockData.id, doc) // Re-execute this block
 		}
+		await executeBlock(accessToken, policyId, blockData.id, doc) // Re-execute this block
 	}
 }
 
@@ -214,9 +225,8 @@ const requestVcDocument = async (
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 
 	// We adjust the doc with injecting context and schema types were appropriate
-	doc.document['@context'] = blockData.schema.contextURL
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore
+	doc.document['@context'] = blockData.schema?.contextURL || ''
+
 	doc.document.type = blockData.schema.type
 
 	blockData.schema.fields.map((field) => {
@@ -224,7 +234,6 @@ const requestVcDocument = async (
 			return
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		doc.document[field.name].type = field.type.substring(1)
 	})
 
