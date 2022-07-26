@@ -14,15 +14,6 @@ export interface StatusResponse {
 	meta: { hint: string }
 }
 
-/**
- * @swagger
- * /api/status:
- *   get:
- *     description: Returns the status of the application
- *     responses:
- *       200:
- *         description: Status of the application is operational
- */
 function ConnectionStatusHandler(
 	_req: NextApiRequest,
 	res: NextApiResponse<StatusResponse | 'ok'>

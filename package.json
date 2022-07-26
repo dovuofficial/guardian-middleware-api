@@ -19,7 +19,8 @@
 		"format": "prettier --check '**/*.{js,jsx,ts,tsx}'",
 		"format:fix": "prettier --write '**/*.{js,jsx,ts,tsx}'",
 		"start": "next start",
-		"start-server": "next start -H 0.0.0.0 -p ${PORT:-8080}"
+		"start-server": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+		"codegen": "openapi-typescript ./app/spec/openapi.json --output ./app/spec/openapi.ts --prettier-config ./.prettierrc.json"
 	},
 	"resolutions": {
 		"source-map": "^0.7.4"
@@ -42,6 +43,7 @@
 		"@types/next": "^9.0.0",
 		"@types/node": "^18.0.4",
 		"@types/react": "^18.0.15",
+		"@types/swagger-ui-react": "^4.11.0",
 		"@typescript-eslint/eslint-plugin": "^5.30.7",
 		"@typescript-eslint/parser": "^5.30.7",
 		"eslint": "^8.20.0",
@@ -50,6 +52,7 @@
 		"jest": "^26.4.0",
 		"next-test-api-route-handler": "^3.1.6",
 		"node-mocks-http": "^1.8.1",
+		"openapi-typescript": "^5.4.1",
 		"prettier": "^2.7.1",
 		"typescript": "^4.7.4"
 	}

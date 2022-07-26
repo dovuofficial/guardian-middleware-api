@@ -41,9 +41,17 @@ yarn dev
 
 ## API Spec
 
-### Postman
+### Recommended VSCode plugin
 
-A postman file can be found in the root of the project.
+This OpenAPI extension provides linting and autocomplete tools for editing the Open API spec
+https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi
+
+Edit the Open API spec directly. Once happy, re-generate the Typescript types using
+`yarn codegen:api`
+
+This will auto generate Typescript types using [openapi-typescript](https://github.com/drwpow/openapi-typescript) and saves it to `./app/spec/openapi.d.ts`
+
+This flow allows us to have a strong contract between the Open API spec and the API types. Typescript checks should avoid issues of the API moving out of sync with the documentation.
 
 ### OpenAPI
 
