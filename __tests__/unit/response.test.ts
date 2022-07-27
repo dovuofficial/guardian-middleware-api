@@ -43,6 +43,20 @@ describe('Response', () => {
 			},
 		})
 	})
+	it('responds with unprocessible entity', async () => {
+		const errorMessage = "These inputs aren't valid"
+		await testApiHandler<{ errors: string | Array<string> }>({
+			handler: (_, res) =>
+				Response.unprocessibleEntity(res, errorMessage),
+			test: async ({ fetch }) => {
+				const res = await fetch()
+				expect(res.status).toBe(422)
+				const json = await res.json()
+				expect(json.error.message).toEqual(errorMessage)
+				expect(json.error.errors).toBeUndefined()
+			},
+		})
+	})
 	it('responds with bad request', async () => {
 		await testApiHandler<null>({
 			handler: (_, res) => Response.badRequest(res),
