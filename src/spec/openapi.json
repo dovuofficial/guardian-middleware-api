@@ -17,6 +17,48 @@
 		}
 	],
 	"components": {
+		"responses": {
+			"400": {
+				"description": "Bad request",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"401": {
+				"description": "Unauthorized",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"404": {
+				"description": "Not found",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"422": {
+				"description": "Unprocessable entity",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/UnprocessableErrorResponse"
+						}
+					}
+				}
+			}
+		},
 		"schemas": {
 			"Credentials": {
 				"type": "object",
@@ -59,7 +101,7 @@
 					}
 				}
 			},
-			"Error": {
+			"ErrorResponse": {
 				"type": "object",
 				"properties": {
 					"error": {
@@ -67,9 +109,19 @@
 						"properties": {
 							"message": {
 								"type": "string"
-							},
-							"code": {
-								"type": "integer"
+							}
+						}
+					}
+				}
+			},
+			"UnprocessableErrorResponse": {
+				"type": "object",
+				"properties": {
+					"error": {
+						"type": "object",
+						"properties": {
+							"message": {
+								"type": "string"
 							},
 							"errors": {
 								"type": "array",
@@ -137,6 +189,9 @@
 								}
 							}
 						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
 					}
 				}
 			}
@@ -146,6 +201,7 @@
 				"tags": ["accounts"],
 				"summary": "Log in an account",
 				"security": [],
+				"operationId": "login",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -174,23 +230,8 @@
 							}
 						}
 					},
-					"404": {
-						"description": "Not Found",
-						"headers": {
-							"Content-Type": {
-								"schema": {
-									"type": "string",
-									"example": "application/json; charset=utf-8"
-								}
-							}
-						},
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
+					"422": {
+						"$ref": "#/components/responses/422"
 					}
 				}
 			}
@@ -250,6 +291,9 @@
 								"example": null
 							}
 						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
 					}
 				}
 			}
@@ -331,6 +375,9 @@
 								"example": null
 							}
 						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
 					}
 				}
 			}

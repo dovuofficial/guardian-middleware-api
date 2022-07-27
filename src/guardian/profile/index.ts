@@ -7,7 +7,7 @@ const ENDPOINTS = {
 const save = async (
 	api: AxiosInstance,
 	accessToken: string,
-	payload: Record<string, unknown>,
+	payload: HederaProfileDto,
 	username: string
 ) => {
 	const result = await api.put(ENDPOINTS.profile + username, payload, {
@@ -36,10 +36,15 @@ const fetch = async (
 	return result.data
 }
 
+export interface HederaProfileDto {
+	hederaAccountId: string
+	hederaAccountKey: string
+}
+
 export interface Profile {
 	save: (
 		token: string,
-		payload: Record<string, unknown>,
+		payload: HederaProfileDto,
 		username: string
 	) => Promise<AxiosResponse<any>>
 	fetch: (token: string, username: string) => Promise<Record<string, unknown>>

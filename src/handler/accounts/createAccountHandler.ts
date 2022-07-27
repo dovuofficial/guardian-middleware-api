@@ -2,17 +2,16 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import { HashgraphMiddlewareRequest } from 'src/context/useHashgraphContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
-import credentials from 'src/validators/credentials'
 import language from 'src/constants/language'
+import validateCredentials from 'src/validators/validateCredentials'
+import { components } from 'src/spec/openapi'
+import { CreateAccountDto } from 'src/guardian/account'
 
-type Credentials = {
-	username: string
-	password: string
-}
+type Credentials = components['schemas']['Credentials']
 
-type CreateAccountContext = GuardianMiddlewareRequest &
+type CustomContextRequest = GuardianMiddlewareRequest &
 	HashgraphMiddlewareRequest
-interface CreateAccountRequest extends CreateAccountContext {
+interface CreateAccountRequest extends CustomContextRequest {
 	body: Credentials
 }
 
@@ -24,17 +23,18 @@ async function CreateAccountHandler(
 
 	const { guardian, hashgraphClient } = req.context
 
-	const validationErrors = credentials(userCredentials)
+	const validationErrors = validateCredentials(userCredentials)
 
 	if (validationErrors) {
-		return Response.unprocessibleEntity(
+		Response.unprocessibleEntity(
 			res,
 			language.middleware.validate.message,
 			validationErrors
 		)
+		return
 	}
 
-	const userData = {
+	const userData: CreateAccountDto = {
 		...userCredentials,
 		// This doesn't need to be a registrant (the API handles the registration)
 		role: 'USER',

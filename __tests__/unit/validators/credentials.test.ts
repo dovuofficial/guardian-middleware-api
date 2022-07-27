@@ -1,4 +1,4 @@
-import credentials from 'src/validators/credentials'
+import credentials from 'src/validators/validateCredentials'
 
 describe('credentials', () => {
 	it('should return an error if the username is not provided', () => {

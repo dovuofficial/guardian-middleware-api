@@ -16,6 +16,7 @@ export interface paths {
 						'application/json': components['schemas']['Account']
 					}
 				}
+				422: components['responses']['422']
 			}
 			requestBody: {
 				content: {
@@ -25,33 +26,7 @@ export interface paths {
 		}
 	}
 	'/accounts/login': {
-		post: {
-			responses: {
-				/** OK */
-				200: {
-					headers: {
-						'Content-Type'?: string
-					}
-					content: {
-						'application/json': components['schemas']['Account']
-					}
-				}
-				/** Not Found */
-				404: {
-					headers: {
-						'Content-Type'?: string
-					}
-					content: {
-						'application/json': components['schemas']['Error']
-					}
-				}
-			}
-			requestBody: {
-				content: {
-					'application/json': components['schemas']['Credentials']
-				}
-			}
-		}
+		post: operations['login']
 	}
 	'/policies/{policyId}/role': {
 		post: {
@@ -73,6 +48,7 @@ export interface paths {
 						'text/plain': string
 					}
 				}
+				422: components['responses']['422']
 			}
 			requestBody: {
 				unknown
@@ -99,6 +75,7 @@ export interface paths {
 						'text/plain': string
 					}
 				}
+				422: components['responses']['422']
 			}
 			requestBody: {
 				content: {
@@ -137,16 +114,66 @@ export interface components {
 			role?: string
 			accessToken?: string
 		}
-		Error: {
+		ErrorResponse: {
 			error?: {
 				message?: string
-				code?: number
+			}
+		}
+		UnprocessableErrorResponse: {
+			error?: {
+				message?: string
 				errors?: string[]
+			}
+		}
+	}
+	responses: {
+		/** Bad request */
+		400: {
+			content: {
+				'application/json': components['schemas']['ErrorResponse']
+			}
+		}
+		/** Unauthorized */
+		401: {
+			content: {
+				'application/json': components['schemas']['ErrorResponse']
+			}
+		}
+		/** Not found */
+		404: {
+			content: {
+				'application/json': components['schemas']['ErrorResponse']
+			}
+		}
+		/** Unprocessable entity */
+		422: {
+			content: {
+				'application/json': components['schemas']['UnprocessableErrorResponse']
 			}
 		}
 	}
 }
 
-export interface operations {}
+export interface operations {
+	login: {
+		responses: {
+			/** OK */
+			200: {
+				headers: {
+					'Content-Type'?: string
+				}
+				content: {
+					'application/json': components['schemas']['Account']
+				}
+			}
+			422: components['responses']['422']
+		}
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Credentials']
+			}
+		}
+	}
+}
 
 export interface external {}

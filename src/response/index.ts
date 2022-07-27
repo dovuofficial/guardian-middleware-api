@@ -3,7 +3,9 @@ import Status from 'src/constants/status'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 
-type ErrorApiResponse = components['schemas']['Error']
+type ErrorApiResponse = components['schemas']['ErrorResponse']
+type UnprocessableErrorApiResponse =
+	components['schemas']['UnprocessableErrorResponse']
 
 const { notAllowed } = Language.middleware.onlyPostResponse
 
@@ -21,7 +23,7 @@ function unauthorised(res: NextApiResponse<ErrorApiResponse>, message: string) {
 }
 
 function unprocessibleEntity(
-	res: NextApiResponse<ErrorApiResponse>,
+	res: NextApiResponse<UnprocessableErrorApiResponse>,
 	message: string,
 	errors?: Array<string>
 ) {

@@ -1,13 +1,11 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
-import credentials from 'src/validators/credentials'
+import validateCredentials from 'src/validators/validateCredentials'
 import language from 'src/constants/language'
+import { components } from 'src/spec/openapi'
 
-type Credentials = {
-	username: string
-	password: string
-}
+type Credentials = components['schemas']['Credentials']
 
 interface LoginRequest extends GuardianMiddlewareRequest {
 	body: Credentials
@@ -18,14 +16,15 @@ async function loginHandler(req: LoginRequest, res: NextApiResponse) {
 
 	const { guardian } = req.context
 
-	const validationErrors = credentials(userCredentials)
+	const validationErrors = validateCredentials(userCredentials)
 
 	if (validationErrors) {
-		return Response.unprocessibleEntity(
+		Response.unprocessibleEntity(
 			res,
 			language.middleware.validate.message,
 			validationErrors
 		)
+		return
 	}
 
 	const loginUser = await guardian.account.login(userCredentials)

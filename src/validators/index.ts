@@ -1,5 +1,5 @@
-import checkAuthenticationKey from './checkAuthenticationKey'
-import credentials from './credentials'
+import checkAuthenticationKey from './validateAuthenticationKey'
+import credentials from './validateCredentials'
 
 const validators = {
 	checkAuthenticationKey,
