@@ -30,7 +30,7 @@ describe('Response', () => {
 	})
 	it('responds with unprocessible entity', async () => {
 		const errorMessage = "These inputs aren't valid"
-		const errors = [{ message: 'Should be an integer' }]
+		const errors = ['Should be an integer', 'Should be a string']
 		await testApiHandler<{ errors: string | Array<string> }>({
 			handler: (_, res) =>
 				Response.unprocessibleEntity(res, errorMessage, errors),

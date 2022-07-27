@@ -2,6 +2,8 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import { HashgraphMiddlewareRequest } from 'src/context/useHashgraphContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
+import credentials from 'src/validators/credentials'
+import language from 'src/constants/language'
 
 type Credentials = {
 	username: string
@@ -22,7 +24,15 @@ async function CreateAccountHandler(
 
 	const { guardian, hashgraphClient } = req.context
 
-	// TODO: Validate the request input
+	const validationErrors = credentials(userCredentials)
+
+	if (validationErrors) {
+		return Response.unprocessibleEntity(
+			res,
+			language.middleware.validate.message,
+			validationErrors
+		)
+	}
 
 	const userData = {
 		...userCredentials,

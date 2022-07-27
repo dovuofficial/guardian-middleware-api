@@ -23,7 +23,7 @@ function unauthorised(res: NextApiResponse<ErrorApiResponse>, message: string) {
 function unprocessibleEntity(
 	res: NextApiResponse<ErrorApiResponse>,
 	message: string,
-	errors?: Array<{ message: string }>
+	errors?: Array<string>
 ) {
 	return res
 		.status(Status.UNPROCESSIBLE_ENTITY)

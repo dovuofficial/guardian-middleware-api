@@ -13,6 +13,9 @@ const language = {
 			notAllowed: (method: string) =>
 				`Method ${method} is not allowed on this route`,
 		},
+		validate: {
+			message: 'Validation errors',
+		},
 	},
 
 	// Requests

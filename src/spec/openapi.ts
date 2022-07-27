@@ -141,9 +141,7 @@ export interface components {
 			error?: {
 				message?: string
 				code?: number
-				errors?: {
-					message?: string
-				}[]
+				errors?: string[]
 			}
 		}
 	}
