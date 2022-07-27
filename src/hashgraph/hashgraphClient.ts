@@ -1,5 +1,5 @@
-import config from '@lib/config'
-import Environment from '@lib/constants/environment'
+import config from 'src/config'
+import Environment from 'src/constants/environment'
 import { Client, PrivateKey, AccountCreateTransaction } from '@hashgraph/sdk'
 
 const { TESTNET, PREVIEWNET, MAINNET } = Environment

@@ -1,5 +1,5 @@
 import crypto, { BinaryLike } from 'crypto'
-import config from 'lib/config'
+import config from 'src/config'
 
 const IV_LENGTH = 16 // For AES, this is always 16
 

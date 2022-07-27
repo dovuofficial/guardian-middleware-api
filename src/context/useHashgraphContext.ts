@@ -1,6 +1,4 @@
-import hashgraphClient, {
-	HashgraphClient,
-} from '@lib/hashgraph/hashgraphClient'
+import hashgraphClient, { HashgraphClient } from 'src/hashgraph/hashgraphClient'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 export interface HashgraphMiddlewareRequest extends NextApiRequest {

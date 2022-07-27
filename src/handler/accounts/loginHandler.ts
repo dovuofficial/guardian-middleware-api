@@ -1,5 +1,5 @@
-import { GuardianMiddlewareRequest } from 'lib/context/useGuardianContext'
-import Response from 'lib/response'
+import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
+import Response from 'src/response'
 import { NextApiResponse } from 'next'
 
 type Credentials = {

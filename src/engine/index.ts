@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { BlockData } from 'lib/guardian/policies'
+import { BlockData } from 'src/guardian/policies'
 import guardian from '../guardian'
 
 const executeRootBlock: ExecuteRootBlock = async (

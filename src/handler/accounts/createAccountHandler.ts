@@ -1,6 +1,6 @@
-import { GuardianMiddlewareRequest } from 'lib/context/useGuardianContext'
-import { HashgraphMiddlewareRequest } from 'lib/context/useHashgraphContext'
-import Response from 'lib/response'
+import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
+import { HashgraphMiddlewareRequest } from 'src/context/useHashgraphContext'
+import Response from 'src/response'
 import { NextApiResponse } from 'next'
 
 type Credentials = {

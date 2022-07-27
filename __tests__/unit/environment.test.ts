@@ -1,4 +1,4 @@
-import Config from '@lib/config'
+import Config from 'src/config'
 
 const {
 	HEDERA_OPERATOR_ACCOUNT_ID,

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import Response from '@lib/response'
+import Response from 'src/response'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 describe('Response', () => {

@@ -1,5 +1,5 @@
-import { GuardianMiddlewareRequest } from 'lib/context/useGuardianContext'
-import response from 'lib/response'
+import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
+import response from 'src/response'
 import { NextApiResponse } from 'next'
 
 async function RegisterAccountToPolicyHandler(

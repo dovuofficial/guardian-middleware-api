@@ -1,8 +1,8 @@
 // @ts-nocheck
 // App imports
-import Config from '@lib/config'
-import Language from '@lib/constants/language'
-import withAuthentication from '@lib/middleware/withAuthentication'
+import Config from 'src/config'
+import Language from 'src/constants/language'
+import withAuthentication from 'src/middleware/withAuthentication'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'

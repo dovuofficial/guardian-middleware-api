@@ -1,5 +1,5 @@
-import Request from 'lib/constants/request'
-import Response from 'lib/response'
+import Request from 'src/constants/request'
+import Response from 'src/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 function onlyPost(handler: NextApiHandler) {

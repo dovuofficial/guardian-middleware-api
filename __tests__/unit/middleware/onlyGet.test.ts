@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 // App imports
-import Language from '@lib/constants/language'
-import onlyGet from '@lib/middleware/onlyGet'
+import Language from 'src/constants/language'
+import onlyGet from 'src/middleware/onlyGet'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'

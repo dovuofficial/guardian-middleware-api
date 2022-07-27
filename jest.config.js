@@ -33,7 +33,7 @@ const customJestConfig = {
 	coverageDirectory: 'coverage',
 
 	// An array of regexp pattern strings used to skip coverage collection
-	coveragePathIgnorePatterns: ['/node_modules/', '@lib/utils/*'],
+	coveragePathIgnorePatterns: ['/node_modules/'],
 
 	// Indicates which provider should be used to instrument code for coverage
 	coverageProvider: 'v8',
@@ -83,7 +83,6 @@ const customJestConfig = {
 
 	// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
 	moduleNameMapper: {
-		'^@lib(.*)$': '<rootDir>/lib$1',
 		'^@mocks(.*)$': '<rootDir>/__mocks__$1',
 	},
 

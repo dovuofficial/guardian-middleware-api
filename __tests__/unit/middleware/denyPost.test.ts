@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 // App imports
-import Language from '@lib/constants/language'
-import denyPost from '@lib/middleware/denyPost'
+import Language from 'src/constants/language'
+import denyPost from 'src/middleware/denyPost'
 
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'

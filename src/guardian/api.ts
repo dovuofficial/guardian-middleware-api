@@ -1,6 +1,6 @@
 // This is the API for the
 import axios from 'axios'
-import config from 'lib/config'
+import config from 'src/config'
 
 // Ugh! Port has to be 4200 for self built API - I thought it was still 3002 as that is the api gateway.
 // For docker the port needs to be 3000.

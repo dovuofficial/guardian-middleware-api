@@ -1,7 +1,7 @@
-import Language from 'lib/constants/language'
-import Status from 'lib/constants/status'
+import Language from 'src/constants/language'
+import Status from 'src/constants/status'
 import { NextApiResponse } from 'next'
-import { components } from 'lib/spec/openapi'
+import { components } from 'src/spec/openapi'
 
 type ErrorApiResponse = components['schemas']['Error']
 

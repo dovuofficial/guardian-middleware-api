@@ -1,6 +1,6 @@
-import Response from 'lib/response'
+import Response from 'src/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import hmac from 'lib/utils/hmac'
+import hmac from 'src/utils/hmac'
 
 function withHmac(handler: NextApiHandler) {
 	return (req: NextApiRequest, res: NextApiResponse) => {

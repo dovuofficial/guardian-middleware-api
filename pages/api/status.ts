@@ -1,5 +1,5 @@
-import config from 'lib/config'
-import Language from 'lib/constants/language'
+import config from 'src/config'
+import Language from 'src/constants/language'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const { statusRequest } = Language

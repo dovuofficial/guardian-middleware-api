@@ -1,5 +1,5 @@
-import Config from '@lib/config'
-import Language from '@lib/constants/language'
+import Config from 'src/config'
+import Language from 'src/constants/language'
 import axios from 'axios'
 import { StatusResponse } from 'pages/api/status'
 

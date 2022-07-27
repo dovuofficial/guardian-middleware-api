@@ -1,5 +1,5 @@
-import config from 'lib/config'
-import Hmac from 'lib/utils/hmac'
+import config from 'src/config'
+import Hmac from 'src/utils/hmac'
 import axios from 'axios'
 
 async function sendWebhookMessage(data): Promise<void> {

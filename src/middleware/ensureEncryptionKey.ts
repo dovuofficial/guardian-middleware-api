@@ -1,6 +1,6 @@
-import Language from 'lib/constants/language'
-import Response from 'lib/response'
-import config from 'lib/config'
+import Language from 'src/constants/language'
+import Response from 'src/response'
+import config from 'src/config'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 const { noEncryptionKey } = Language.middleware.ensureEncryptionKey
