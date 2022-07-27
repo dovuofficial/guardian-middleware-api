@@ -13,8 +13,8 @@ export interface Config {
 
 const {
 	HEDERA_NETWORK = 'testnet',
-	HEDERA_ACCOUNT_ID,
-	HEDERA_PRIVATE_KEY,
+	HEDERA_OPERATOR_ACCOUNT_ID,
+	HEDERA_OPERATOR_PRIVATE_KEY,
 	API_SECRET_KEY,
 	API_URL,
 	HIDE_STATUS,
@@ -30,8 +30,8 @@ const authenticationKeyValid = (): boolean =>
 export default {
 	authenticationKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
-	accountId: HEDERA_ACCOUNT_ID,
-	privateKey: HEDERA_PRIVATE_KEY,
+	accountId: HEDERA_OPERATOR_ACCOUNT_ID,
+	privateKey: HEDERA_OPERATOR_PRIVATE_KEY,
 	authenticationKey: API_SECRET_KEY,
 	encryptionKey: ENCRYPTION_KEY,
 	apiUrl: API_URL,

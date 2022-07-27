@@ -17,6 +17,7 @@ type GuardianHandler<T = any> = (
 function useGuardianContext(handler: NextApiHandler): GuardianHandler {
 	return (req: GuardianMiddlewareRequest, res: NextApiResponse) => {
 		req.context = {
+			...req.context,
 			guardian,
 			engine,
 		}

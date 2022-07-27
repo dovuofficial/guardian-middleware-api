@@ -46,9 +46,8 @@ export interface Profile {
 }
 
 const profile = (api: AxiosInstance): Profile => ({
-	save: (token: string, payload: Record<string, unknown>, username: string) =>
-		save(api, token, payload, username),
-	fetch: (token: string, username: string) => fetch(api, token, username),
+	save: (token, payload, username) => save(api, token, payload, username),
+	fetch: (token, username) => fetch(api, token, username),
 })
 
 export default profile

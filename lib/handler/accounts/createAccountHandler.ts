@@ -1,4 +1,5 @@
 import { GuardianMiddlewareRequest } from 'lib/context/useGuardianContext'
+import { HashgraphMiddlewareRequest } from 'lib/context/useHashgraphContext'
 import Response from 'lib/response'
 import { NextApiResponse } from 'next'
 
@@ -7,7 +8,9 @@ type Credentials = {
 	password: string
 }
 
-interface CreateAccountRequest extends GuardianMiddlewareRequest {
+type CreateAccountContext = GuardianMiddlewareRequest &
+	HashgraphMiddlewareRequest
+interface CreateAccountRequest extends CreateAccountContext {
 	body: Credentials
 }
 
@@ -17,7 +20,7 @@ async function CreateAccountHandler(
 ) {
 	const { body: userCredentials } = req
 
-	const { guardian } = req.context
+	const { guardian, hashgraphClient } = req.context
 
 	// TODO: Validate the request input
 
@@ -31,12 +34,11 @@ async function CreateAccountHandler(
 
 	const loginUser = await guardian.account.login(userCredentials)
 
-	// TODO: Replace with Hashgraph JS SDK call
-	const randomKey = await guardian.demo.randomKey()
+	const { accountId, privateKey } = await hashgraphClient.createAccount()
 
 	const userProfile = {
-		hederaAccountId: randomKey.id,
-		hederaAccountKey: randomKey.key,
+		hederaAccountId: accountId,
+		hederaAccountKey: privateKey,
 	}
 
 	await guardian.profile.save(
