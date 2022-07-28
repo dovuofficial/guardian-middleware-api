@@ -6,6 +6,7 @@ describe('credentials', () => {
 			password: 'password',
 		}
 
+		// @ts-ignore
 		const validationErrors = credentials(userCredentials)
 
 		expect(validationErrors).toEqual(['"username" is required'])
@@ -15,6 +16,7 @@ describe('credentials', () => {
 			username: 'username',
 		}
 
+		// @ts-ignore
 		const validationErrors = credentials(userCredentials)
 
 		expect(validationErrors).toEqual(['"password" is required'])
@@ -30,6 +32,7 @@ describe('credentials', () => {
 		expect(validationErrors).toEqual(null)
 	})
 	it('should return a full set of errors for an empty input', () => {
+		// @ts-ignore
 		const validationErrors = credentials()
 
 		expect(validationErrors).toEqual([

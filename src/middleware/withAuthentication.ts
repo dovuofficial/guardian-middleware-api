@@ -1,21 +1,25 @@
 import Language from 'src/constants/language'
-import Validation from 'src/validators'
 import Response from 'src/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-const { noApikey, invalidApikey } =
+const { noAccessToken, invalidAuthType } =
 	Language.middleware.withAuthenticationResponse
 
 function withAuthentication(handler: NextApiHandler) {
 	return (req: NextApiRequest, res: NextApiResponse) => {
-		const apiKey = req.headers?.['x-api-key']
+		const { authorization } = req.headers
 
-		if (apiKey === undefined || !apiKey.length) {
-			return Response.unauthorised(res, noApikey)
+		if (!authorization) {
+			return Response.unauthorised(res, noAccessToken)
 		}
 
-		if (!Validation.checkAuthenticationKey(apiKey)) {
-			return Response.unauthorised(res, invalidApikey)
+		const [type, accessToken] = authorization?.split(' ') || []
+
+		if (type?.toLowerCase() !== 'bearer') {
+			return Response.unauthorised(res, invalidAuthType(type))
+		}
+		if (!accessToken) {
+			return Response.unauthorised(res, noAccessToken)
 		}
 
 		return handler(req, res)

@@ -2,15 +2,13 @@ import Config from 'src/config'
 import Validation from 'src/validators'
 
 test('Ensure that the authentication key is valid', () => {
-	const isValidKey = Validation.checkAuthenticationKey(
-		Config.authenticationKey
-	)
+	const isValidKey = Validation.authToken(Config.authenticationKey)
 
 	expect(isValidKey).toBe(true)
 })
 
 test('Ensure that a bad authentication key is invalid', () => {
-	const isValidKey = Validation.checkAuthenticationKey('1234')
+	const isValidKey = Validation.authToken('1234')
 
 	expect(isValidKey).toBe(false)
 })

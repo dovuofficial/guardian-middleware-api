@@ -1,9 +1,8 @@
 import checkAuthenticationKey from './validateAuthenticationKey'
 import credentials from './validateCredentials'
 
-const validators = {
-	checkAuthenticationKey,
-	credentials,
+export default {
+	authToken: checkAuthenticationKey,
+	login: credentials,
+	createAccount: credentials,
 }
-
-export default validators

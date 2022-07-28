@@ -21,24 +21,14 @@ test('Expect that a request with no api key fails', async () => {
 		mockedApiResponse
 	)
 
-	expect(response.error.message).toBe(withAuthenticationResponse.noApikey)
-})
-
-test('Expect that a request with an invalid api key fails', async () => {
-	const mockedApiRequest = MockedApiRequest.mock({ 'x-api-key': 'bad-key' })
-	const response = await handlerWithMiddleware(
-		mockedApiRequest,
-		mockedApiResponse
-	)
-
 	expect(response.error.message).toBe(
-		withAuthenticationResponse.invalidApikey
+		withAuthenticationResponse.noAccessToken
 	)
 })
 
-test('Expect that a request with a valid api key is successfull', async () => {
+test('Expect that a request with a JWT is successfull', async () => {
 	const mockedApiRequest = MockedApiRequest.mock({
-		'x-api-key': Config.authenticationKey,
+		authorization: 'Bearer 123',
 	})
 	const response = await handlerWithMiddleware(
 		mockedApiRequest,

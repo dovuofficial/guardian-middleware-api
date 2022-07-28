@@ -11,6 +11,7 @@ type Credentials = components['schemas']['Credentials']
 
 type CustomContextRequest = GuardianMiddlewareRequest &
 	HashgraphMiddlewareRequest
+
 interface CreateAccountRequest extends CustomContextRequest {
 	body: Credentials
 }

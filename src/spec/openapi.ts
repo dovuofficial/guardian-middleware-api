@@ -50,9 +50,6 @@ export interface paths {
 				}
 				422: components['responses']['422']
 			}
-			requestBody: {
-				unknown
-			}
 		}
 	}
 	'/policies/{policyId}/register': {
@@ -79,7 +76,7 @@ export interface paths {
 			}
 			requestBody: {
 				content: {
-					'application/json': { [key: string]: unknown }
+					'application/json': components['schemas']['EcologicalProject']
 				}
 			}
 		}
@@ -124,6 +121,39 @@ export interface components {
 				message?: string
 				errors?: string[]
 			}
+		}
+		/**
+		 * @example {
+		 *   "field0": "Blanditiis consequuntur repellat voluptatem quod et aperiam voluptas.",
+		 *   "field1": "A at mollitia corporis molestiae ut debitis.",
+		 *   "field2": 57779,
+		 *   "field3": "Illum commodi quidem dolorem voluptatibus.",
+		 *   "field4": "Porro qui error earum quia iure praesentium molestiae.",
+		 *   "field5": "Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.",
+		 *   "field6": "Quia maiores vel et reprehenderit eius fugiat quae nihil.",
+		 *   "field7": "Aliquid et sint sint assumenda nostrum eum.",
+		 *   "field8": "Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet."
+		 * }
+		 */
+		EcologicalProject: {
+			/** @description What is the name of your farm? */
+			field0?: string
+			/** @description Where is your farm located? */
+			field1?: string
+			/** @description What is the size of your farm/land in hectares? */
+			field2?: number
+			/** @description What type of soil does your farm/land has? In addition, please explain what types of crops do you grow in your property? */
+			field3?: string
+			/** @description Have you got any animals on the farm? If yes, please provide us with further explanation of the types of animals and how they interact with your property? */
+			field4?: string
+			/** @description What are your current farming practices? */
+			field5?: string
+			/** @description How do you irrigate your property? */
+			field6?: string
+			/** @description Do you fertilise the soil? If yes, please explain the process, what types of fertilisers are you using and how often? */
+			field7?: string
+			/** @description Do you use heavy machinery (tractors, combine, etc.) on the farm? If yes, please provide further details. */
+			field8?: string
 		}
 	}
 	responses: {

@@ -1,9 +1,13 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
-import response from 'src/response'
+import Response from 'src/response'
 import { NextApiResponse } from 'next'
+import { components } from 'src/spec/openapi'
+import language from 'src/constants/language'
+import validateEcologicalProjectApplication from 'src/validators/validateEcologicalProjectApplication'
 
+type EcologicalProject = components['schemas']['EcologicalProject']
 interface RegisterProjectRequest extends GuardianMiddlewareRequest {
-	body: Record<string, unknown>
+	body: EcologicalProject
 }
 async function RegisterProjectHandler(
 	req: RegisterProjectRequest,
@@ -12,21 +16,31 @@ async function RegisterProjectHandler(
 	const { policyId } = req.query
 	const { authorization } = req.headers
 	const { engine } = req.context
-	const { body: data } = req
+	const { body } = req
 
 	const accessToken = authorization?.split(' ')[1]
 
 	if (!accessToken) {
-		response.unauthorised(res, 'Missing access token')
+		Response.unauthorised(res, 'Missing access token')
 		return
 	}
 
-	if (!data) {
-		response.unprocessibleEntity(res, 'Missing data in request body')
+	const validationErrors = validateEcologicalProjectApplication(body)
+
+	if (validationErrors) {
+		Response.unprocessibleEntity(
+			res,
+			language.middleware.validate.message,
+			validationErrors
+		)
 		return
 	}
 
 	const tag = 'create_application'
+
+	const data = {
+		document: body,
+	}
 
 	await engine.executeBlockViaTag(accessToken, policyId as string, tag, data)
 
