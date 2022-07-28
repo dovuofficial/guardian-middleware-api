@@ -12,24 +12,24 @@ import Crypto from 'crypto'
  * and the server will be able to duplicate the signature.
  */
 
-function generateHash(payloadAsString): string {
+function generateHmac(payloadAsString): string {
 	if (typeof payloadAsString !== 'string') {
 		throw Error('Your payload object must be converted in to a string')
 	}
 
 	return Crypto.createHmac('sha256', config.authenticationKey)
 		.update(payloadAsString)
-		.digest('hex')
+		.digest('base64')
 }
 
 function validateSignature(payloadAsString, signature): boolean {
-	const hash = generateHash(payloadAsString)
+	const hash = generateHmac(payloadAsString)
 
 	return hash === signature
 }
 
 const hmac = {
-	generateHash,
+	generateHmac,
 	validateSignature,
 }
 

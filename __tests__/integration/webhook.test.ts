@@ -2,6 +2,7 @@ import Status from 'src/constants/status'
 import Config from 'src/config'
 import Hmac from 'src/utils/hmac'
 import axios from 'axios'
+import Crypto from 'crypto'
 
 const { webhookUrl } = Config
 describe('Webhook', () => {
@@ -60,15 +61,29 @@ describe('Webhook', () => {
 			return
 		}
 
-		const mockResponse = { foo: 'bar', baz: 'qux', quux: 'corge' }
+		const mockRequestBody = { foo: 'bar', baz: 'qux', quux: 'corge' }
+
+		var verb = 'POST'
+		const url = new URL(webhookUrl)
+		var host = url.host
+		var path = url.pathname
+		const date = new Date().toUTCString()
+		const contentHash = Crypto.createHash('sha256')
+			.update(JSON.stringify(mockRequestBody))
+			.digest('base64')
+
+		const stringToSign = `${verb}\n${path}\n${date};${host};${contentHash}`
+
+		const signature = Hmac.generateHmac(stringToSign)
+
 		const config = {
 			headers: {
-				'x-signature': Hmac.generateHash(JSON.stringify(mockResponse)),
+				'x-signature': signature,
+				'x-date': date,
 			},
 		}
 
-		const response = await axios.post(webhookUrl, mockResponse, config)
-
+		const response = await axios.post(webhookUrl, mockRequestBody, config)
 		expect(response.status).toBe(Status.OK)
 	})
 })
