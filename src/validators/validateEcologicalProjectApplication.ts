@@ -16,7 +16,7 @@ const schema = Joi.object({
 })
 
 export default (candidate: EcologicalProject): Array<string> | void => {
-	const validation = schema.validate(candidate, { abortEarly: false })
+	const validation = schema.validate(candidate || {}, { abortEarly: false })
 
 	if (validation.error) {
 		return validation.error.details.map((error) => error.message)
