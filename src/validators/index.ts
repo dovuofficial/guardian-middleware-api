@@ -1,8 +1,10 @@
-import checkAuthenticationKey from './validateAuthenticationKey'
+import authToken from './validateAuthenticationKey'
 import credentials from './validateCredentials'
+import ecologicalProject from './validateEcologicalProjectApplication'
 
 export default {
-	authToken: checkAuthenticationKey,
+	authToken,
 	login: credentials,
 	createAccount: credentials,
+	ecologicalProject,
 }

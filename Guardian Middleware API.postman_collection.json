@@ -403,6 +403,13 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Generate the HMAC request header for all requests",
+					"var requestBody = JSON.parse(pm.request.body)",
+					"var requestBodyString = JSON.stringify(requestBody)",
+					"var secret = pm.collectionVariables.get(\"apiSecretKey\");",
+					"var bytes = CryptoJS.HmacSHA256(requestBodyString, secret);",
+					"var hash = bytes.toString(CryptoJS.enc.Hex);",
+					"pm.request.headers.add({key: 'x-signature', value: hash})",
 					""
 				]
 			}
@@ -421,6 +428,11 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:3001/api/",
+			"type": "string"
+		},
+		{
+			"key": "apiSecretKey",
+			"value": "1234567890",
 			"type": "string"
 		}
 	]
