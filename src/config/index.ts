@@ -7,7 +7,7 @@ export interface Config {
 	encryptionKey: string
 	apiUrl: string
 	hideStatus: string
-	webhookUrl: string
+	testAuthUrl: string
 	guardianApiUrl: string
 }
 
@@ -18,7 +18,7 @@ const {
 	API_SECRET_KEY,
 	API_URL,
 	HIDE_STATUS,
-	WEBHOOK_URL,
+	TEST_AUTH_URL,
 	ENCRYPTION_KEY,
 	GUARDIAN_API_URL,
 } = process.env
@@ -36,6 +36,6 @@ export default {
 	encryptionKey: ENCRYPTION_KEY,
 	apiUrl: API_URL,
 	hideStatus: HIDE_STATUS,
-	webhookUrl: WEBHOOK_URL,
+	testAuthUrl: TEST_AUTH_URL,
 	guardianApiUrl: GUARDIAN_API_URL,
 }

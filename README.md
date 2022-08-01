@@ -74,3 +74,61 @@ http://localhost:3000/docs
 
 The OpenAPI JSON definition can be found at:
 http://localhost:3000/api/docs
+
+## Security
+
+Every request apart from `api/status` and `api/docs` should include HMAC authentication. We follow Microsoft's HMAC implementation [here](https://docs.microsoft.com/en-us/azure/azure-app-configuration/rest-api-authentication-hmac) with a couple of simplifications.
+
+### Required Headers
+
+`host`: string - "example.com"
+`x-date`: ISO 8601 UTC - "2022-08-01T11:06:23:1234Z"
+`x-content-sha256`: SHA256 string - The SHA256 string of the content body
+`x-signature`: HMAC string - The HMAC authentication string as defined below
+
+### How to authenticate requests using HMAC
+
+The [Microsoft Docs](https://docs.microsoft.com/en-us/azure/azure-app-configuration/rest-api-authentication-hmac) do a good job explaining the details. The following describes the simplified implementation that we use which avoids dynamic complexities like requiring `SignedHeaders` and `Credential` headers. Also, since we require the `Authorization` header for the Guardian JWT, we instead use an `x-signature` header for passing the HMAC signed hash.
+
+Here is an example of how to construct the required HMAC headers to make a successful request:
+
+```js
+function signRequest(
+	host, // Often added to the header by default in HTTP clients - example.com
+	method, // GET, PUT, POST, DELETE
+	url, // path+query - /api/posts?order=asc
+	body, // request body (undefined if none)
+	secret // The private key used to sign the HMAC content
+) {
+	var verb = method.toUpperCase()
+	var utcNow = new Date().toUTCString()
+
+	// If passing body data then generate a Base64 encoded SHA256 hash
+	var contentHash = Crypto.createHash('sha256')
+		.update(JSON.stringify(body))
+		.digest('base64')
+
+	//
+	// String to sign if including body data. We follow the `\n` and `;` delimiters inline with the Microsoft spec
+	var stringToSign = `${verb}\n${url}\n${utcNow};${host};${contentHash}`
+
+	//
+	// String to sign if not including body data
+	var stringToSign = `${verb}\n${url}\n${utcNow};${host}`
+
+	//
+	// Signature - Base64 encoded SHA256 HMAC signed with secret key
+	var signature = Crypto.createHmac('sha256', secret)
+		.update(stringToSign)
+		.digest('base64')
+
+	//
+	// Result request headers
+	return [
+		{ name: 'host', value: host },
+		{ name: 'x-date', value: utcNow },
+		{ name: 'x-content-sha256', value: contentHash }, // Omit if not including body data
+		{ name: 'x-signature', value: signature },
+	]
+}
+```

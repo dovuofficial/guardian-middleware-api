@@ -9,8 +9,7 @@ import Crypto from 'crypto'
  *
  * The HMAC hash is sent in the 'x-signature' property in the header
  * 'x-date' is sent in the header as an ISO 8601 UTC date string
- * 'x-host' is sent in the header as the hostname of the request
- * 'x-content-hash' is sent in the header as a base64 encoded sha256 hash of the request body
+ * 'x-content-sha256' is sent in the header as a base64 encoded sha256 hash of the request body
  * 'x-signature' is sent in the header as a base64 encoded sha256 HMAC
  */
 
@@ -18,27 +17,32 @@ function withHmac(handler: NextApiHandler) {
 	return (req: NextApiRequest, res: NextApiResponse) => {
 		const { method: verb, headers, body, url } = req
 
-		const { host, 'x-signature': signature, 'x-date': date } = headers
+		const {
+			host,
+			'x-signature': headerSignature,
+			'x-date': headerDate,
+			'x-content-sha256': headerContentHash,
+		} = headers
 
 		if (!host) {
 			return Response.unauthorised(res, 'Missing "host" in header')
 		}
 
-		if (!signature) {
+		if (!headerSignature) {
 			return Response.unauthorised(
 				res,
 				'Missing HMAC "signature" in header'
 			)
 		}
 
-		if (!date) {
+		if (!headerDate) {
 			return Response.unauthorised(
 				res,
 				'Missing "x-date" in header. This should be an ISO 8601 UTC date string'
 			)
 		}
 
-		if (typeof date !== 'string') {
+		if (typeof headerDate !== 'string') {
 			return Response.unauthorised(
 				res,
 				'"x-date" header should be an ISO 8601 UTC date string'
@@ -47,7 +51,7 @@ function withHmac(handler: NextApiHandler) {
 
 		let requestDate
 		try {
-			requestDate = new Date(date as string)
+			requestDate = new Date(headerDate as string)
 		} catch (e) {
 			return Response.unauthorised(
 				res,
@@ -64,13 +68,28 @@ function withHmac(handler: NextApiHandler) {
 			)
 		}
 
-		const contentHash = Crypto.createHash('sha256')
-			.update(JSON.stringify(body))
-			.digest('base64')
+		let stringToSign = ''
+		if (body) {
+			const contentHash = Crypto.createHash('sha256')
+				.update(JSON.stringify(body))
+				.digest('base64')
 
-		const stringToSign = `${verb}\n${url}\n${date};${host};${contentHash}`
+			if (body && contentHash !== headerContentHash) {
+				return Response.unauthorised(
+					res,
+					'Request body hash does not match the hash provided in the header for "x-content-sha256"'
+				)
+			}
 
-		const isSignatureValid = hmac.validateSignature(stringToSign, signature)
+			stringToSign = `${verb}\n${url}\n${headerDate};${host};${contentHash}`
+		} else {
+			stringToSign = `${verb}\n${url}\n${headerDate};${host}`
+		}
+
+		const isSignatureValid = hmac.validateSignature(
+			stringToSign,
+			headerSignature as string
+		)
 
 		if (!isSignatureValid) {
 			return Response.unauthorised(

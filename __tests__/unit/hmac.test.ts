@@ -17,6 +17,7 @@ test('Generate a HMAC signature using a json string', () => {
 })
 
 test('Expect exception when hash is generateHmac where the payload is not a string', () => {
+	// @ts-ignore
 	expect(() => Hmac.generateHmac(mockResponsePayload)).toThrow(
 		'Your payload object must be converted in to a string'
 	)
