@@ -16,10 +16,9 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@mocks/*": ["__mocks__/*"],
-			"@app/*": ["app/*"]
+			"@mocks/*": ["__mocks__/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "src/spec/openapi.ts"]
 }

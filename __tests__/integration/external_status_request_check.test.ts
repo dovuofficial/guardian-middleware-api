@@ -1,5 +1,5 @@
-import Config from '@app/config'
-import Language from '@app/constants/language'
+import Config from 'src/config'
+import Language from 'src/constants/language'
 import axios from 'axios'
 import { StatusResponse } from 'pages/api/status'
 
@@ -42,5 +42,5 @@ test("Check external '/api/status' returns a valid response, is it ready to be u
 	// Status
 	expect(environment_status.hederaAccountId).toBe(true)
 	expect(environment_status.hederaPrivateKey).toBe(true)
-	expect(environment_status.authenticationKey).toBe(true)
+	expect(environment_status.hmacAuthKey).toBe(true)
 })

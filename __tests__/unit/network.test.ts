@@ -1,5 +1,4 @@
-import Environment from '@app/constants/environment'
-import Config from '@app/config'
+import Environment from 'src/constants/environment'
 
 test('Make sure that testnet has the correct value', () => {
 	expect(Environment.TESTNET).toBe('testnet')

@@ -1,5 +1,5 @@
-import Config from '@app/config'
-import Language from '@app/constants/language'
+import config from 'src/config'
+import Language from 'src/constants/language'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const { statusRequest } = Language
@@ -9,37 +9,27 @@ export interface StatusResponse {
 	environment_status: {
 		hederaAccountId: boolean
 		hederaPrivateKey: boolean
-		authenticationKey: boolean
+		hmacAuthKey: boolean
 	}
 	meta: { hint: string }
 }
 
-/**
- * @swagger
- * /api/status:
- *   get:
- *     description: Returns the status of the application
- *     responses:
- *       200:
- *         description: Status of the application is operational
- */
 function ConnectionStatusHandler(
 	_req: NextApiRequest,
 	res: NextApiResponse<StatusResponse | 'ok'>
 ) {
 	res.statusCode = 200
 
-	if (!!Config.hideStatus) {
+	if (config.hideStatus) {
 		return res.send('ok')
 	}
 
 	return res.json({
 		message: statusRequest.message,
 		environment_status: {
-			hederaAccountId: !!Config.accountId,
-			hederaPrivateKey: !!Config.privateKey,
-			authenticationKey:
-				!!Config.authenticationKey && Config.authenticationKeyValid(),
+			hederaAccountId: !!config.accountId,
+			hederaPrivateKey: !!config.privateKey,
+			hmacAuthKey: !!config.hmacAuthKey && config.hmacAuthKeyValid(),
 		},
 		meta: {
 			hint: statusRequest.meta_hint,
