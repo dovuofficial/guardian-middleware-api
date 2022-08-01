@@ -1,18 +1,14 @@
-import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
-import { HashgraphMiddlewareRequest } from 'src/context/useHashgraphContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import language from 'src/constants/language'
 import validateCredentials from 'src/validators/validateCredentials'
 import { components } from 'src/spec/openapi'
 import { CreateAccountDto } from 'src/guardian/account'
+import { CombinedContextRequest } from 'src/context/useCombinedContext'
 
 type Credentials = components['schemas']['Credentials']
 
-type CustomContextRequest = GuardianMiddlewareRequest &
-	HashgraphMiddlewareRequest
-
-interface CreateAccountRequest extends CustomContextRequest {
+interface CreateAccountRequest extends CombinedContextRequest {
 	body: Credentials
 }
 
