@@ -6,7 +6,7 @@ function generateHmac(payloadAsString: string): string {
 		throw Error('Your payload object must be converted in to a string')
 	}
 
-	return Crypto.createHmac('sha256', config.authenticationKey)
+	return Crypto.createHmac('sha256', config.hmacAuthKey)
 		.update(payloadAsString)
 		.digest('base64')
 }

@@ -3,7 +3,7 @@ import Config from 'src/config'
 const {
 	HEDERA_OPERATOR_ACCOUNT_ID,
 	HEDERA_OPERATOR_PRIVATE_KEY,
-	API_SECRET_KEY,
+	HMAC_SECRET_KEY,
 } = process.env
 
 test('Make sure that the config returns the account id', () => {
@@ -15,5 +15,5 @@ test('Make sure that the config returns the private key', () => {
 })
 
 test('Make sure that the config returns the api secret key', () => {
-	expect(Config.authenticationKey).toBe(API_SECRET_KEY)
+	expect(Config.hmacAuthKey).toBe(HMAC_SECRET_KEY)
 })

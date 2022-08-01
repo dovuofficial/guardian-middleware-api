@@ -1,4 +1,4 @@
-import authToken from './validateAuthenticationKey'
+import authToken from './validateHmacAuthKey'
 import credentials from './validateCredentials'
 import ecologicalProject from './validateEcologicalProjectApplication'
 

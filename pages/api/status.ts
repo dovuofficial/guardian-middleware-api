@@ -9,7 +9,7 @@ export interface StatusResponse {
 	environment_status: {
 		hederaAccountId: boolean
 		hederaPrivateKey: boolean
-		authenticationKey: boolean
+		hmacAuthKey: boolean
 	}
 	meta: { hint: string }
 }
@@ -29,8 +29,7 @@ function ConnectionStatusHandler(
 		environment_status: {
 			hederaAccountId: !!config.accountId,
 			hederaPrivateKey: !!config.privateKey,
-			authenticationKey:
-				!!config.authenticationKey && config.authenticationKeyValid(),
+			hmacAuthKey: !!config.hmacAuthKey && config.hmacAuthKeyValid(),
 		},
 		meta: {
 			hint: statusRequest.meta_hint,

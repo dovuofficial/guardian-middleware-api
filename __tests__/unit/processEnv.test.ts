@@ -4,7 +4,7 @@ const {
 	HEDERA_NETWORK,
 	HEDERA_OPERATOR_ACCOUNT_ID,
 	HEDERA_OPERATOR_PRIVATE_KEY,
-	API_SECRET_KEY,
+	HMAC_SECRET_KEY,
 } = process.env
 
 test('Make sure that hedera account id exists', () => {
@@ -34,7 +34,7 @@ test('Make sure that hedera private keys exists', () => {
 })
 
 test('Make sure that a secret Auth key exists', () => {
-	expect(API_SECRET_KEY.length)
+	expect(HMAC_SECRET_KEY.length)
 })
 
 export {}

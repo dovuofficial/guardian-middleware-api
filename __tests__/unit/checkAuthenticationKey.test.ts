@@ -2,7 +2,7 @@ import Config from 'src/config'
 import Validation from 'src/validators'
 
 test('Ensure that the authentication key is valid', () => {
-	const isValidKey = Validation.authToken(Config.authenticationKey)
+	const isValidKey = Validation.authToken(Config.hmacAuthKey)
 
 	expect(isValidKey).toBe(true)
 })
@@ -14,5 +14,5 @@ test('Ensure that a bad authentication key is invalid', () => {
 })
 
 test('Ensure that a authentication key is at least 10 characters long', () => {
-	expect(Config.authenticationKeyValid()).toBe(true)
+	expect(Config.hmacAuthKeyValid()).toBe(true)
 })
