@@ -4,9 +4,9 @@ name: Node.js CI
 
 on:
     push:
-        branches: [master]
+        branches: [main]
     pull_request:
-        branches: [master]
+        branches: [main]
     schedule:
         - cron: '0 9 * * *'
 
@@ -17,21 +17,22 @@ jobs:
             HEDERA_NETWORK: ${{ secrets.HEDERA_NETWORK }}
             HEDERA_OPERATOR_ACCOUNT_ID: ${{ secrets.HEDERA_OPERATOR_ACCOUNT_ID }}
             HEDERA_OPERATOR_PRIVATE_KEY: ${{ secrets.HEDERA_OPERATOR_PRIVATE_KEY }}
+            GUARDIAN_API_URL: ${{ secrets.GUARDIAN_API_URL }}
             HMAC_SECRET_KEY: ${{ secrets.HMAC_SECRET_KEY }}
+            ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
             API_URL: ${{ secrets.API_URL }}
             HIDE_STATUS: ${{ secrets.HIDE_STATUS }}
-        strategy:
-            matrix:
-                node-version: [12.x, 14.x, 16.x]
+            TEST_AUTH_URL: ${{ secrets.TEST_AUTH_URL }}
 
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
+            - name: Use Node.js 16.x
               uses: actions/setup-node@v1
               with:
-                  node-version: ${{ matrix.node-version }}
+                  node-version: 16.x
             - run: yarn install --frozen-lockfile
             - run: yarn run build
             - run: yarn lint
             - run: yarn format
+            - run: yarn types
             - run: yarn test
