@@ -385,6 +385,26 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Test Auth",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/testAuth",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"testAuth"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -404,13 +424,33 @@
 				"type": "text/javascript",
 				"exec": [
 					"// Generate the HMAC request header for all requests",
-					"var requestBody = JSON.parse(pm.request.body)",
-					"var requestBodyString = JSON.stringify(requestBody)",
+					"var method = pm.request.method.toUpperCase()",
+					"var url = `/api${pm.request.url.getPath()}`",
+					"var date = new Date().toUTCString()",
+					"var host = pm.collectionVariables.get(\"host\");",
+					"",
+					"",
+					"var stringToSign = `${method}\\n${url}\\n${date};${host}`",
+					"",
+					"var requestBody = pm.request.body",
+					"console.log(requestBody)",
+					"if (Object.entries(requestBody).length > 0) {",
+					"    var bodyObject = JSON.parse(requestBody)",
+					"    var bodyString = JSON.stringify(bodyObject)",
+					"    var contentHash = CryptoJS.SHA256(bodyString).toString(CryptoJS.enc.Base64);",
+					"    stringToSign = `${method}\\n${url}\\n${date};${host};${contentHash}`",
+					"    pm.request.headers.add({key: 'x-content-sha256', value: contentHash})",
+					"}",
+					"",
+					"console.log(stringToSign)",
+					"",
 					"var secret = pm.collectionVariables.get(\"apiSecretKey\");",
-					"var bytes = CryptoJS.HmacSHA256(requestBodyString, secret);",
-					"var hash = bytes.toString(CryptoJS.enc.Hex);",
+					"var bytes = CryptoJS.HmacSHA256(stringToSign, secret);",
+					"var hash = bytes.toString(CryptoJS.enc.Base64);",
+					"",
+					"pm.request.headers.add({key: 'x-date', value: date})",
 					"pm.request.headers.add({key: 'x-signature', value: hash})",
-					""
+					" "
 				]
 			}
 		},
@@ -427,12 +467,17 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:3001/api/",
+			"value": "http://{{host}}/api/",
 			"type": "string"
 		},
 		{
 			"key": "apiSecretKey",
 			"value": "1234567890",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "localhost:3001",
 			"type": "string"
 		}
 	]
