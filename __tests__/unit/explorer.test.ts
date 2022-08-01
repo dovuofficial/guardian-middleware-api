@@ -3,34 +3,44 @@ import Config from 'src/config'
 
 const placeholderTx = 'test'
 
-test('Ensure that a default testnet explorer url returns', () => {
-	Config.network = undefined
+describe('Explorer', () => {
+	afterAll(() => {
+		Config.network = process.env.HEDERA_NETWORK
+	})
 
-	const url = Explorer.getExplorerUrl(placeholderTx)
+	it('Ensure that a default testnet explorer url returns', () => {
+		Config.network = undefined
 
-	expect(url).toBe(`https://ledger-testnet.hashlog.io/tx/${placeholderTx}`)
-})
+		const url = Explorer.getExplorerUrl(placeholderTx)
 
-test('Ensure that a testnet explorer url returns', () => {
-	Config.network = 'testnet'
+		expect(url).toBe(
+			`https://ledger-testnet.hashlog.io/tx/${placeholderTx}`
+		)
+	})
 
-	const url = Explorer.getExplorerUrl(placeholderTx)
+	it('Ensure that a testnet explorer url returns', () => {
+		Config.network = 'testnet'
 
-	expect(url).toBe(`https://ledger-testnet.hashlog.io/tx/${placeholderTx}`)
-})
+		const url = Explorer.getExplorerUrl(placeholderTx)
 
-test('Ensure that a mainnet explorer url returns', () => {
-	Config.network = 'mainnet'
+		expect(url).toBe(
+			`https://ledger-testnet.hashlog.io/tx/${placeholderTx}`
+		)
+	})
 
-	const url = Explorer.getExplorerUrl(placeholderTx)
+	it('Ensure that a mainnet explorer url returns', () => {
+		Config.network = 'mainnet'
 
-	expect(url).toBe(`https://ledger.hashlog.io/tx/${placeholderTx}`)
-})
+		const url = Explorer.getExplorerUrl(placeholderTx)
 
-test('Ensure that a previewnet explorer url returns nothing', () => {
-	Config.network = 'previewnet'
+		expect(url).toBe(`https://ledger.hashlog.io/tx/${placeholderTx}`)
+	})
 
-	const url = Explorer.getExplorerUrl(placeholderTx)
+	it('Ensure that a previewnet explorer url returns nothing', () => {
+		Config.network = 'previewnet'
 
-	expect(!url)
+		const url = Explorer.getExplorerUrl(placeholderTx)
+
+		expect(!url)
+	})
 })

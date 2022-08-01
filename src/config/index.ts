@@ -3,6 +3,7 @@ export interface Config {
 	network: string
 	accountId: string
 	privateKey: string
+	hmacEnabled: boolean
 	hmacAuthKey: string
 	encryptionKey: string
 	apiUrl: string
@@ -15,6 +16,7 @@ const {
 	HEDERA_NETWORK = 'testnet',
 	HEDERA_OPERATOR_ACCOUNT_ID,
 	HEDERA_OPERATOR_PRIVATE_KEY,
+	HMAC_ENABLED = 'true',
 	HMAC_SECRET_KEY,
 	API_URL,
 	HIDE_STATUS,
@@ -27,15 +29,19 @@ const AUTH_KEY_MIN_LENGTH = 10
 const hmacAuthKeyValid = (): boolean =>
 	Boolean(HMAC_SECRET_KEY && HMAC_SECRET_KEY.length >= AUTH_KEY_MIN_LENGTH)
 
+const booleanValue = (value: string): boolean =>
+	Boolean(value && value.toLowerCase() === 'true')
+
 export default {
 	hmacAuthKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
 	accountId: HEDERA_OPERATOR_ACCOUNT_ID,
 	privateKey: HEDERA_OPERATOR_PRIVATE_KEY,
+	hmacEnabled: booleanValue(HMAC_ENABLED),
 	hmacAuthKey: HMAC_SECRET_KEY,
 	encryptionKey: ENCRYPTION_KEY,
 	apiUrl: API_URL,
-	hideStatus: HIDE_STATUS,
+	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
 	guardianApiUrl: GUARDIAN_API_URL,
 }
