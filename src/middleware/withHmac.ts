@@ -7,9 +7,11 @@ import Crypto from 'crypto'
  * We follow Microsoft's implementation of HMAC for securing the API.
  * https://docs.microsoft.com/en-us/azure/azure-app-configuration/rest-api-authentication-hmac
  *
+ * Please see the README for more details.
+ *
  * The HMAC hash is sent in the 'x-signature' property in the header
  * 'x-date' is sent in the header as an ISO 8601 UTC date string
- * 'x-content-sha256' is sent in the header as a base64 encoded sha256 hash of the request body
+ * 'x-content-sha256' is sent in the header as a base64 encoded sha256 hash of the request body if applicable
  * 'x-signature' is sent in the header as a base64 encoded sha256 HMAC
  */
 
@@ -46,6 +48,13 @@ function withHmac(handler: NextApiHandler) {
 			return Response.unauthorised(
 				res,
 				'"x-date" header should be an ISO 8601 UTC date string'
+			)
+		}
+
+		if (body && !headerContentHash) {
+			return Response.unauthorised(
+				res,
+				'Missing "x-content-sha256" in header. This should be a base64 encoded sha256 hash of the request body'
 			)
 		}
 
