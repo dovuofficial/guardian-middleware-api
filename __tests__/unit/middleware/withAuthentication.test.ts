@@ -14,7 +14,7 @@ const mockedHandler = () => 'ok'
 const handlerWithMiddleware = withAuthentication(mockedHandler)
 const mockedApiResponse = MockedApiResponse.mock()
 
-test('Expect that a request with no api key fails', async () => {
+test('Expect that a request with no authorization header fails', async () => {
 	const mockedApiRequest = MockedApiRequest.mock()
 	const response = await handlerWithMiddleware(
 		mockedApiRequest,

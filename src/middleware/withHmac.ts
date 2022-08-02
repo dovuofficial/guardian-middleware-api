@@ -2,6 +2,7 @@ import Response from 'src/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import hmac from 'src/utils/hmac'
 import Crypto from 'crypto'
+import config from 'src/config'
 
 /**
  * We follow Microsoft's implementation of HMAC for securing the API.
@@ -17,6 +18,10 @@ import Crypto from 'crypto'
 
 function withHmac(handler: NextApiHandler) {
 	return (req: NextApiRequest, res: NextApiResponse) => {
+		if (!config.hmacEnabled) {
+			return handler(req, res)
+		}
+
 		const { method: verb, headers, body, url } = req
 
 		const {
