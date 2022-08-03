@@ -14,6 +14,7 @@ export interface AccountRegisterResponse {
 	role: string
 	id: string
 }
+
 const register = async (api: AxiosInstance, payload: CreateAccountDto) => {
 	const result = await api.post<AccountRegisterResponse>(
 		ENDPOINTS.register,
@@ -25,12 +26,14 @@ const register = async (api: AxiosInstance, payload: CreateAccountDto) => {
 
 	return result.data
 }
+
 export interface AccountLoginResponse {
 	username: string
 	did: string
 	role: string
 	accessToken: string
 }
+
 const login = async (api: AxiosInstance, payload: LoginCredentialsDto) => {
 	const result = await api.post<AccountLoginResponse>(
 		ENDPOINTS.login,
@@ -40,14 +43,24 @@ const login = async (api: AxiosInstance, payload: LoginCredentialsDto) => {
 	return result.data
 }
 
+export interface SessionResponse {
+	username: string
+	password: string
+	did: string | null
+	parent: string | null
+	role: string
+	id: string
+	hederaAccountId: string | null
+}
+
 const session = async (api: AxiosInstance, accessToken: string) => {
-	const result = await api.get(ENDPOINTS.session, {
+	const result = await api.get<SessionResponse>(ENDPOINTS.session, {
 		headers: {
-			Authorization: accessToken,
+			Authorization: `Bearer ${accessToken}`,
 		},
 	})
 
-	return result
+	return result.data
 }
 interface LoginCredentialsDto {
 	username: string
@@ -62,7 +75,7 @@ export interface CreateAccountDto {
 export interface Accounts {
 	register: (payload: CreateAccountDto) => Promise<AccountRegisterResponse>
 	login: (payload: LoginCredentialsDto) => Promise<AccountLoginResponse>
-	session: (token: string) => Promise<AxiosResponse<any>>
+	session: (token: string) => Promise<SessionResponse>
 }
 
 const account = (api: AxiosInstance): Accounts => ({
