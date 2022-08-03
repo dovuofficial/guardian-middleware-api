@@ -101,6 +101,19 @@
 					}
 				}
 			},
+			"UserDid": {
+				"type": "object",
+				"properties": {
+					"did": {
+						"type": "string"
+					}
+				},
+				"example": {
+					"data": {
+						"did": "did:hedera:testnet:Evkgr8TnmSHxNEWXoShEEcQmbyrMdQHN7oz6Y3ehXEDZ;hedera:testnet:tid=0.0.47741853"
+					}
+				}
+			},
 			"ErrorResponse": {
 				"type": "object",
 				"properties": {
@@ -411,6 +424,68 @@
 					},
 					"422": {
 						"$ref": "#/components/responses/422"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/approve/application/{did}": {
+			"put": {
+				"tags": ["policies"],
+				"summary": "Approves an application through a Standard Registry",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
 					}
 				}
 			}

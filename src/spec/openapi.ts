@@ -81,6 +81,31 @@ export interface paths {
 			}
 		}
 	}
+	'/policies/{policyId}/approve/application/{did}': {
+		put: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+			}
+		}
+	}
 }
 
 export interface components {
@@ -110,6 +135,16 @@ export interface components {
 			did?: string
 			role?: string
 			accessToken?: string
+		}
+		/**
+		 * @example {
+		 *   "data": {
+		 *     "did": "did:hedera:testnet:Evkgr8TnmSHxNEWXoShEEcQmbyrMdQHN7oz6Y3ehXEDZ;hedera:testnet:tid=0.0.47741853"
+		 *   }
+		 * }
+		 */
+		UserDid: {
+			did?: string
 		}
 		ErrorResponse: {
 			error?: {
