@@ -4,6 +4,7 @@ import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 import language from 'src/constants/language'
 import validateEcologicalProjectApplication from 'src/validators/validateEcologicalProjectApplication'
+import Config from 'src/config'
 
 type EcologicalProject = components['schemas']['EcologicalProject']
 interface RegisterProjectRequest extends GuardianMiddlewareRequest {
@@ -36,7 +37,7 @@ async function RegisterProjectHandler(
 		return
 	}
 
-	const tag = 'create_application'
+	const tag = Config.tags.initialApplicationSubmission
 
 	const data = {
 		document: body,
