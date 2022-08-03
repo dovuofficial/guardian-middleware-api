@@ -1,8 +1,9 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import guardian, { Guardian } from '../guardian'
-import engine, { Engine } from '../engine'
+import { AuthorisedNextApiRequest } from 'src/middleware/withAuthentication'
+import { NextApiHandler, NextApiResponse } from 'next'
+import guardian, { Guardian } from 'src/guardian'
+import engine, { Engine } from 'src/engine'
 
-export interface GuardianMiddlewareRequest extends NextApiRequest {
+export interface GuardianMiddlewareRequest extends AuthorisedNextApiRequest {
 	context: {
 		guardian: Guardian
 		engine: Engine
