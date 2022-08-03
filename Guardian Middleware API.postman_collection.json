@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "0598612f-fa9c-4549-b5f6-d0c89fe65f89",
+		"_postman_id": "dd20c292-9e3e-46eb-b3c7-41a2072b3cd4",
 		"name": "Guardian Middleware API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21575808"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -133,7 +132,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+							"raw": "{\n    \"username\": \"dovuauthority\",\n    \"password\": \"secret\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -221,6 +220,184 @@
 			"name": "policies",
 			"item": [
 				{
+					"name": "Approvals",
+					"item": [
+						{
+							"name": "Approves Application from Registrant user",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"approve",
+										"application",
+										":did"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "62e12fbd9176837ab69fbf56"
+										},
+										{
+											"key": "did",
+											"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "[Success] Approves Application from Registrant user",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"approve",
+												"application",
+												":did"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												},
+												{
+													"key": "did",
+													"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 03 Aug 2022 15:54:56 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "[NOT FOUND] Bad user DID",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"approve",
+												"application",
+												"111"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "ETag",
+											"value": "\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 03 Aug 2022 15:55:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Assigns account to policy with a role",
 					"request": {
 						"method": "POST",
@@ -238,7 +415,7 @@
 							"variable": [
 								{
 									"key": "policyId",
-									"value": "62d98142a8075c6027dfcf90"
+									"value": "62e12fbd9176837ab69fbf56"
 								}
 							]
 						}
@@ -289,7 +466,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -380,31 +557,11 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
 			]
-		},
-		{
-			"name": "Test Auth",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/testAuth",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"testAuth"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"auth": {
@@ -423,34 +580,7 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"// Generate the HMAC request header for all requests",
-					"var method = pm.request.method.toUpperCase()",
-					"var url = `/api${pm.request.url.getPath()}`",
-					"var date = new Date().toUTCString()",
-					"var host = pm.collectionVariables.get(\"host\");",
-					"",
-					"",
-					"var stringToSign = `${method}\\n${url}\\n${date};${host}`",
-					"",
-					"var requestBody = pm.request.body",
-					"console.log(requestBody)",
-					"if (Object.entries(requestBody).length > 0) {",
-					"    var bodyObject = JSON.parse(requestBody)",
-					"    var bodyString = JSON.stringify(bodyObject)",
-					"    var contentHash = CryptoJS.SHA256(bodyString).toString(CryptoJS.enc.Base64);",
-					"    stringToSign = `${method}\\n${url}\\n${date};${host};${contentHash}`",
-					"    pm.request.headers.add({key: 'x-content-sha256', value: contentHash})",
-					"}",
-					"",
-					"console.log(stringToSign)",
-					"",
-					"var secret = pm.collectionVariables.get(\"apiSecretKey\");",
-					"var bytes = CryptoJS.HmacSHA256(stringToSign, secret);",
-					"var hash = bytes.toString(CryptoJS.enc.Base64);",
-					"",
-					"pm.request.headers.add({key: 'x-date', value: date})",
-					"pm.request.headers.add({key: 'x-signature', value: hash})",
-					" "
+					""
 				]
 			}
 		},
@@ -467,17 +597,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://{{host}}/api/",
-			"type": "string"
-		},
-		{
-			"key": "apiSecretKey",
-			"value": "1234567890",
-			"type": "string"
-		},
-		{
-			"key": "host",
-			"value": "localhost:3001",
+			"value": "http://localhost:3001/api/",
 			"type": "string"
 		}
 	]
