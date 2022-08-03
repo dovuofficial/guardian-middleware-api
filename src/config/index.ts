@@ -1,3 +1,6 @@
+import Tags from './tags'
+import Roles from './roles'
+
 export interface Config {
 	hmacAuthKeyValid: () => boolean
 	network: string
@@ -44,4 +47,6 @@ export default {
 	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
 	guardianApiUrl: GUARDIAN_API_URL,
+	tags: Tags,
+	roles: Roles,
 }
