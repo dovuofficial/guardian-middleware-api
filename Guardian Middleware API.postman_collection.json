@@ -580,7 +580,7 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"// Generate the HMAC request header for all requests"
 				]
 			}
 		},
