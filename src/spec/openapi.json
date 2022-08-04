@@ -146,7 +146,7 @@
 					}
 				}
 			},
-			"EcologicalProject": {
+			"ProjectRegistration": {
 				"type": "object",
 				"properties": {
 					"field0": {
@@ -363,12 +363,12 @@
 		"/policies/{policyId}/register": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Registers a new ecological project application",
+				"summary": "Registers a new project application from DOVU",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/EcologicalProject"
+								"$ref": "#/components/schemas/ProjectRegistration"
 							}
 						}
 					}

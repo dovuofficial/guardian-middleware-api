@@ -3,12 +3,13 @@ import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 import language from 'src/constants/language'
-import validateEcologicalProjectApplication from 'src/validators/validateEcologicalProjectApplication'
+import validateProjectRegistrationApplication from 'src/validators/validateProjectRegistrationApplication'
 import Config from 'src/config'
 
-type EcologicalProject = components['schemas']['EcologicalProject']
+type ProjectRegistration = components['schemas']['ProjectRegistration']
+
 interface RegisterProjectRequest extends GuardianMiddlewareRequest {
-	body: EcologicalProject
+	body: ProjectRegistration
 }
 async function RegisterProjectHandler(
 	req: RegisterProjectRequest,
@@ -26,7 +27,7 @@ async function RegisterProjectHandler(
 		return
 	}
 
-	const validationErrors = validateEcologicalProjectApplication(body)
+	const validationErrors = validateProjectRegistrationApplication(body)
 
 	if (validationErrors) {
 		Response.unprocessibleEntity(

@@ -76,7 +76,7 @@ export interface paths {
 			}
 			requestBody: {
 				content: {
-					'application/json': components['schemas']['EcologicalProject']
+					'application/json': components['schemas']['ProjectRegistration']
 				}
 			}
 		}
@@ -170,7 +170,7 @@ export interface components {
 		 *   "field8": "Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet."
 		 * }
 		 */
-		EcologicalProject: {
+		ProjectRegistration: {
 			/** @description What is the name of your farm? */
 			field0?: string
 			/** @description Where is your farm located? */
