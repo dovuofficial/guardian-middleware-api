@@ -36,11 +36,16 @@ function badRequest(res: NextApiResponse<ErrorApiResponse>) {
 	return res.status(Status.BAD_REQUEST).send({})
 }
 
+function notFound(res: NextApiResponse<ErrorApiResponse>) {
+	return res.status(Status.NOT_FOUND).send({})
+}
+
 function json(res: NextApiResponse, data: Record<string, any>) {
 	res.json({ data })
 }
 
 const response = {
+	notFound,
 	methodNotAllowed,
 	unauthorised,
 	unprocessibleEntity,

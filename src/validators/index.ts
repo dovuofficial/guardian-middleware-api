@@ -1,8 +1,8 @@
 import credentials from './validateCredentials'
-import ecologicalProject from './validateEcologicalProjectApplication'
+import projectRegistration from './validateProjectRegistrationApplication'
 
 export default {
 	login: credentials,
 	createAccount: credentials,
-	ecologicalProject,
+	projectRegistration,
 }

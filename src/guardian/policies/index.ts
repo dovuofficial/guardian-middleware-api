@@ -1,11 +1,13 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 export interface BlockData {
+	data?: BlockData[] // Feels naughty 👹
 	id: string
 	uiMetaData: { title: string; description: string }
 	blocks?: Array<{ id: string }>
 	roles?: Array<string>
 	blockType: string
+	owner?: string
 	schema?: {
 		type: string
 		contextURL: string

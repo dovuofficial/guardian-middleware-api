@@ -1,4 +1,4 @@
-import validate from 'src/validators/validateEcologicalProjectApplication'
+import validate from 'src/validators/validateProjectRegistrationApplication'
 
 describe('Validate Ecological Project Application', () => {
 	it('should return an error if the payload is not complete', () => {

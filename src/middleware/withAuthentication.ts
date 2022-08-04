@@ -5,8 +5,12 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 const { noAccessToken, invalidAuthType } =
 	Language.middleware.withAuthenticationResponse
 
+export interface AuthorisedNextApiRequest extends NextApiRequest {
+	accessToken: string
+}
+
 function withAuthentication(handler: NextApiHandler) {
-	return (req: NextApiRequest, res: NextApiResponse) => {
+	return (req: AuthorisedNextApiRequest, res: NextApiResponse) => {
 		const { authorization } = req.headers
 
 		if (!authorization) {
@@ -18,9 +22,12 @@ function withAuthentication(handler: NextApiHandler) {
 		if (type?.toLowerCase() !== 'bearer') {
 			return Response.unauthorised(res, invalidAuthType(type))
 		}
+
 		if (!accessToken) {
 			return Response.unauthorised(res, noAccessToken)
 		}
+
+		req.accessToken = accessToken
 
 		return handler(req, res)
 	}
