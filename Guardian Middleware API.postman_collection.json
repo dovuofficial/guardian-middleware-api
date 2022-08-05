@@ -774,6 +774,91 @@
 					]
 				},
 				{
+					"name": "MRV",
+					"item": [
+						{
+							"name": "Agrecalc MRV Submission",
+							"item": [
+								{
+									"name": "Submits an agrecalc MRV document",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"field0\": \"uuid\",\n    \"field1\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field2\": \"A at mollitia corporis molestiae ut debitis.\",\n    \"field3\": \"owner\",\n    \"field4\": {\n        \"field0\": \"dovu.market\",\n        \"field1\": \"England\",\n        \"field2\": \"Micro\"\n    },\n    \"field5\": {\n        \"field0\": \"uuid\",\n        \"field1\": \"GeoJSON Location\",\n        \"field2\": \"Removal\",\n        \"field3\": \"N/A\",\n        \"field4\": \"N/A\",\n        \"field5\": \"N/A\",\n        \"field6\": 1,\n        \"field7\": \"N/A\",\n        \"field8\": \"Developer of project\",\n        \"field9\": \"Sponsor (optional)\",\n        \"field10\": \"Claim Tokens (number)\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/mrv/agrecalc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"mrv",
+												"agrecalc"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cool Farm Tool MRV Submission Copy",
+							"item": [
+								{
+									"name": "Submits a CFT document",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"field0\": \"uuid\",\n    \"field1\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field2\": \"A at mollitia corporis molestiae ut debitis.\",\n    \"field3\": \"owner\",\n    \"field4\": {\n        \"field0\": \"dovu.market\",\n        \"field1\": \"England\",\n        \"field2\": \"Micro\"\n    },\n    \"field5\": {\n        \"field0\": \"uuid\",\n        \"field1\": \"GeoJSON Location\",\n        \"field2\": \"Removal\",\n        \"field3\": \"N/A\",\n        \"field4\": \"N/A\",\n        \"field5\": \"N/A\",\n        \"field6\": 1,\n        \"field7\": \"N/A\",\n        \"field8\": \"Developer of project\",\n        \"field9\": \"Sponsor (optional)\",\n        \"field10\": \"Claim Tokens (number)\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/mrv/cool-farm-tool",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"mrv",
+												"cool-farm-tool"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Assigns account to policy with a role",
 					"request": {
 						"method": "POST",
