@@ -19,9 +19,14 @@ export interface Config {
 }
 
 export enum Role {
-	STANDARD_REGISTRY = 'STANDARD_REGISTRY',
+	STANDARD_REGISTRY = 'ADMINISTRATOR',
 	VERIFIER = 'VERIFIER',
-	REGISTRANT = 'USER',
+	REGISTRANT = 'REGISTRANT',
+}
+
+export enum MRV {
+	AGRECALC = 'agrecalc',
+	COOL_FARM_TOOL = 'cool-farm-tool',
 }
 
 const {
