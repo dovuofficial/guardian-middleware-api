@@ -34,7 +34,7 @@ async function ApproveApplicationHandler(
 
 	const submission = {
 		document,
-		tag: Config.tags.approveBtnOption,
+		tag: Config.tags.approveBtn,
 	}
 
 	await engine.executeBlockViaTag(
