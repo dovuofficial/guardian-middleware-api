@@ -111,6 +111,36 @@ export interface paths {
 			}
 		}
 	}
+	'/policies/{policyId}/mrv/{mrv_type}': {
+		post: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				422: components['responses']['422']
+			}
+			requestBody: {
+				content: {
+					'application/json': components['schemas']['MeasurementReportingVerification']
+				}
+			}
+		}
+	}
 	'/policies/{policyId}/approve/application/{did}': {
 		put: {
 			parameters: {
@@ -137,6 +167,31 @@ export interface paths {
 		}
 	}
 	'/policies/{policyId}/approve/project/{did}': {
+		put: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+			}
+		}
+	}
+	'/policies/{policyId}/approve/mrv/{did}': {
 		put: {
 			parameters: {
 				path: {
@@ -285,6 +340,7 @@ export interface components {
 			/** @description Do you use heavy machinery (tractors, combine, etc.) on the farm? If yes, please provide further details. */
 			field8?: string
 		}
+		MeasurementReportingVerification: { [key: string]: unknown }
 	}
 	responses: {
 		/** Bad request */
