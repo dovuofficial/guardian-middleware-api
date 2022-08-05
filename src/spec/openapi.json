@@ -815,7 +815,7 @@
 				}
 			}
 		},
-		"/policies/{policyId}/approve/mrv/{did}": {
+		"/policies/{policyId}/approve/mrv/{mrvType}": {
 			"put": {
 				"tags": ["approval"],
 				"summary": "Approves an MRV submission connected to a EP through a Verifier",
@@ -828,6 +828,15 @@
 						},
 						"required": true,
 						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "MrvType",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "agrecalc"
 					}
 				],
 				"responses": {
