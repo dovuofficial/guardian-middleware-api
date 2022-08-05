@@ -8,6 +8,9 @@ export interface BlockData {
 	roles?: Array<string>
 	blockType: string
 	owner?: string
+	option?: {
+		status: string
+	}
 	schema?: {
 		type: string
 		contextURL: string
