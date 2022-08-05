@@ -3,6 +3,9 @@ import { Role } from 'src/config'
 const language = {
 	middleware: {
 		ensureRole: {
+			policyRequired:
+				'A role can only be enforced when connected to a policy',
+			policyDoesNotExist: 'A policy cannot be found with that id',
 			[Role.STANDARD_REGISTRY]:
 				'Only a "STANDARD_REGISTRY" policy owner may approve an application',
 			[Role.VERIFIER]:
