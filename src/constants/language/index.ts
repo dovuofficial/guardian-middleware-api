@@ -5,6 +5,8 @@ const language = {
 		ensureRole: {
 			[Role.STANDARD_REGISTRY]:
 				'Only a "STANDARD_REGISTRY" policy owner may approve an application',
+			[Role.VERIFIER]:
+				'Only a user with the role "VERIFIER" make approve an MRV block',
 			[Role.REGISTRANT]:
 				'Only a user with the role "REGISTRANT" may submit this document',
 		},
