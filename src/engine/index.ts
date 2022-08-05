@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { BlockData } from 'src/guardian/policies'
-import guardian from '../guardian'
+import guardian from 'src/guardian'
+import Config from 'src/config'
+import { AccountLoginResponse, SessionResponse } from 'src/guardian/account'
 
 const executeRootBlock: ExecuteRootBlock = async (
 	accessToken,
@@ -39,6 +41,32 @@ const fetchBlockSubmissions: FetchBlockSubmissions = async (
 	)
 
 	return guardian.policies.blockById(accessToken, policyId, blockId)
+}
+
+const getCurrentUserDid = async (accessToken) => {
+	const session: SessionResponse = await guardian.account.session(accessToken)
+
+	return session.did
+}
+
+const retrievePreviousBlockContext: PreviousDocumentContext = async (
+	policyId,
+	did,
+	tag
+) => {
+	// 😅 Impersonate the Standard registry to get data from a given block
+	const account: AccountLoginResponse = await guardian.account.login({
+		username: Config.registryUsername,
+		password: Config.registryPassword,
+	})
+
+	const submissions = await engine.fetchBlockSubmissions(
+		account.accessToken,
+		policyId as string,
+		tag
+	)
+
+	return submissions.data.find((submission) => submission.owner === did)
 }
 
 const sendActionToBlock = async (
@@ -251,6 +279,8 @@ const informationBlock = (blockData: BlockData) => {
 	return true // stop processing
 }
 
+type FetchDid = (accessToken: string) => Promise<string>
+
 type ExecuteRootBlock = (
 	accessToken: string,
 	policyId: string,
@@ -276,11 +306,20 @@ type FetchBlockSubmissions = (
 	policyId: string,
 	tag: string
 ) => Promise<BlockData>
+
+type PreviousDocumentContext = (
+	policyId: string,
+	did: string,
+	tag: string
+) => Promise<BlockData>
+
 export interface Engine {
 	executeRootBlock: ExecuteRootBlock
 	executeBlock: ExecuteBlock
 	executeBlockViaTag: ExecuteBlockViaTag
 	fetchBlockSubmissions: FetchBlockSubmissions
+	retrievePreviousBlockContext: PreviousDocumentContext
+	getCurrentUserDid: FetchDid
 }
 
 // TODO: This should be more fluent with injecting policy id and modifying auth
@@ -292,6 +331,8 @@ const engine: Engine = {
 	executeBlock,
 	executeBlockViaTag,
 	fetchBlockSubmissions,
+	retrievePreviousBlockContext,
+	getCurrentUserDid,
 }
 
 export default engine
