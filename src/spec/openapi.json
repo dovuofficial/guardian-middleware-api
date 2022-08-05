@@ -146,6 +146,115 @@
 					}
 				}
 			},
+			"EcologicalProject": {
+				"type": "object",
+				"properties": {
+					"field0": {
+						"type": "string",
+						"description": "Unique Identifier of the project"
+					},
+					"field1": {
+						"type": "string",
+						"description": "Name of the project"
+					},
+					"field2": {
+						"type": "string",
+						"description": "Optional description of the project"
+					},
+					"field3": {
+						"type": "string",
+						"description": "Owners of the project, can be account_id, did, or something non-PII"
+					},
+					"field4": {
+						"type": "object",
+						"description": "Ecological Project Information",
+						"field0": {
+							"type": "string",
+							"description": "Link to Project Data: A verified link to more project data like marketing materials or a website"
+						},
+						"field1": {
+							"type": "string",
+							"description": "Country: The host country for the project"
+						},
+						"field2": {
+							"type": "string",
+							"description": "Project Scale: One from the list of - Micro, Small, Medium, or Large"
+						}
+					},
+					"field5": {
+						"type": "object",
+						"description": "Ecological Project Information",
+						"field0": {
+							"type": "string",
+							"description": "Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP."
+						},
+						"field1": {
+							"type": "string",
+							"description": "Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs)"
+						},
+						"field2": {
+							"type": "string",
+							"description": "Targeted Benefit Type"
+						},
+						"field3": {
+							"type": "string",
+							"description": "Carbon (Reduction/Removal + Natural/Technology)"
+						},
+						"field4": {
+							"type": "string",
+							"description": "Water"
+						},
+						"field5": {
+							"type": "string",
+							"description": "Nitrogen"
+						},
+						"field6": {
+							"type": "string",
+							"description": "Phosphorus"
+						},
+						"field7": {
+							"type": "string",
+							"description": "Sediment"
+						},
+						"field8": {
+							"type": "string",
+							"description": "Developer(s)"
+						},
+						"field9": {
+							"type": "string",
+							"description": "Sponsor(s)"
+						},
+						"field10": {
+							"type": "string",
+							"description": "Claim Tokens"
+						}
+					}
+				},
+				"example": {
+					"field0": "uuid",
+					"field1": "Illum commodi quidem dolorem voluptatibus.",
+					"field2": "A at mollitia corporis molestiae ut debitis.",
+					"field3": "owner",
+					"field4": {
+						"field0": "dovu.market",
+						"field1": "England",
+						"field2": "Micro"
+					},
+					"field5": {
+						"field0": "uuid",
+						"field1": "GeoJSON Location",
+						"field2": "Removal",
+						"field3": "N/A",
+						"field4": "N/A",
+						"field5": "N/A",
+						"field6": "N/A",
+						"field7": "N/A",
+						"field8": "Developer of project",
+						"field9": "Sponsor (optional)",
+						"field10": "Claim Tokens (number)"
+					}
+				}
+			},
 			"ProjectRegistration": {
 				"type": "object",
 				"properties": {
@@ -428,10 +537,143 @@
 				}
 			}
 		},
+		"/policies/{policyId}/project": {
+			"post": {
+				"tags": ["policies"],
+				"summary": "Registers a new Ecological Project from DOVU",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/EcologicalProject"
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					}
+				}
+			}
+		},
 		"/policies/{policyId}/approve/application/{did}": {
 			"put": {
 				"tags": ["policies"],
 				"summary": "Approves an application through a Standard Registry",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/approve/project/{did}": {
+			"put": {
+				"tags": ["policies"],
+				"summary": "Approves an Ecological Project through a Standard Registry",
 				"parameters": [
 					{
 						"name": "policyId",
