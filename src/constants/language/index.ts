@@ -1,9 +1,12 @@
+import { Role } from 'src/config'
+
 const language = {
-	// middleware language for requests
 	middleware: {
-		ensureStandardRegistryOwner: {
-			standardRegistry:
+		ensureRole: {
+			[Role.STANDARD_REGISTRY]:
 				'Only a "STANDARD_REGISTRY" policy owner may approve an application',
+			[Role.REGISTRANT]:
+				'Only a user with the role "REGISTRANT" may submit this document',
 		},
 		withAuthenticationResponse: {
 			noAccessToken:
