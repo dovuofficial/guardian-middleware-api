@@ -3,7 +3,7 @@ import { components } from 'src/spec/openapi'
 
 type EcologicalProject = components['schemas']['EcologicalProject']
 
-const schema = Joi.object({
+const schema = Joi.object<EcologicalProject>({
 	field0: Joi.string().required(),
 	field1: Joi.string().required(),
 	field2: Joi.string().required(),
