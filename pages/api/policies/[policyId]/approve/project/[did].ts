@@ -1,7 +1,7 @@
 import onlyPut from 'src/middleware/onlyPut'
 import prepare from 'src/utils/prepare'
 import useGuardianContext from 'src/context/useGuardianContext'
-import approveApplicationHandler from 'src/handler/policies/approveApplicationHandler'
+import approveEcologicalProjectHandler from 'src/handler/policies/approveEcologicalProjectHandler'
 import withAuthentication from 'src/middleware/withAuthentication'
 import withHmac from 'src/middleware/withHmac'
 import ensureRole from 'src/middleware/ensureRole'
@@ -13,4 +13,4 @@ export default prepare(
 	useGuardianContext,
 	withAuthentication,
 	ensureRole(Role.STANDARD_REGISTRY)
-)(approveApplicationHandler)
+)(approveEcologicalProjectHandler)

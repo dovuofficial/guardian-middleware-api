@@ -2,30 +2,25 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import Config from 'src/config'
 import { NextApiResponse } from 'next'
-import { components } from 'src/spec/openapi'
 
-type UserDid = components['schemas']['UserDid']
-
-interface ApproveApplicationRequest extends GuardianMiddlewareRequest {
-	body: UserDid
-}
-
-async function ApproveApplicationHandler(
-	req: ApproveApplicationRequest,
+async function ApproveEcologicalProjectHandler(
+	req: GuardianMiddlewareRequest,
 	res: NextApiResponse
 ) {
 	const { accessToken } = req
 	const { policyId, did } = req.query
 	const { engine } = req.context
 
-	const tag = Config.tags.approveApplicationBlocks
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
-		tag
+		Config.tags.approveEcologicalProject
 	)
+
 	const document = submissions.data.find(
-		(submission) => submission.owner === did
+		// TODO: Temporary, we need a way of returning an identifier.
+		(submission) =>
+			submission.owner === did && submission.option.status !== 'Approved'
 	)
 
 	if (!document) {
@@ -40,11 +35,11 @@ async function ApproveApplicationHandler(
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Config.tags.approveApplicationBtn,
+		Config.tags.approveEcologicalProjectBtn,
 		submission
 	)
 
 	res.end()
 }
 
-export default ApproveApplicationHandler
+export default ApproveEcologicalProjectHandler

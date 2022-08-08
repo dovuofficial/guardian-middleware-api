@@ -12,5 +12,14 @@ export default {
 	// Approve an application
 	approveApplicationBlocks: 'registrants_grid',
 	approveApplicationBtn: 'approve_registrant_btn',
-	approveBtnOption: 'Option_0',
+
+	// Submit document to make an ecological project
+	createEcologicalProject: 'create_farm_form',
+
+	// Approve an ecological project
+	approveEcologicalProject: 'approve_farms_grid',
+	approveEcologicalProjectBtn: 'approve_farm_button',
+
+	// Weirdness needed for all document approval
+	approveBtn: 'Option_0',
 }

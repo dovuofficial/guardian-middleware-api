@@ -13,6 +13,15 @@ export interface Config {
 	hideStatus: string
 	testAuthUrl: string
 	guardianApiUrl: string
+	registryUsername: string
+	registryPassword: string
+	roles: object
+}
+
+export enum Role {
+	STANDARD_REGISTRY = 'STANDARD_REGISTRY',
+	VERIFIER = 'VERIFIER',
+	REGISTRANT = 'USER',
 }
 
 const {
@@ -26,6 +35,8 @@ const {
 	TEST_AUTH_URL,
 	ENCRYPTION_KEY,
 	GUARDIAN_API_URL,
+	STANDARD_REGISTRY_USERNAME,
+	STANDARD_REGISTRY_PASSWORD,
 } = process.env
 
 const AUTH_KEY_MIN_LENGTH = 10
@@ -47,6 +58,8 @@ export default {
 	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
 	guardianApiUrl: GUARDIAN_API_URL,
+	registryUsername: STANDARD_REGISTRY_USERNAME,
+	registryPassword: STANDARD_REGISTRY_PASSWORD,
 	tags: Tags,
 	roles: Roles,
 }

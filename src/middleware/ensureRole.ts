@@ -2,15 +2,14 @@ import { NextApiHandler, NextApiResponse } from 'next'
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Language from 'src/constants/language'
 import Response from 'src/response'
-import Config from 'src/config'
+import { Role } from 'src/config'
 
-function ensureStandardRegistryOwner(handler: NextApiHandler) {
+const ensureRole = (role: Role) => (handler: NextApiHandler) => {
 	return async (req: GuardianMiddlewareRequest, res: NextApiResponse) => {
 		const { accessToken } = req
 		const { guardian } = req.context
 
-		const { ensureStandardRegistryOwner, withAuthenticationResponse } =
-			Language.middleware
+		const { ensureRole, withAuthenticationResponse } = Language.middleware
 
 		if (!accessToken) {
 			return Response.unprocessibleEntity(
@@ -21,15 +20,12 @@ function ensureStandardRegistryOwner(handler: NextApiHandler) {
 
 		const session = await guardian.account.session(accessToken)
 
-		if (session.role !== Config.roles.standardRegistry) {
-			return Response.unauthorised(
-				res,
-				ensureStandardRegistryOwner.standardRegistry
-			)
+		if (session.role !== role) {
+			return Response.unauthorised(res, ensureRole[role])
 		}
 
 		return handler(req, res)
 	}
 }
 
-export default ensureStandardRegistryOwner
+export default ensureRole
