@@ -5,62 +5,30 @@ import { MRV } from 'src/config'
 type MeasurementReportingVerification =
 	components['schemas']['MeasurementReportingVerification']
 
-const agrecalcSchema = Joi.object<MeasurementReportingVerification>({
-	field0: Joi.string().required(),
-	field1: Joi.string().required(),
-	field2: Joi.string().required(),
-	field3: Joi.string().required(),
-	field4: Joi.object()
-		.keys({
-			field0: Joi.string().required(),
-			field1: Joi.string().required(),
-			field2: Joi.string().required(),
-		})
-		.required(),
-	field5: Joi.object()
-		.keys({
-			field0: Joi.string().required(),
-			field1: Joi.string().required(),
-			field2: Joi.string().required(),
-			field3: Joi.string().required(),
-			field4: Joi.string().required(),
-			field5: Joi.string().required(),
-			field6: Joi.number().required(),
-			field7: Joi.string().required(),
-			field8: Joi.string().required(),
-			field9: Joi.string().required(),
-			field10: Joi.string().required(),
-		})
-		.required(),
-})
-
 const cftSchema = Joi.object<MeasurementReportingVerification>({
 	field0: Joi.string().required(),
-	field1: Joi.string().required(),
+	field1: Joi.number().required(),
 	field2: Joi.string().required(),
-	field3: Joi.string().required(),
-	field4: Joi.object()
-		.keys({
-			field0: Joi.string().required(),
-			field1: Joi.string().required(),
-			field2: Joi.string().required(),
-		})
-		.required(),
-	field5: Joi.object()
-		.keys({
-			field0: Joi.string().required(),
-			field1: Joi.string().required(),
-			field2: Joi.string().required(),
-			field3: Joi.string().required(),
-			field4: Joi.string().required(),
-			field5: Joi.string().required(),
-			field6: Joi.number().required(),
-			field7: Joi.string().required(),
-			field8: Joi.string().required(),
-			field9: Joi.string().required(),
-			field10: Joi.string().required(),
-		})
-		.required(),
+	field3: Joi.number().required(),
+	field4: Joi.number().required(),
+})
+
+const agrecalcSchema = Joi.object<MeasurementReportingVerification>({
+	field0: Joi.number().required(),
+	field1: Joi.number().required(),
+	field2: Joi.number().required(),
+	field3: Joi.number().required(),
+	field4: Joi.number().required(),
+	field5: Joi.number().required(),
+	field6: Joi.number().required(),
+	field7: Joi.number().required(),
+	field8: Joi.number().required(),
+	field9: Joi.number().required(),
+	field10: Joi.number().required(),
+	field11: Joi.number().required(),
+	field12: Joi.number().required(),
+	field13: Joi.number().required(),
+	field14: Joi.number().required(),
 })
 
 const getSchemaFromPath = (mrvType: string) => {
