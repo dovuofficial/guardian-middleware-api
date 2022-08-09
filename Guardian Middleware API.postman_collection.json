@@ -39,12 +39,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/accounts",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"accounts"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["accounts"]
 						}
 					},
 					"response": [
@@ -64,12 +60,8 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/accounts",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"accounts"
-									]
+									"host": ["{{baseUrl}}"],
+									"path": ["accounts"]
 								}
 							},
 							"status": "OK",
@@ -141,13 +133,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/accounts/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"accounts",
-								"login"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["accounts", "login"]
 						}
 					},
 					"response": [
@@ -167,13 +154,8 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/accounts/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"accounts",
-										"login"
-									]
+									"host": ["{{baseUrl}}"],
+									"path": ["accounts", "login"]
 								}
 							},
 							"status": "OK",
@@ -238,9 +220,7 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/policies/:policyId/approve/project/:did",
-									"host": [
-										"{{baseUrl}}"
-									],
+									"host": ["{{baseUrl}}"],
 									"path": [
 										"policies",
 										":policyId",
@@ -268,7 +248,174 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/approve/project/:did",
+											"host": ["{{baseUrl}}"],
+											"path": [
+												"policies",
+												":policyId",
+												"approve",
+												"project",
+												":did"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												},
+												{
+													"key": "did",
+													"value": "did:hedera:testnet:62UFMb8MaLAA8upp3b2yvyc1vRPXPLktj2BN7AbLzfZK;hedera:testnet:tid=0.0.47837269"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "[Success] Approves Application from Registrant user",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
+													"host": ["{{baseUrl}}"],
+													"path": [
+														"policies",
+														":policyId",
+														"approve",
+														"application",
+														":did"
+													],
+													"variable": [
+														{
+															"key": "policyId",
+															"value": "62e12fbd9176837ab69fbf56"
+														},
+														{
+															"key": "did",
+															"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "plain",
+											"header": [
+												{
+													"key": "Date",
+													"value": "Wed, 03 Aug 2022 15:54:56 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												}
+											],
+											"cookie": [],
+											"body": null
+										},
+										{
+											"name": "[NOT FOUND] Bad user DID",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
+													"host": ["{{baseUrl}}"],
+													"path": [
+														"policies",
+														":policyId",
+														"approve",
+														"application",
+														"111"
+													],
+													"variable": [
+														{
+															"key": "policyId",
+															"value": "62e12fbd9176837ab69fbf56"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "ETag",
+													"value": "\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												},
+												{
+													"key": "Vary",
+													"value": "Accept-Encoding"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 03 Aug 2022 15:55:21 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
+								},
+								{
+									"name": "Approves Application from Registrant user Copy",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -277,9 +424,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -339,9 +484,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -411,9 +554,7 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-									"host": [
-										"{{baseUrl}}"
-									],
+									"host": ["{{baseUrl}}"],
 									"path": [
 										"policies",
 										":policyId",
@@ -450,9 +591,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -512,9 +651,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -592,9 +729,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/project/",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -626,9 +761,7 @@
 												},
 												"url": {
 													"raw": "{{baseUrl}}/policies/:policyId/project/:did",
-													"host": [
-														"{{baseUrl}}"
-													],
+													"host": ["{{baseUrl}}"],
 													"path": [
 														"policies",
 														":policyId",
@@ -694,9 +827,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/register",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -727,9 +858,7 @@
 												},
 												"url": {
 													"raw": "{{baseUrl}}/policies/:policyId/register",
-													"host": [
-														"{{baseUrl}}"
-													],
+													"host": ["{{baseUrl}}"],
 													"path": [
 														"policies",
 														":policyId",
@@ -795,9 +924,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/mrv/agrecalc",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -835,9 +962,7 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/mrv/cool-farm-tool",
-											"host": [
-												"{{baseUrl}}"
-											],
+											"host": ["{{baseUrl}}"],
 											"path": [
 												"policies",
 												":policyId",
@@ -865,14 +990,8 @@
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/policies/:policyId/role",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"policies",
-								":policyId",
-								"role"
-							],
+							"host": ["{{baseUrl}}"],
+							"path": ["policies", ":policyId", "role"],
 							"variable": [
 								{
 									"key": "policyId",
@@ -889,14 +1008,8 @@
 								"header": [],
 								"url": {
 									"raw": "{{baseUrl}}/policies/:policyId/role",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"policies",
-										":policyId",
-										"role"
-									],
+									"host": ["{{baseUrl}}"],
+									"path": ["policies", ":policyId", "role"],
 									"variable": [
 										{
 											"key": "policyId",
@@ -949,18 +1062,14 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
-					""
-				]
+				"exec": [""]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
-					""
-				]
+				"exec": [""]
 			}
 		}
 	],
