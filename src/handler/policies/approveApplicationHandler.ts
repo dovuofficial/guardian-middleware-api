@@ -24,7 +24,8 @@ async function ApproveApplicationHandler(
 		policyId as string,
 		tag
 	)
-	const document = submissions.data.find(
+
+	const document = submissions.data?.find(
 		(submission) => submission.owner === did
 	)
 
