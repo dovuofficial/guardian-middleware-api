@@ -4,6 +4,7 @@ import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 import language from 'src/constants/language'
 import validateMrvDocumentSubmission from 'src/validators/validateMrvDocumentSubmission'
+import config from 'src/config'
 
 type MeasurementReportingVerification =
 	components['schemas']['MeasurementReportingVerification']
@@ -30,34 +31,31 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 		)
 	}
 
-	res.end()
+	const did = await engine.getCurrentUserDid(accessToken)
 
-	// TODO WIP 👇
-	// const did = await engine.getCurrentUserDid(accessToken)
-	//
-	// const previousDocument = await engine.retrievePreviousBlockContext(
-	// 	policyId as string,
-	// 	did as string,
-	// 	Config.tags.approveApplicationBlocks
-	// )
-	//
-	// if (!previousDocument) {
-	// 	return Response.notFound(res)
-	// }
-	//
-	// const data = {
-	// 	document: body,
-	// 	ref: previousDocument,
-	// }
-	//
-	// await engine.executeBlockViaTag(
-	// 	accessToken,
-	// 	policyId as string,
-	// 	Config.tags.createEcologicalProject,
-	// 	data
-	// )
-	//
-	// res.end()
+	const previousDocument = await engine.retrievePreviousBlockContext(
+		policyId as string,
+		did as string,
+		config.tags.approveApplicationBlocks
+	)
+
+	if (!previousDocument) {
+		return Response.notFound(res)
+	}
+
+	const data = {
+		document: body,
+		ref: previousDocument,
+	}
+
+	await engine.executeBlockViaTag(
+		accessToken,
+		policyId as string,
+		config.tags.createEcologicalProject,
+		data
+	)
+
+	res.end()
 }
 
 export default MrvSubmissionHandler
