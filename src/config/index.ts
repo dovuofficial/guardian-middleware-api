@@ -42,8 +42,6 @@ const {
 	GUARDIAN_API_URL,
 	STANDARD_REGISTRY_USERNAME,
 	STANDARD_REGISTRY_PASSWORD,
-	STANDARD_REGISTRY_USERNAME,
-	STANDARD_REGISTRY_PASSWORD,
 } = process.env
 
 const AUTH_KEY_MIN_LENGTH = 10
@@ -65,8 +63,6 @@ export default {
 	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
 	guardianApiUrl: GUARDIAN_API_URL,
-	registryUsername: STANDARD_REGISTRY_USERNAME,
-	registryPassword: STANDARD_REGISTRY_PASSWORD,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
 	tags: Tags,
