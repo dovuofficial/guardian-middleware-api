@@ -36,7 +36,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	const previousDocument = await engine.retrievePreviousBlockContext(
 		policyId as string,
 		did as string,
-		config.tags.approveApplicationBlocks
+		config.tags.createEcologicalProject
 	)
 
 	if (!previousDocument) {
@@ -51,7 +51,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		config.tags.createEcologicalProject,
+		config.tags.mrvSubmission,
 		data
 	)
 
