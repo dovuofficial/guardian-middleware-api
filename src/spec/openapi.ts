@@ -116,6 +116,7 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
+					mrv_type: string
 				}
 			}
 			responses: {
@@ -146,6 +147,7 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
+					MrvType: string
 				}
 			}
 			responses: {
@@ -191,11 +193,12 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/approve/mrv/{did}': {
+	'/policies/{policyId}/approve/mrv/{mrvType}': {
 		put: {
 			parameters: {
 				path: {
 					policyId: string
+					MrvType: string
 				}
 			}
 			responses: {
@@ -266,46 +269,6 @@ export interface components {
 				message?: string
 				errors?: string[]
 			}
-		}
-		/**
-		 * @example {
-		 *   "field0": "uuid",
-		 *   "field1": "Illum commodi quidem dolorem voluptatibus.",
-		 *   "field2": "A at mollitia corporis molestiae ut debitis.",
-		 *   "field3": "owner",
-		 *   "field4": {
-		 *     "field0": "dovu.market",
-		 *     "field1": "England",
-		 *     "field2": "Micro"
-		 *   },
-		 *   "field5": {
-		 *     "field0": "uuid",
-		 *     "field1": "GeoJSON Location",
-		 *     "field2": "Removal",
-		 *     "field3": "N/A",
-		 *     "field4": "N/A",
-		 *     "field5": "N/A",
-		 *     "field6": "N/A",
-		 *     "field7": "N/A",
-		 *     "field8": "Developer of project",
-		 *     "field9": "Sponsor (optional)",
-		 *     "field10": "Claim Tokens (number)"
-		 *   }
-		 * }
-		 */
-		EcologicalProject: {
-			/** @description Unique Identifier of the project */
-			field0?: string
-			/** @description Name of the project */
-			field1?: string
-			/** @description Optional description of the project */
-			field2?: string
-			/** @description Owners of the project, can be account_id, did, or something non-PII */
-			field3?: string
-			/** @description Ecological Project Information */
-			field4?: { [key: string]: unknown }
-			/** @description Ecological Project Information */
-			field5?: { [key: string]: unknown }
 		}
 		/**
 		 * @example {
