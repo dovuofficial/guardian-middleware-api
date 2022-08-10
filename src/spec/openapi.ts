@@ -147,7 +147,7 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
-					MrvType: string
+					did: string
 				}
 			}
 			responses: {
@@ -173,6 +173,7 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
+					did: string
 				}
 			}
 			responses: {
@@ -193,12 +194,12 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/approve/mrv/{mrvType}': {
+	'/policies/{policyId}/approve/mrv/{did}': {
 		put: {
 			parameters: {
 				path: {
 					policyId: string
-					MrvType: string
+					did: string
 				}
 			}
 			responses: {
