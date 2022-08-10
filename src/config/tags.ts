@@ -23,6 +23,10 @@ export default {
 	approveEcologicalProject: 'approve_farms_grid',
 	approveEcologicalProjectBtn: 'approve_farm_button',
 
+	// Approve an MRV request
+	approveMrvRequest: 'issue_requests_grid(evident)',
+	approveMrvRequestBtn: 'approve_issue_requests_btn',
+
 	// Weirdness needed for all document approval
 	approveBtn: 'Option_0',
 }

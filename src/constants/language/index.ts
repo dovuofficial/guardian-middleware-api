@@ -27,6 +27,9 @@ const language = {
 			notAllowed: (method: string) =>
 				`Method ${method} is not allowed on this route`,
 		},
+		ensureMrv: {
+			unknownMrv: 'No MRV found with that id',
+		},
 		validate: {
 			message: 'Validation errors',
 		},
