@@ -66,7 +66,7 @@ const retrievePreviousBlockContext: PreviousDocumentContext = async (
 		tag
 	)
 
-	return submissions.data.find((submission) => submission.owner === did)
+	return submissions.data?.find((submission) => submission.owner === did)
 }
 
 const sendActionToBlock = async (
