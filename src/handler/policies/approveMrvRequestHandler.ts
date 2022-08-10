@@ -1,24 +1,15 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
-import Config, { MRV } from 'src/config'
+import Config from 'src/config'
 import { NextApiResponse } from 'next'
-import language from 'src/constants/language'
 
 async function ApproveMrvRequestHandler(
 	req: GuardianMiddlewareRequest,
 	res: NextApiResponse
 ) {
 	const { accessToken } = req
-	const { policyId, did, mrvType } = req.query
+	const { policyId, did } = req.query
 	const { engine } = req.context
-
-	const mrv = (mrvType as string)?.toLowerCase()
-	if (mrv !== MRV.AGRECALC && mrv !== MRV.COOL_FARM_TOOL) {
-		return Response.unprocessibleEntity(
-			res,
-			language.middleware.ensureMrv.unknownMrv
-		)
-	}
 
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
