@@ -33,15 +33,30 @@ function unprocessibleEntity(
 }
 
 function badRequest(res: NextApiResponse<ErrorApiResponse>) {
-	return res.status(Status.BAD_REQUEST).send({})
+	return res.status(Status.BAD_REQUEST).end()
 }
 
 function notFound(res: NextApiResponse<ErrorApiResponse>) {
-	return res.status(Status.NOT_FOUND).send({})
+	return res.status(Status.NOT_FOUND).end()
 }
 
 function json(res: NextApiResponse, data: Record<string, any>) {
 	res.json({ data })
+}
+
+function serverError(res: NextApiResponse, error: any) {
+	// Filter out all Guardian errors
+	if (error.isAxiosError) {
+		return res.status(error.response?.status ?? 500).send(
+			error.response?.data ?? {
+				message: Language.middleware.guardian.serverError,
+			}
+		)
+	}
+
+	// TODO: Abstract error handling out to a its own middleware and attach a logger to it
+	// Let NextJS handle all other errors like normal
+	throw error
 }
 
 const response = {
@@ -51,6 +66,7 @@ const response = {
 	unprocessibleEntity,
 	badRequest,
 	json,
+	serverError,
 }
 
 export default response

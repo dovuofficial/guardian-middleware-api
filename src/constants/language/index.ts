@@ -33,6 +33,10 @@ const language = {
 		validate: {
 			message: 'Validation errors',
 		},
+		guardian: {
+			serverError:
+				'💥 Guardian API server error… your guess is as good as ours… 🤷‍♂️',
+		},
 	},
 
 	// Requests
