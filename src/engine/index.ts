@@ -20,6 +20,14 @@ const executeBlockViaTag: ExecuteBlockViaTag = async (
 	tag,
 	doc
 ) => {
+	console.log(
+		`Executing block for policy: ${policyId} with tag: ${tag} and doc: ${JSON.stringify(
+			doc,
+			null,
+			4
+		)}`
+	)
+
 	const blockId = await guardian.policies.blockByTag(
 		accessToken,
 		policyId,
@@ -102,7 +110,7 @@ const executeBlock: ExecuteBlock = async (
 		case 'interfaceStepBlock':
 			return interfaceStepBlock(accessToken, policyId, data, doc)
 		case 'policyRolesBlock':
-			return policyRolesBlock(accessToken, policyId, data)
+			return policyRolesBlock(accessToken, policyId, data, doc)
 		case 'requestVcDocumentBlock':
 			return requestVcDocument(accessToken, policyId, data, doc)
 		case 'interfaceActionBlock':
@@ -116,12 +124,17 @@ const executeBlock: ExecuteBlock = async (
 			// Guardian does not send some data for this blocks
 			if (data.roles) {
 				// policyRolesBlock
-				return policyRolesBlock(accessToken, policyId, {
-					id: blockId,
-					roles: data.roles,
-					uiMetaData: data.uiMetaData,
-					blockType: 'policyRolesBlock',
-				})
+				return policyRolesBlock(
+					accessToken,
+					policyId,
+					{
+						id: blockId,
+						roles: data.roles,
+						uiMetaData: data.uiMetaData,
+						blockType: 'policyRolesBlock',
+					},
+					doc
+				)
 			}
 			if (
 				Object.getOwnPropertyNames(data).length === 1 &&
@@ -172,13 +185,15 @@ const interfaceContainerBlock = async (
 const policyRolesBlock = async (
 	accessToken: string,
 	policyId: string,
-	blockData: BlockData
+	blockData: BlockData,
+	doc: Record<string, unknown>
 ) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 
 	if (!blockData.roles) {
+		// TODO: Throw error so client is aware something went wrong. This usually indicates the role has already been assigned.
 		return
 	}
 
@@ -186,22 +201,24 @@ const policyRolesBlock = async (
 		console.log(`[${ix}] - ${element}`)
 	})
 
-	while (true) {
-		// rl.question('Rol: ? ', async function (rol) {
-		// let ix = parseInt(rol);
-		const ix = 0
-		if (!isNaN(ix) && blockData.roles.length > ix && ix >= 0) {
-			const data = { role: blockData.roles[ix] }
-			await guardian.policies.sendToBlock(
-				accessToken,
-				policyId,
-				blockData.id,
-				data
-			)
-			return
-		}
-		// });
+	const selectedRole = blockData.roles.find(
+		(roleOption) =>
+			roleOption.toLowerCase() === (doc.role as string)?.toLowerCase()
+	)
+
+	if (!selectedRole) {
+		// TODO: Throw error so client is aware this role isn't available
+		return
 	}
+
+	const data = { role: selectedRole }
+
+	await guardian.policies.sendToBlock(
+		accessToken,
+		policyId,
+		blockData.id,
+		data
+	)
 }
 
 const interfaceStepBlock = async (

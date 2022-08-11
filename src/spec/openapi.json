@@ -511,10 +511,10 @@
 				}
 			}
 		},
-		"/policies/{policyId}/role": {
+		"/policies/{policyId}/role/{roleType}": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Assigns account to policy with a role",
+				"summary": "Assigns account to policy with a given role",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -524,6 +524,16 @@
 						},
 						"required": true,
 						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "roleType",
+						"in": "path",
+						"schema": {
+							"type": "string",
+							"enum": ["registrant", "verifier"]
+						},
+						"required": true,
+						"example": "registrant"
 					}
 				],
 				"responses": {

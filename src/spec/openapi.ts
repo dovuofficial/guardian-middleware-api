@@ -28,11 +28,12 @@ export interface paths {
 	'/accounts/login': {
 		post: operations['login']
 	}
-	'/policies/{policyId}/role': {
+	'/policies/{policyId}/role/{roleType}': {
 		post: {
 			parameters: {
 				path: {
 					policyId: string
+					roleType: 'registrant' | 'verifier'
 				}
 			}
 			responses: {
