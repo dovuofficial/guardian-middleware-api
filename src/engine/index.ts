@@ -20,14 +20,6 @@ const executeBlockViaTag: ExecuteBlockViaTag = async (
 	tag,
 	doc
 ) => {
-	console.log(
-		`Executing block for policy: ${policyId} with tag: ${tag} and doc: ${JSON.stringify(
-			doc,
-			null,
-			4
-		)}`
-	)
-
 	const blockId = await guardian.policies.blockByTag(
 		accessToken,
 		policyId,
@@ -83,10 +75,6 @@ const sendActionToBlock = async (
 	blockId: string,
 	doc: Record<string, unknown>
 ) => {
-	// console.log(doc)
-	console.log(blockId)
-
-	// tighten this.
 	await guardian.policies.sendToBlock(accessToken, policyId, blockId, doc)
 }
 
@@ -160,7 +148,6 @@ const interfaceContainerBlock = async (
 	const uiMeta = blockData.uiMetaData
 	console.log(`Title: ${uiMeta.title || 'MISSING TITLE'}`)
 
-	console.log('stuck')
 	console.log(blockData)
 
 	if (!blockData.blocks) {
@@ -278,8 +265,6 @@ const requestVcDocument = async (
 
 		doc.document[field.name].type = field.type.substring(1)
 	})
-
-	console.log('Sending document')
 
 	await guardian.policies.sendToBlock(
 		accessToken,
