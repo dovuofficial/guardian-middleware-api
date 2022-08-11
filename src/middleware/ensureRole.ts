@@ -16,27 +16,24 @@ const ensureRole =
 			Language.middleware
 
 		if (!policyId) {
-			return Response.unprocessibleEntity(
-				res,
-				ensureRoleMessage.policyRequired
-			)
+			return Response.unprocessibleEntity(res, [
+				ensureRoleMessage.policyRequired,
+			])
 		}
 
 		if (!accessToken) {
-			return Response.unprocessibleEntity(
-				res,
-				withAuthenticationResponse.noAccessToken
-			)
+			return Response.unprocessibleEntity(res, [
+				withAuthenticationResponse.noAccessToken,
+			])
 		}
 
 		const policies = await guardian.policies.list(accessToken)
 		const policy = policies.find((p) => p.id === policyId)
 
 		if (!policy) {
-			return Response.unprocessibleEntity(
-				res,
-				ensureRoleMessage.policyDoesNotExist
-			)
+			return Response.unprocessibleEntity(res, [
+				ensureRoleMessage.policyDoesNotExist,
+			])
 		}
 
 		// @ts-ignore TODO: Policy needs typing

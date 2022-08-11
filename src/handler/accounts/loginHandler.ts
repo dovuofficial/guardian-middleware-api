@@ -19,11 +19,7 @@ async function loginHandler(req: LoginRequest, res: NextApiResponse) {
 	const validationErrors = validateCredentials(userCredentials)
 
 	if (validationErrors) {
-		Response.unprocessibleEntity(
-			res,
-			language.middleware.validate.message,
-			validationErrors
-		)
+		Response.unprocessibleEntity(res, validationErrors)
 		return
 	}
 

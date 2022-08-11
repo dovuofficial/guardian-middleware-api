@@ -1,4 +1,5 @@
 import { Role } from 'src/config'
+import StatusCode from '../status'
 
 const language = {
 	middleware: {
@@ -37,6 +38,16 @@ const language = {
 			serverError:
 				'💥 Guardian API server error… your guess is as good as ours… 🤷‍♂️',
 		},
+	},
+
+	// Standard API error status code messages
+	errorCode: {
+		[StatusCode.BAD_REQUEST]: 'Bad Request',
+		[StatusCode.UNAUTHORIZED]: 'Unauthorized',
+		[StatusCode.NOT_FOUND]: 'Not Found',
+		[StatusCode.METHOD_NOT_ALLOWED]: 'Method Not Allowed',
+		[StatusCode.UNPROCESSIBLE_ENTITY]: 'Unprocessable Entity',
+		[StatusCode.INTERNAL_SERVER_ERROR]: 'Internal Server Error',
 	},
 
 	// Requests

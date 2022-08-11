@@ -1,6 +1,8 @@
 // @ts-nocheck
 import Response from 'src/response'
 import { testApiHandler } from 'next-test-api-route-handler'
+import StatusCode from 'src/constants/status'
+import language from 'src/constants/language'
 
 describe('Response', () => {
 	it('responds with method not allowed', async () => {
@@ -28,31 +30,31 @@ describe('Response', () => {
 			},
 		})
 	})
-	it('responds with unprocessible entity', async () => {
-		const errorMessage = "These inputs aren't valid"
+	it('responds with unprocessible entity with error messages', async () => {
 		const errors = ['Should be an integer', 'Should be a string']
 		await testApiHandler<{ errors: string | Array<string> }>({
-			handler: (_, res) =>
-				Response.unprocessibleEntity(res, errorMessage, errors),
+			handler: (_, res) => Response.unprocessibleEntity(res, errors),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(422)
 				const json = await res.json()
-				expect(json.error.message).toEqual(errorMessage)
+				expect(json.error.message).toEqual(
+					language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY]
+				)
 				expect(json.error.errors).toEqual(errors)
 			},
 		})
 	})
 	it('responds with unprocessible entity', async () => {
-		const errorMessage = "These inputs aren't valid"
 		await testApiHandler<{ errors: string | Array<string> }>({
-			handler: (_, res) =>
-				Response.unprocessibleEntity(res, errorMessage),
+			handler: (_, res) => Response.unprocessibleEntity(res),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(422)
 				const json = await res.json()
-				expect(json.error.message).toEqual(errorMessage)
+				expect(json.error.message).toEqual(
+					language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY]
+				)
 				expect(json.error.errors).toBeUndefined()
 			},
 		})
@@ -64,7 +66,9 @@ describe('Response', () => {
 				const res = await fetch()
 				expect(res.status).toBe(400)
 				const json = await res.json()
-				expect(json).toEqual({})
+				expect(json.error.message).toEqual(
+					language.errorCode[StatusCode.BAD_REQUEST]
+				)
 			},
 		})
 	})

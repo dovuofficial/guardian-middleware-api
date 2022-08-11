@@ -16,25 +16,13 @@ async function RegisterProjectHandler(
 	res: NextApiResponse
 ) {
 	const { policyId } = req.query
-	const { authorization } = req.headers
 	const { engine } = req.context
-	const { body } = req
-
-	const accessToken = authorization?.split(' ')[1]
-
-	if (!accessToken) {
-		Response.unauthorised(res, 'Missing access token')
-		return
-	}
+	const { body, accessToken } = req
 
 	const validationErrors = validateProjectRegistrationApplication(body)
 
 	if (validationErrors) {
-		Response.unprocessibleEntity(
-			res,
-			language.middleware.validate.message,
-			validationErrors
-		)
+		Response.unprocessibleEntity(res, validationErrors)
 		return
 	}
 

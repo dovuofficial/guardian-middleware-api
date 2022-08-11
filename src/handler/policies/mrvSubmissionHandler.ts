@@ -24,11 +24,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	)
 
 	if (validationErrors) {
-		return Response.unprocessibleEntity(
-			res,
-			language.middleware.validate.message,
-			validationErrors
-		)
+		return Response.unprocessibleEntity(res, validationErrors)
 	}
 
 	const did = await engine.getCurrentUserDid(accessToken)

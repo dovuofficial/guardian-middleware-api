@@ -13,7 +13,7 @@ function ensureEncryptionKey(handler: NextApiHandler) {
 			return handler(req, res)
 		}
 
-		return Response.unprocessibleEntity(res, noEncryptionKey)
+		return Response.unprocessibleEntity(res, [noEncryptionKey])
 	}
 }
 
