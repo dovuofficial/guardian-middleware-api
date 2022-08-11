@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "dd20c292-9e3e-46eb-b3c7-41a2072b3cd4",
+		"_postman_id": "99d890ee-704e-4cf5-8008-a8887b5d500f",
 		"name": "Guardian Middleware API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21575808"
 	},
 	"item": [
 		{
@@ -30,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+							"raw": "{\n    \"username\": \"registrant\",\n    \"password\": \"secret\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -39,8 +40,12 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/accounts",
-							"host": ["{{baseUrl}}"],
-							"path": ["accounts"]
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"accounts"
+							]
 						}
 					},
 					"response": [
@@ -51,7 +56,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+									"raw": "{\n    \"username\": \"registrant\",\n    \"password\": \"secret\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -60,8 +65,12 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/accounts",
-									"host": ["{{baseUrl}}"],
-									"path": ["accounts"]
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts"
+									]
 								}
 							},
 							"status": "OK",
@@ -124,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"justyn1\",\n    \"password\": \"secret\"\n}",
+							"raw": "{\n    \"username\": \"registrant\",\n    \"password\": \"secret\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -133,8 +142,13 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/accounts/login",
-							"host": ["{{baseUrl}}"],
-							"path": ["accounts", "login"]
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"accounts",
+								"login"
+							]
 						}
 					},
 					"response": [
@@ -145,7 +159,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"justyn\",\n    \"password\": \"secret\"\n}",
+									"raw": "{\n    \"username\": \"registrant\",\n    \"password\": \"secret\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -154,8 +168,13 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/accounts/login",
-									"host": ["{{baseUrl}}"],
-									"path": ["accounts", "login"]
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"accounts",
+										"login"
+									]
 								}
 							},
 							"status": "OK",
@@ -205,37 +224,30 @@
 					"name": "Approvals",
 					"item": [
 						{
-							"name": "Approves Ecological Project from Registrant user",
+							"name": "Approves Application from Registrant user Copy",
 							"request": {
 								"method": "PUT",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{baseUrl}}/policies/:policyId/approve/project/:did",
-									"host": ["{{baseUrl}}"],
+									"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
+									"host": [
+										"{{baseUrl}}"
+									],
 									"path": [
 										"policies",
 										":policyId",
 										"approve",
-										"project",
+										"application",
 										":did"
 									],
 									"variable": [
 										{
 											"key": "policyId",
-											"value": "62e12fbd9176837ab69fbf56"
+											"value": "62f27a007fe3fa7b888e8496"
 										},
 										{
 											"key": "did",
-											"value": "did:hedera:testnet:62UFMb8MaLAA8upp3b2yvyc1vRPXPLktj2BN7AbLzfZK;hedera:testnet:tid=0.0.47837269"
+											"value": "did:hedera:testnet:6BMZjsTNxt3kPWLLkG37wZpu8bEi63qxdbK6DyBAYova;hedera:testnet:tid=0.0.47878717"
 										}
 									]
 								}
@@ -246,185 +258,11 @@
 									"originalRequest": {
 										"method": "PUT",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/policies/:policyId/approve/project/:did",
-											"host": ["{{baseUrl}}"],
-											"path": [
-												"policies",
-												":policyId",
-												"approve",
-												"project",
-												":did"
-											],
-											"variable": [
-												{
-													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
-												},
-												{
-													"key": "did",
-													"value": "did:hedera:testnet:62UFMb8MaLAA8upp3b2yvyc1vRPXPLktj2BN7AbLzfZK;hedera:testnet:tid=0.0.47837269"
-												}
-											]
-										}
-									},
-									"response": [
-										{
-											"name": "[Success] Approves Application from Registrant user",
-											"originalRequest": {
-												"method": "PUT",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-													"host": ["{{baseUrl}}"],
-													"path": [
-														"policies",
-														":policyId",
-														"approve",
-														"application",
-														":did"
-													],
-													"variable": [
-														{
-															"key": "policyId",
-															"value": "62e12fbd9176837ab69fbf56"
-														},
-														{
-															"key": "did",
-															"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
-														}
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "plain",
-											"header": [
-												{
-													"key": "Date",
-													"value": "Wed, 03 Aug 2022 15:54:56 GMT"
-												},
-												{
-													"key": "Connection",
-													"value": "keep-alive"
-												},
-												{
-													"key": "Keep-Alive",
-													"value": "timeout=5"
-												},
-												{
-													"key": "Transfer-Encoding",
-													"value": "chunked"
-												}
-											],
-											"cookie": [],
-											"body": null
-										},
-										{
-											"name": "[NOT FOUND] Bad user DID",
-											"originalRequest": {
-												"method": "PUT",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
-													"host": ["{{baseUrl}}"],
-													"path": [
-														"policies",
-														":policyId",
-														"approve",
-														"application",
-														"111"
-													],
-													"variable": [
-														{
-															"key": "policyId",
-															"value": "62e12fbd9176837ab69fbf56"
-														}
-													]
-												}
-											},
-											"status": "Not Found",
-											"code": 404,
-											"_postman_previewlanguage": "json",
-											"header": [
-												{
-													"key": "ETag",
-													"value": "\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json; charset=utf-8"
-												},
-												{
-													"key": "Content-Length",
-													"value": "2"
-												},
-												{
-													"key": "Vary",
-													"value": "Accept-Encoding"
-												},
-												{
-													"key": "Date",
-													"value": "Wed, 03 Aug 2022 15:55:21 GMT"
-												},
-												{
-													"key": "Connection",
-													"value": "keep-alive"
-												},
-												{
-													"key": "Keep-Alive",
-													"value": "timeout=5"
-												}
-											],
-											"cookie": [],
-											"body": "{}"
-										}
-									]
-								},
-								{
-									"name": "Approves Application from Registrant user Copy",
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -435,11 +273,11 @@
 											"variable": [
 												{
 													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
+													"value": "62f2365b7fe3fa7b888e846d"
 												},
 												{
 													"key": "did",
-													"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+													"value": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041"
 												}
 											]
 										}
@@ -466,25 +304,18 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "[NOT FOUND] Bad user DID",
 									"originalRequest": {
 										"method": "PUT",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -539,59 +370,45 @@
 							]
 						},
 						{
-							"name": "Approves Application from Registrant user Copy",
+							"name": "Approves Ecological Project from Registrant user",
 							"request": {
 								"method": "PUT",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-									"host": ["{{baseUrl}}"],
+									"raw": "{{baseUrl}}/policies/:policyId/approve/project/:did",
+									"host": [
+										"{{baseUrl}}"
+									],
 									"path": [
 										"policies",
 										":policyId",
 										"approve",
-										"application",
+										"project",
 										":did"
 									],
 									"variable": [
 										{
 											"key": "policyId",
-											"value": "62e12fbd9176837ab69fbf56"
+											"value": "62f27a007fe3fa7b888e8496"
 										},
 										{
 											"key": "did",
-											"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+											"value": "did:hedera:testnet:6BMZjsTNxt3kPWLLkG37wZpu8bEi63qxdbK6DyBAYova;hedera:testnet:tid=0.0.47878717"
 										}
 									]
 								}
 							},
 							"response": [
 								{
-									"name": "[Success] Approves Application from Registrant user",
+									"name": "[Success] Approves Ecological Project from Registrant user",
 									"originalRequest": {
 										"method": "PUT",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -633,25 +450,164 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "[NOT FOUND] Bad user DID",
 									"originalRequest": {
 										"method": "PUT",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"field0\": \"Project Name\",\n    \"field1\": \"Project Location\",\n    \"field2\": 57779,\n    \"field3\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field4\": \"Porro qui error earum quia iure praesentium molestiae.\",\n    \"field5\": \"Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.\",\n    \"field6\": \"Quia maiores vel et reprehenderit eius fugiat quae nihil.\",\n    \"field7\": \"Aliquid et sint sint assumenda nostrum eum.\",\n    \"field8\": \"Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.\"   \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"approve",
+												"application",
+												"111"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "ETag",
+											"value": "\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 03 Aug 2022 15:55:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						},
+						{
+							"name": "Approves MRV from Registrant",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/approve/mrv/:did",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"approve",
+										"mrv",
+										":did"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "62f27a007fe3fa7b888e8496"
+										},
+										{
+											"key": "did",
+											"value": "did:hedera:testnet:6BMZjsTNxt3kPWLLkG37wZpu8bEi63qxdbK6DyBAYova;hedera:testnet:tid=0.0.47878717"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "[Success] Approves MRV from Registrant user",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/approve/application/:did",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"policies",
+												":policyId",
+												"approve",
+												"application",
+												":did"
+											],
+											"variable": [
+												{
+													"key": "policyId",
+													"value": "62e12fbd9176837ab69fbf56"
+												},
+												{
+													"key": "did",
+													"value": "did:hedera:testnet:8RbWPgFMcYSXdrdT5UNynCSUr35uGw6KitqAnSJQcshq;hedera:testnet:tid=0.0.47815574"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 03 Aug 2022 15:54:56 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "[NOT FOUND] Bad user DID",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/policies/:policyId/approve/application/111",
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -728,18 +684,19 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/policies/:policyId/project/",
-											"host": ["{{baseUrl}}"],
+											"raw": "{{baseUrl}}/policies/:policyId/project",
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
-												"project",
-												""
+												"project"
 											],
 											"variable": [
 												{
 													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
+													"value": "62f27a007fe3fa7b888e8496"
 												}
 											]
 										}
@@ -760,22 +717,19 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrl}}/policies/:policyId/project/:did",
-													"host": ["{{baseUrl}}"],
+													"raw": "{{baseUrl}}/policies/:policyId/project",
+													"host": [
+														"{{baseUrl}}"
+													],
 													"path": [
 														"policies",
 														":policyId",
-														"project",
-														":did"
+														"project"
 													],
 													"variable": [
 														{
 															"key": "policyId",
-															"value": "62e12fbd9176837ab69fbf56"
-														},
-														{
-															"key": "did",
-															"value": "did:hedera:testnet:62UFMb8MaLAA8upp3b2yvyc1vRPXPLktj2BN7AbLzfZK;hedera:testnet:tid=0.0.47837269"
+															"value": "62f27a007fe3fa7b888e8496"
 														}
 													]
 												}
@@ -786,7 +740,7 @@
 											"header": [
 												{
 													"key": "Date",
-													"value": "Fri, 05 Aug 2022 11:20:54 GMT"
+													"value": "Thu, 11 Aug 2022 16:40:18 GMT"
 												},
 												{
 													"key": "Connection",
@@ -827,7 +781,9 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/register",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -836,7 +792,7 @@
 											"variable": [
 												{
 													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
+													"value": "62f27a007fe3fa7b888e8496"
 												}
 											]
 										}
@@ -858,7 +814,9 @@
 												},
 												"url": {
 													"raw": "{{baseUrl}}/policies/:policyId/register",
-													"host": ["{{baseUrl}}"],
+													"host": [
+														"{{baseUrl}}"
+													],
 													"path": [
 														"policies",
 														":policyId",
@@ -915,7 +873,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"field0\": \"uuid\",\n    \"field1\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field2\": \"A at mollitia corporis molestiae ut debitis.\",\n    \"field3\": \"owner\",\n    \"field4\": {\n        \"field0\": \"dovu.market\",\n        \"field1\": \"England\",\n        \"field2\": \"Micro\"\n    },\n    \"field5\": {\n        \"field0\": \"uuid\",\n        \"field1\": \"GeoJSON Location\",\n        \"field2\": \"Removal\",\n        \"field3\": \"N/A\",\n        \"field4\": \"N/A\",\n        \"field5\": \"N/A\",\n        \"field6\": 1,\n        \"field7\": \"N/A\",\n        \"field8\": \"Developer of project\",\n        \"field9\": \"Sponsor (optional)\",\n        \"field10\": \"Claim Tokens (number)\"\n    }\n}",
+											"raw": "{\n    \"field0\": 100,\n    \"field1\": 200,\n    \"field2\": 300,\n    \"field3\": 400,\n    \"field4\": 500,\n    \"field5\": 600,\n    \"field6\": 700,\n    \"field7\": 800,\n    \"field8\": 900,\n    \"field9\": 1000,\n    \"field10\": 1100,\n    \"field11\": 1200,\n    \"field12\": 1300,\n    \"field13\": 1400,\n    \"field14\": 1500\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -924,7 +882,9 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/mrv/agrecalc",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -934,12 +894,70 @@
 											"variable": [
 												{
 													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
+													"value": "62f27a007fe3fa7b888e8496"
 												}
 											]
 										}
 									},
-									"response": []
+									"response": [
+										{
+											"name": "Submits an agrecalc MRV document",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"field0\": 100,\n    \"field1\": 200,\n    \"field2\": 300,\n    \"field3\": 400,\n    \"field4\": 500,\n    \"field5\": 600,\n    \"field6\": 700,\n    \"field7\": 800,\n    \"field8\": 900,\n    \"field9\": 1000,\n    \"field10\": 1100,\n    \"field11\": 1200,\n    \"field12\": 1300,\n    \"field13\": 1400,\n    \"field14\": 1500\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/policies/:policyId/mrv/agrecalc",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"policies",
+														":policyId",
+														"mrv",
+														"agrecalc"
+													],
+													"variable": [
+														{
+															"key": "policyId",
+															"value": "62f27a007fe3fa7b888e8496"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "plain",
+											"header": [
+												{
+													"key": "Date",
+													"value": "Thu, 11 Aug 2022 16:42:30 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												}
+											],
+											"cookie": [],
+											"body": null
+										}
+									]
 								}
 							]
 						},
@@ -953,7 +971,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"field0\": \"uuid\",\n    \"field1\": \"Illum commodi quidem dolorem voluptatibus.\",\n    \"field2\": \"A at mollitia corporis molestiae ut debitis.\",\n    \"field3\": \"owner\",\n    \"field4\": {\n        \"field0\": \"dovu.market\",\n        \"field1\": \"England\",\n        \"field2\": \"Micro\"\n    },\n    \"field5\": {\n        \"field0\": \"uuid\",\n        \"field1\": \"GeoJSON Location\",\n        \"field2\": \"Removal\",\n        \"field3\": \"N/A\",\n        \"field4\": \"N/A\",\n        \"field5\": \"N/A\",\n        \"field6\": 1,\n        \"field7\": \"N/A\",\n        \"field8\": \"Developer of project\",\n        \"field9\": \"Sponsor (optional)\",\n        \"field10\": \"Claim Tokens (number)\"\n    }\n}",
+											"raw": "{\n    \"field0\": \"Test MRV Field 1\",\n    \"field1\": 100,\n    \"field2\": \"Test MRV Field 3\",\n    \"field3\": 200,\n    \"field4\": 300\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -962,7 +980,9 @@
 										},
 										"url": {
 											"raw": "{{baseUrl}}/policies/:policyId/mrv/cool-farm-tool",
-											"host": ["{{baseUrl}}"],
+											"host": [
+												"{{baseUrl}}"
+											],
 											"path": [
 												"policies",
 												":policyId",
@@ -972,7 +992,7 @@
 											"variable": [
 												{
 													"key": "policyId",
-													"value": "62e12fbd9176837ab69fbf56"
+													"value": "62f27a007fe3fa7b888e8496"
 												}
 											]
 										}
@@ -989,13 +1009,24 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/policies/:policyId/role",
-							"host": ["{{baseUrl}}"],
-							"path": ["policies", ":policyId", "role"],
+							"raw": "{{baseUrl}}/policies/:policyId/role/:roleType",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policies",
+								":policyId",
+								"role",
+								":roleType"
+							],
 							"variable": [
 								{
 									"key": "policyId",
-									"value": "62e12fbd9176837ab69fbf56"
+									"value": "62f27a007fe3fa7b888e8496"
+								},
+								{
+									"key": "roleType",
+									"value": "registrant"
 								}
 							]
 						}
@@ -1007,13 +1038,24 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/policies/:policyId/role",
-									"host": ["{{baseUrl}}"],
-									"path": ["policies", ":policyId", "role"],
+									"raw": "{{baseUrl}}/policies/:policyId/role/:roleType",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"role",
+										":roleType"
+									],
 									"variable": [
 										{
 											"key": "policyId",
-											"value": "62d98142a8075c6027dfcf90"
+											"value": "62f27a007fe3fa7b888e8496"
+										},
+										{
+											"key": "roleType",
+											"value": "registrant"
 										}
 									]
 								}
@@ -1062,14 +1104,50 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"exec": [""]
+				"exec": [
+					"const Url = require('url');",
+					"",
+					"// Generate the HMAC request header for all requests",
+					"var method = pm.request.method.toUpperCase()",
+					"var url = `/api${pm.request.url.getPath()}`",
+					"var date = new Date().toUTCString()",
+					"var baseUrlString = pm.collectionVariables.get(\"baseUrl\");",
+					"var baseUrl = Url.parse(baseUrlString)",
+					"var host = baseUrl.host",
+					"",
+					"var stringToSign = `${method}\\n${url}\\n${date};${host}`",
+					"",
+					"var requestBody = pm.request.body",
+					"",
+					"console.log(requestBody)",
+					"",
+					"if (Object.entries(requestBody).length > 0) {",
+					"    var bodyObject = JSON.parse(requestBody)",
+					"    var bodyString = JSON.stringify(bodyObject)",
+					"    var contentHash = CryptoJS.SHA256(bodyString).toString(CryptoJS.enc.Base64);",
+					"    stringToSign = `${method}\\n${url}\\n${date};${host};${contentHash}`",
+					"    pm.request.headers.add({key: 'x-content-sha256', value: contentHash})",
+					"}",
+					"",
+					"console.log(stringToSign)",
+					"",
+					"var secret = pm.collectionVariables.get(\"hmacSecretKey\");",
+					"var bytes = CryptoJS.HmacSHA256(stringToSign, secret);",
+					"var hash = bytes.toString(CryptoJS.enc.Base64);",
+					"",
+					"pm.request.headers.add({key: 'x-date', value: date})",
+					"pm.request.headers.add({key: 'x-signature', value: hash})",
+					" "
+				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"exec": [""]
+				"exec": [
+					""
+				]
 			}
 		}
 	],
@@ -1078,6 +1156,17 @@
 			"key": "baseUrl",
 			"value": "http://localhost:3001/api/",
 			"type": "string"
+		},
+		{
+			"key": "hmacSecretKey",
+			"value": "1234567890",
+			"type": "string"
+		},
+		{
+			"key": "policyId",
+			"value": "62f27a007fe3fa7b888e8496",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
