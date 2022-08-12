@@ -1,7 +1,7 @@
 import onlyPost from 'src/middleware/onlyPost'
 import prepare from 'src/utils/prepare'
 import useGuardianContext from 'src/context/useGuardianContext'
-import registerProjectHandler from 'src/handler/policies/registerProjectHandler'
+import mrvSubmissionHandler from 'src/handler/policies/mrvSubmissionHandler'
 import withAuthentication from 'src/middleware/withAuthentication'
 import withHmac from 'src/middleware/withHmac'
 import ensureRole from 'src/middleware/ensureRole'
@@ -13,4 +13,4 @@ export default prepare(
 	useGuardianContext,
 	withAuthentication,
 	ensureRole(Role.REGISTRANT)
-)(registerProjectHandler)
+)(mrvSubmissionHandler)

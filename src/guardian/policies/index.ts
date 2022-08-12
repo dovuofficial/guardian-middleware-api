@@ -208,32 +208,17 @@ export interface Policies {
 }
 
 const policies = (api: AxiosInstance): Policies => ({
-	importFile: (token: string, payload: any) =>
-		importFile(api, token, payload),
-	publish: (
-		token: string,
-		policyId: string,
-		payload: Record<string, unknown>
-	) => publish(api, token, policyId, payload),
-	update: (
-		token: string,
-		policyId: string,
-		payload: Record<string, unknown>
-	) => update(api, token, policyId, payload),
-	list: (token: string) => list(api, token),
-	blocks: (token: string, policyId: string) => blocks(api, token, policyId),
-	blockByTag: (token: string, policyId: string, tag: string) =>
-		blockByTag(api, token, policyId, tag),
-	policyByName: (token: string, name: string) =>
-		policyByName(api, token, name),
-	blockById: (token: string, policyId: string, uuid: string) =>
-		blockById(api, token, policyId, uuid),
-	sendToBlock: (
-		token: string,
-		policyId: string,
-		uuid: string,
-		payload: Record<string, unknown>
-	) => sendToBlock(api, token, policyId, uuid, payload),
+	importFile: (token, payload) => importFile(api, token, payload),
+	publish: (token, policyId, payload) =>
+		publish(api, token, policyId, payload),
+	update: (token, policyId, payload) => update(api, token, policyId, payload),
+	list: (token) => list(api, token),
+	blocks: (token, policyId) => blocks(api, token, policyId),
+	blockByTag: (token, policyId, tag) => blockByTag(api, token, policyId, tag),
+	policyByName: (token, name) => policyByName(api, token, name),
+	blockById: (token, policyId, uuid) => blockById(api, token, policyId, uuid),
+	sendToBlock: (token, policyId, uuid, payload) =>
+		sendToBlock(api, token, policyId, uuid, payload),
 })
 
 export default policies

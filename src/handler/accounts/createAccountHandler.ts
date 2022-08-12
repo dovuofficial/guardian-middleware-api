@@ -15,7 +15,7 @@ interface CreateAccountRequest extends CombinedContextRequest {
 async function CreateAccountHandler(
 	req: CreateAccountRequest,
 	res: NextApiResponse
-) {
+): Promise<void> {
 	const { body: userCredentials } = req
 
 	const { guardian, hashgraphClient } = req.context
@@ -23,11 +23,7 @@ async function CreateAccountHandler(
 	const validationErrors = validateCredentials(userCredentials)
 
 	if (validationErrors) {
-		Response.unprocessibleEntity(
-			res,
-			language.middleware.validate.message,
-			validationErrors
-		)
+		Response.unprocessibleEntity(res, validationErrors)
 		return
 	}
 
@@ -37,27 +33,31 @@ async function CreateAccountHandler(
 		role: 'USER',
 	}
 
-	await guardian.account.register(userData)
+	try {
+		await guardian.account.register(userData)
 
-	const loginUser = await guardian.account.login(userCredentials)
+		const loginUser = await guardian.account.login(userCredentials)
 
-	const { accountId, privateKey } = await hashgraphClient.createAccount()
+		const { accountId, privateKey } = await hashgraphClient.createAccount()
 
-	const userProfile = {
-		hederaAccountId: accountId,
-		hederaAccountKey: privateKey,
+		const userProfile = {
+			hederaAccountId: accountId,
+			hederaAccountKey: privateKey,
+		}
+
+		await guardian.profile.save(
+			loginUser.accessToken,
+			userProfile,
+			userCredentials.username
+		)
+
+		// The DID is missing from the initial login call so we call again to saturate the DID before returning the response
+		const accountData = await guardian.account.login(userCredentials)
+
+		Response.json(res, accountData)
+	} catch (error) {
+		Response.serverError(res, error)
 	}
-
-	await guardian.profile.save(
-		loginUser.accessToken,
-		userProfile,
-		userCredentials.username
-	)
-
-	// The DID is missing from the initial login call so we call again to saturate the DID before returning the response
-	const accountData = await guardian.account.login(userCredentials)
-
-	Response.json(res, accountData)
 }
 
 export default CreateAccountHandler

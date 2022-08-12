@@ -16,9 +16,16 @@ export default {
 	// Submit document to make an ecological project
 	createEcologicalProject: 'create_farm_form',
 
+	// Submit an MRV for an ecological project as an issue request
+	mrvSubmission: 'create_issue_request_form',
+
 	// Approve an ecological project
 	approveEcologicalProject: 'approve_farms_grid',
 	approveEcologicalProjectBtn: 'approve_farm_button',
+
+	// Approve an MRV request
+	approveMrvRequest: 'issue_requests_grid(evident)',
+	approveMrvRequestBtn: 'approve_issue_requests_btn',
 
 	// Weirdness needed for all document approval
 	approveBtn: 'Option_0',

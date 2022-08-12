@@ -28,11 +28,12 @@ export interface paths {
 	'/accounts/login': {
 		post: operations['login']
 	}
-	'/policies/{policyId}/role': {
+	'/policies/{policyId}/role/{roleType}': {
 		post: {
 			parameters: {
 				path: {
 					policyId: string
+					roleType: 'registrant' | 'verifier'
 				}
 			}
 			responses: {
@@ -111,11 +112,43 @@ export interface paths {
 			}
 		}
 	}
+	'/policies/{policyId}/mrv/{mrv_type}': {
+		post: {
+			parameters: {
+				path: {
+					policyId: string
+					mrv_type: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				422: components['responses']['422']
+			}
+			requestBody: {
+				content: {
+					'application/json': components['schemas']['MeasurementReportingVerification']
+				}
+			}
+		}
+	}
 	'/policies/{policyId}/approve/application/{did}': {
 		put: {
 			parameters: {
 				path: {
 					policyId: string
+					did: string
 				}
 			}
 			responses: {
@@ -141,6 +174,33 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
+					did: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+			}
+		}
+	}
+	'/policies/{policyId}/approve/mrv/{did}': {
+		put: {
+			parameters: {
+				path: {
+					policyId: string
+					did: string
 				}
 			}
 			responses: {
@@ -248,9 +308,39 @@ export interface components {
 			/** @description Owners of the project, can be account_id, did, or something non-PII */
 			field3?: string
 			/** @description Ecological Project Information */
-			field4?: { [key: string]: unknown }
+			field4?: {
+				/** @description Link to Project Data: A verified link to more project data like marketing materials or a website */
+				field0?: string
+				/** @description Country: The host country for the project */
+				field1?: string
+				/** @description Project Scale: One from the list of - Micro, Small, Medium, or Large */
+				field2?: string
+			}
 			/** @description Ecological Project Information */
-			field5?: { [key: string]: unknown }
+			field5?: {
+				/** @description Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP. */
+				field0?: string
+				/** @description Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs) */
+				field1?: string
+				/** @description Targeted Benefit Type */
+				field2?: string
+				/** @description Carbon (Reduction/Removal + Natural/Technology) */
+				field3?: string
+				/** @description Water */
+				field4?: string
+				/** @description Nitrogen */
+				field5?: string
+				/** @description Phosphorus */
+				field6?: string
+				/** @description Sediment */
+				field7?: string
+				/** @description Developer(s) */
+				field8?: string
+				/** @description Sponsor(s) */
+				field9?: string
+				/** @description Claim Tokens */
+				field10?: string
+			}
 		}
 		/**
 		 * @example {
@@ -285,6 +375,31 @@ export interface components {
 			/** @description Do you use heavy machinery (tractors, combine, etc.) on the farm? If yes, please provide further details. */
 			field8?: string
 		}
+		MeasurementReportingVerification:
+			| {
+					field0: number
+					field1: number
+					field2: number
+					field3: number
+					field4: number
+					field5: number
+					field6: number
+					field7: number
+					field8: number
+					field9: number
+					field10: number
+					field11: number
+					field12: number
+					field13: number
+					field14: number
+			  }
+			| {
+					field0: string
+					field1: number
+					field2: string
+					field3: number
+					field4: number
+			  }
 	}
 	responses: {
 		/** Bad request */

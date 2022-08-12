@@ -23,7 +23,6 @@ const schema = Joi.object<EcologicalProject>({
 			field3: Joi.string().required(),
 			field4: Joi.string().required(),
 			field5: Joi.string().required(),
-			// field6: Joi.string().required(), // TODO: fix policy
 			field6: Joi.number().required(),
 			field7: Joi.string().required(),
 			field8: Joi.string().required(),

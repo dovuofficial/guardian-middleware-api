@@ -168,65 +168,69 @@
 					"field4": {
 						"type": "object",
 						"description": "Ecological Project Information",
-						"field0": {
-							"type": "string",
-							"description": "Link to Project Data: A verified link to more project data like marketing materials or a website"
-						},
-						"field1": {
-							"type": "string",
-							"description": "Country: The host country for the project"
-						},
-						"field2": {
-							"type": "string",
-							"description": "Project Scale: One from the list of - Micro, Small, Medium, or Large"
+						"properties": {
+							"field0": {
+								"type": "string",
+								"description": "Link to Project Data: A verified link to more project data like marketing materials or a website"
+							},
+							"field1": {
+								"type": "string",
+								"description": "Country: The host country for the project"
+							},
+							"field2": {
+								"type": "string",
+								"description": "Project Scale: One from the list of - Micro, Small, Medium, or Large"
+							}
 						}
 					},
 					"field5": {
 						"type": "object",
 						"description": "Ecological Project Information",
-						"field0": {
-							"type": "string",
-							"description": "Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP."
-						},
-						"field1": {
-							"type": "string",
-							"description": "Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs)"
-						},
-						"field2": {
-							"type": "string",
-							"description": "Targeted Benefit Type"
-						},
-						"field3": {
-							"type": "string",
-							"description": "Carbon (Reduction/Removal + Natural/Technology)"
-						},
-						"field4": {
-							"type": "string",
-							"description": "Water"
-						},
-						"field5": {
-							"type": "string",
-							"description": "Nitrogen"
-						},
-						"field6": {
-							"type": "string",
-							"description": "Phosphorus"
-						},
-						"field7": {
-							"type": "string",
-							"description": "Sediment"
-						},
-						"field8": {
-							"type": "string",
-							"description": "Developer(s)"
-						},
-						"field9": {
-							"type": "string",
-							"description": "Sponsor(s)"
-						},
-						"field10": {
-							"type": "string",
-							"description": "Claim Tokens"
+						"properties": {
+							"field0": {
+								"type": "string",
+								"description": "Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP."
+							},
+							"field1": {
+								"type": "string",
+								"description": "Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs)"
+							},
+							"field2": {
+								"type": "string",
+								"description": "Targeted Benefit Type"
+							},
+							"field3": {
+								"type": "string",
+								"description": "Carbon (Reduction/Removal + Natural/Technology)"
+							},
+							"field4": {
+								"type": "string",
+								"description": "Water"
+							},
+							"field5": {
+								"type": "string",
+								"description": "Nitrogen"
+							},
+							"field6": {
+								"type": "string",
+								"description": "Phosphorus"
+							},
+							"field7": {
+								"type": "string",
+								"description": "Sediment"
+							},
+							"field8": {
+								"type": "string",
+								"description": "Developer(s)"
+							},
+							"field9": {
+								"type": "string",
+								"description": "Sponsor(s)"
+							},
+							"field10": {
+								"type": "string",
+								"description": "Claim Tokens"
+							}
 						}
 					}
 				},
@@ -306,6 +310,103 @@
 					"field7": "Aliquid et sint sint assumenda nostrum eum.",
 					"field8": "Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet."
 				}
+			},
+			"MeasurementReportingVerification": {
+				"type": "object",
+				"oneOf": [
+					{
+						"properties": {
+							"field0": {
+								"type": "number"
+							},
+							"field1": {
+								"type": "number"
+							},
+							"field2": {
+								"type": "number"
+							},
+							"field3": {
+								"type": "number"
+							},
+							"field4": {
+								"type": "number"
+							},
+							"field5": {
+								"type": "number"
+							},
+							"field6": {
+								"type": "number"
+							},
+							"field7": {
+								"type": "number"
+							},
+							"field8": {
+								"type": "number"
+							},
+							"field9": {
+								"type": "number"
+							},
+							"field10": {
+								"type": "number"
+							},
+							"field11": {
+								"type": "number"
+							},
+							"field12": {
+								"type": "number"
+							},
+							"field13": {
+								"type": "number"
+							},
+							"field14": {
+								"type": "number"
+							}
+						},
+						"required": [
+							"field0",
+							"field1",
+							"field2",
+							"field3",
+							"field4",
+							"field5",
+							"field6",
+							"field7",
+							"field8",
+							"field9",
+							"field10",
+							"field11",
+							"field12",
+							"field13",
+							"field14"
+						]
+					},
+					{
+						"properties": {
+							"field0": {
+								"type": "string"
+							},
+							"field1": {
+								"type": "number"
+							},
+							"field2": {
+								"type": "string"
+							},
+							"field3": {
+								"type": "number"
+							},
+							"field4": {
+								"type": "number"
+							}
+						},
+						"required": [
+							"field0",
+							"field1",
+							"field2",
+							"field3",
+							"field4"
+						]
+					}
+				]
 			}
 		},
 		"securitySchemes": {
@@ -410,10 +511,10 @@
 				}
 			}
 		},
-		"/policies/{policyId}/role": {
+		"/policies/{policyId}/role/{roleType}": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Assigns account to policy with a role",
+				"summary": "Assigns account to policy with a given role",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -423,6 +524,16 @@
 						},
 						"required": true,
 						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "roleType",
+						"in": "path",
+						"schema": {
+							"type": "string",
+							"enum": ["registrant", "verifier"]
+						},
+						"required": true,
+						"example": "registrant"
 					}
 				],
 				"responses": {
@@ -608,9 +719,89 @@
 				}
 			}
 		},
+		"/policies/{policyId}/mrv/{mrv_type}": {
+			"post": {
+				"tags": ["policies"],
+				"summary": "Submits a new MRV document to a given EP",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MeasurementReportingVerification"
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "mrv_type",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "agrecalc"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					}
+				}
+			}
+		},
 		"/policies/{policyId}/approve/application/{did}": {
 			"put": {
-				"tags": ["policies"],
+				"tags": ["approval"],
 				"summary": "Approves an application through a Standard Registry",
 				"parameters": [
 					{
@@ -621,6 +812,15 @@
 						},
 						"required": true,
 						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "did",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "did:hedera:testnet:DNenc37ybL93AmGhEhNrujUvLGQ2cC93JcZgFXVt5iYE;hedera:testnet:tid=0.0.47859693"
 					}
 				],
 				"responses": {
@@ -672,7 +872,7 @@
 		},
 		"/policies/{policyId}/approve/project/{did}": {
 			"put": {
-				"tags": ["policies"],
+				"tags": ["approval"],
 				"summary": "Approves an Ecological Project through a Standard Registry",
 				"parameters": [
 					{
@@ -683,6 +883,86 @@
 						},
 						"required": true,
 						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "did",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "did:hedera:testnet:DNenc37ybL93AmGhEhNrujUvLGQ2cC93JcZgFXVt5iYE;hedera:testnet:tid=0.0.47859693"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/approve/mrv/{did}": {
+			"put": {
+				"tags": ["approval"],
+				"summary": "Approves an MRV submission connected to a EP through a Verifier",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "did",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "did:hedera:testnet:DNenc37ybL93AmGhEhNrujUvLGQ2cC93JcZgFXVt5iYE;hedera:testnet:tid=0.0.47859693"
 					}
 				],
 				"responses": {

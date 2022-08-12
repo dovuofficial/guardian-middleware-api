@@ -4,28 +4,48 @@ import Language from 'src/constants/language'
 import Response from 'src/response'
 import { Role } from 'src/config'
 
-const ensureRole = (role: Role) => (handler: NextApiHandler) => {
-	return async (req: GuardianMiddlewareRequest, res: NextApiResponse) => {
+const ensureRole =
+	(role: Role) =>
+	(handler: NextApiHandler) =>
+	async (req: GuardianMiddlewareRequest, res: NextApiResponse) => {
 		const { accessToken } = req
 		const { guardian } = req.context
+		const { policyId } = req.query
 
-		const { ensureRole, withAuthenticationResponse } = Language.middleware
+		const { ensureRole: ensureRoleMessage, withAuthenticationResponse } =
+			Language.middleware
+
+		if (!policyId) {
+			return Response.unprocessibleEntity(res, [
+				ensureRoleMessage.policyRequired,
+			])
+		}
 
 		if (!accessToken) {
-			return Response.unprocessibleEntity(
-				res,
-				withAuthenticationResponse.noAccessToken
-			)
+			return Response.unprocessibleEntity(res, [
+				withAuthenticationResponse.noAccessToken,
+			])
 		}
 
-		const session = await guardian.account.session(accessToken)
+		const policies = await guardian.policies.list(accessToken)
+		const policy = policies.find((p) => p.id === policyId)
 
-		if (session.role !== role) {
-			return Response.unauthorised(res, ensureRole[role])
+		if (!policy) {
+			return Response.unprocessibleEntity(res, [
+				ensureRoleMessage.policyDoesNotExist,
+			])
 		}
 
-		return handler(req, res)
+		// @ts-ignore TODO: Policy needs typing
+		const hasRoleInPolicy = !!policy.userRoles.find(
+			(userRole) => userRole.toLowerCase() === role.toLowerCase()
+		)
+
+		if (hasRoleInPolicy) {
+			return handler(req, res)
+		}
+
+		return Response.unauthorised(res, ensureRoleMessage[role])
 	}
-}
 
 export default ensureRole

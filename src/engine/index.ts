@@ -66,7 +66,7 @@ const retrievePreviousBlockContext: PreviousDocumentContext = async (
 		tag
 	)
 
-	return submissions.data.find((submission) => submission.owner === did)
+	return submissions.data?.find((submission) => submission.owner === did)
 }
 
 const sendActionToBlock = async (
@@ -75,10 +75,6 @@ const sendActionToBlock = async (
 	blockId: string,
 	doc: Record<string, unknown>
 ) => {
-	// console.log(doc)
-	console.log(blockId)
-
-	// tighten this.
 	await guardian.policies.sendToBlock(accessToken, policyId, blockId, doc)
 }
 
@@ -102,7 +98,7 @@ const executeBlock: ExecuteBlock = async (
 		case 'interfaceStepBlock':
 			return interfaceStepBlock(accessToken, policyId, data, doc)
 		case 'policyRolesBlock':
-			return policyRolesBlock(accessToken, policyId, data)
+			return policyRolesBlock(accessToken, policyId, data, doc)
 		case 'requestVcDocumentBlock':
 			return requestVcDocument(accessToken, policyId, data, doc)
 		case 'interfaceActionBlock':
@@ -116,12 +112,17 @@ const executeBlock: ExecuteBlock = async (
 			// Guardian does not send some data for this blocks
 			if (data.roles) {
 				// policyRolesBlock
-				return policyRolesBlock(accessToken, policyId, {
-					id: blockId,
-					roles: data.roles,
-					uiMetaData: data.uiMetaData,
-					blockType: 'policyRolesBlock',
-				})
+				return policyRolesBlock(
+					accessToken,
+					policyId,
+					{
+						id: blockId,
+						roles: data.roles,
+						uiMetaData: data.uiMetaData,
+						blockType: 'policyRolesBlock',
+					},
+					doc
+				)
 			}
 			if (
 				Object.getOwnPropertyNames(data).length === 1 &&
@@ -147,7 +148,6 @@ const interfaceContainerBlock = async (
 	const uiMeta = blockData.uiMetaData
 	console.log(`Title: ${uiMeta.title || 'MISSING TITLE'}`)
 
-	console.log('stuck')
 	console.log(blockData)
 
 	if (!blockData.blocks) {
@@ -172,13 +172,15 @@ const interfaceContainerBlock = async (
 const policyRolesBlock = async (
 	accessToken: string,
 	policyId: string,
-	blockData: BlockData
+	blockData: BlockData,
+	doc: Record<string, unknown>
 ) => {
 	const uiMeta = blockData.uiMetaData
 	uiMeta.title && console.log(`Title: ${uiMeta.title}`)
 	uiMeta.description && console.log(`Description: ${uiMeta.description}`)
 
 	if (!blockData.roles) {
+		// TODO: Throw error so client is aware something went wrong. This usually indicates the role has already been assigned.
 		return
 	}
 
@@ -186,22 +188,24 @@ const policyRolesBlock = async (
 		console.log(`[${ix}] - ${element}`)
 	})
 
-	while (true) {
-		// rl.question('Rol: ? ', async function (rol) {
-		// let ix = parseInt(rol);
-		const ix = 0
-		if (!isNaN(ix) && blockData.roles.length > ix && ix >= 0) {
-			const data = { role: blockData.roles[ix] }
-			await guardian.policies.sendToBlock(
-				accessToken,
-				policyId,
-				blockData.id,
-				data
-			)
-			return
-		}
-		// });
+	const selectedRole = blockData.roles.find(
+		(roleOption) =>
+			roleOption.toLowerCase() === (doc.role as string)?.toLowerCase()
+	)
+
+	if (!selectedRole) {
+		// TODO: Throw error so client is aware this role isn't available
+		return
 	}
+
+	const data = { role: selectedRole }
+
+	await guardian.policies.sendToBlock(
+		accessToken,
+		policyId,
+		blockData.id,
+		data
+	)
 }
 
 const interfaceStepBlock = async (
@@ -261,8 +265,6 @@ const requestVcDocument = async (
 
 		doc.document[field.name].type = field.type.substring(1)
 	})
-
-	console.log('Sending document')
 
 	await guardian.policies.sendToBlock(
 		accessToken,

@@ -1,4 +1,4 @@
-import Status from 'src/constants/status'
+import StatusCode from 'src/constants/status'
 import Config from 'src/config'
 import Hmac from 'src/utils/hmac'
 import axios from 'axios'
@@ -72,7 +72,7 @@ describe('Test authentication route', () => {
 		}
 
 		const response = await axios.post(testAuthUrl, mockRequestBody, config)
-		expect(response.status).toBe(Status.OK)
+		expect(response.status).toBe(StatusCode.OK)
 	})
 
 	it('with GET request', async () => {
@@ -102,6 +102,6 @@ describe('Test authentication route', () => {
 
 		const response = await axios.get(testAuthUrl, config)
 
-		expect(response.status).toBe(Status.OK)
+		expect(response.status).toBe(StatusCode.OK)
 	})
 })

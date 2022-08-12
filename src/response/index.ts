@@ -1,5 +1,5 @@
 import Language from 'src/constants/language'
-import Status from 'src/constants/status'
+import StatusCode from 'src/constants/status'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 
@@ -14,34 +14,60 @@ function methodNotAllowed(
 	method: string
 ) {
 	return res
-		.status(Status.METHOD_NOT_ALLOWED)
+		.status(StatusCode.METHOD_NOT_ALLOWED)
 		.send({ error: { message: notAllowed(method) } })
 }
 
 function unauthorised(res: NextApiResponse<ErrorApiResponse>, message: string) {
-	return res.status(Status.UNAUTHORIZED).send({ error: { message } })
+	return res.status(StatusCode.UNAUTHORIZED).send({ error: { message } })
 }
 
 function unprocessibleEntity(
 	res: NextApiResponse<UnprocessableErrorApiResponse>,
-	message: string,
 	errors?: Array<string>
 ) {
-	return res
-		.status(Status.UNPROCESSIBLE_ENTITY)
-		.send({ error: { message, ...(errors ? { errors } : {}) } })
+	return res.status(StatusCode.UNPROCESSIBLE_ENTITY).send({
+		error: {
+			message: Language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY],
+			...(errors ? { errors } : {}),
+		},
+	})
 }
 
 function badRequest(res: NextApiResponse<ErrorApiResponse>) {
-	return res.status(Status.BAD_REQUEST).send({})
+	return standardErrorResponse(res, StatusCode.BAD_REQUEST)
 }
 
 function notFound(res: NextApiResponse<ErrorApiResponse>) {
-	return res.status(Status.NOT_FOUND).send({})
+	return standardErrorResponse(res, StatusCode.NOT_FOUND)
+}
+
+function standardErrorResponse(
+	res: NextApiResponse<ErrorApiResponse>,
+	statusCode: StatusCode
+) {
+	return res
+		.status(statusCode)
+		.send({ error: { message: Language.errorCode[statusCode] } })
 }
 
 function json(res: NextApiResponse, data: Record<string, any>) {
 	res.json({ data })
+}
+
+function serverError(res: NextApiResponse, error: any) {
+	// Filter out all Guardian errors
+	if (error.isAxiosError) {
+		return res.status(error.response?.status ?? 500).send(
+			error.response?.data ?? {
+				message: Language.middleware.guardian.serverError,
+			}
+		)
+	}
+
+	// TODO: Abstract error handling out to a its own middleware and attach a logger to it
+	// Let NextJS handle all other errors like normal
+	throw error
 }
 
 const response = {
@@ -51,6 +77,7 @@ const response = {
 	unprocessibleEntity,
 	badRequest,
 	json,
+	serverError,
 }
 
 export default response

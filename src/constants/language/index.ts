@@ -1,10 +1,16 @@
 import { Role } from 'src/config'
+import StatusCode from '../status'
 
 const language = {
 	middleware: {
 		ensureRole: {
+			policyRequired:
+				'A role can only be enforced when connected to a policy',
+			policyDoesNotExist: 'A policy cannot be found with that id',
 			[Role.STANDARD_REGISTRY]:
 				'Only a "STANDARD_REGISTRY" policy owner may approve an application',
+			[Role.VERIFIER]:
+				'Only a user with the role "VERIFIER" make approve an MRV block',
 			[Role.REGISTRANT]:
 				'Only a user with the role "REGISTRANT" may submit this document',
 		},
@@ -22,9 +28,26 @@ const language = {
 			notAllowed: (method: string) =>
 				`Method ${method} is not allowed on this route`,
 		},
+		ensureMrv: {
+			unknownMrv: 'No MRV found with that id',
+		},
 		validate: {
 			message: 'Validation errors',
 		},
+		guardian: {
+			serverError:
+				'💥 Guardian API server error… your guess is as good as ours… 🤷‍♂️',
+		},
+	},
+
+	// Standard API error status code messages
+	errorCode: {
+		[StatusCode.BAD_REQUEST]: 'Bad Request',
+		[StatusCode.UNAUTHORIZED]: 'Unauthorized',
+		[StatusCode.NOT_FOUND]: 'Not Found',
+		[StatusCode.METHOD_NOT_ALLOWED]: 'Method Not Allowed',
+		[StatusCode.UNPROCESSIBLE_ENTITY]: 'Unprocessable Entity',
+		[StatusCode.INTERNAL_SERVER_ERROR]: 'Internal Server Error',
 	},
 
 	// Requests
