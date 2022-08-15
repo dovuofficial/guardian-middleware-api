@@ -2,6 +2,7 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import Config, { Role } from 'src/config'
 import { NextApiResponse } from 'next'
+import language from 'src/constants/language'
 
 async function RegisterAccountToPolicyHandler(
 	req: GuardianMiddlewareRequest,
@@ -13,9 +14,9 @@ async function RegisterAccountToPolicyHandler(
 	const role = (roleType as string)?.toUpperCase()
 
 	if (role !== Role.REGISTRANT && role !== Role.VERIFIER) {
-		return Response.unprocessibleEntity(res, [
-			"Invalid role type. Must be 'registrant' or 'verifier'",
-		])
+		return Response.unprocessibleEntity(
+			language.middleware.validate.invalidRole
+		)
 	}
 
 	const tag = Config.tags.chooseRole

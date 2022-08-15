@@ -2,7 +2,6 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import validateCredentials from 'src/validators/validateCredentials'
-import language from 'src/constants/language'
 import { components } from 'src/spec/openapi'
 
 type Credentials = components['schemas']['Credentials']
@@ -19,7 +18,7 @@ async function loginHandler(req: LoginRequest, res: NextApiResponse) {
 	const validationErrors = validateCredentials(userCredentials)
 
 	if (validationErrors) {
-		Response.unprocessibleEntity(res, validationErrors)
+		Response.unprocessibleEntity(validationErrors)
 		return
 	}
 

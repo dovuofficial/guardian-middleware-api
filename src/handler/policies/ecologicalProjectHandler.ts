@@ -23,7 +23,7 @@ async function EcologicalProjectHandler(
 	const validationErrors = validateEcologicalProjectSubmission(body)
 
 	if (validationErrors) {
-		return Response.unprocessibleEntity(res, validationErrors)
+		return Response.unprocessibleEntity(validationErrors)
 	}
 
 	const did = await engine.getCurrentUserDid(accessToken)

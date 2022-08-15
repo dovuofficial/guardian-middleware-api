@@ -8,7 +8,7 @@ function onlyPost(handler: NextApiHandler) {
 			return handler(req, res)
 		}
 
-		return Response.methodNotAllowed(res, req.method)
+		return Response.methodNotAllowed(req.method)
 	}
 }
 

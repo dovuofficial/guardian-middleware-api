@@ -1,73 +1,46 @@
 import Language from 'src/constants/language'
 import StatusCode from 'src/constants/status'
 import { NextApiResponse } from 'next'
-import { components } from 'src/spec/openapi'
-
-type ErrorApiResponse = components['schemas']['ErrorResponse']
-type UnprocessableErrorApiResponse =
-	components['schemas']['UnprocessableErrorResponse']
+import GuardianApiError from 'src/utils/GuardianApiError'
 
 const { notAllowed } = Language.middleware.onlyPostResponse
 
-function methodNotAllowed(
-	res: NextApiResponse<ErrorApiResponse>,
-	method: string
-) {
-	return res
-		.status(StatusCode.METHOD_NOT_ALLOWED)
-		.send({ error: { message: notAllowed(method) } })
+function methodNotAllowed(method: string) {
+	throw new GuardianApiError(
+		StatusCode.METHOD_NOT_ALLOWED,
+		notAllowed(method)
+	)
 }
 
-function unauthorised(res: NextApiResponse<ErrorApiResponse>, message: string) {
-	return res.status(StatusCode.UNAUTHORIZED).send({ error: { message } })
+function unauthorised(message: string) {
+	errorResponse(StatusCode.UNAUTHORIZED, message)
 }
 
-function unprocessibleEntity(
-	res: NextApiResponse<UnprocessableErrorApiResponse>,
-	errors?: Array<string>
-) {
-	return res.status(StatusCode.UNPROCESSIBLE_ENTITY).send({
-		error: {
-			message: Language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY],
-			...(errors ? { errors } : {}),
-		},
-	})
+function unprocessibleEntity(errors?: string | Array<string>) {
+	throw new GuardianApiError(
+		StatusCode.UNPROCESSIBLE_ENTITY,
+		Language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY],
+		errors && (errors instanceof Array ? errors : [errors])
+	)
 }
 
-function badRequest(res: NextApiResponse<ErrorApiResponse>) {
-	return standardErrorResponse(res, StatusCode.BAD_REQUEST)
+function badRequest() {
+	errorResponse(StatusCode.BAD_REQUEST)
 }
 
-function notFound(res: NextApiResponse<ErrorApiResponse>) {
-	return standardErrorResponse(res, StatusCode.NOT_FOUND)
+function notFound() {
+	errorResponse(StatusCode.NOT_FOUND)
 }
 
-function standardErrorResponse(
-	res: NextApiResponse<ErrorApiResponse>,
-	statusCode: StatusCode
-) {
-	return res
-		.status(statusCode)
-		.send({ error: { message: Language.errorCode[statusCode] } })
+function errorResponse(statusCode: StatusCode, message?: string) {
+	throw new GuardianApiError(
+		statusCode,
+		message || Language.errorCode[statusCode]
+	)
 }
 
 function json(res: NextApiResponse, data: Record<string, any>) {
 	res.json({ data })
-}
-
-function serverError(res: NextApiResponse, error: any) {
-	// Filter out all Guardian errors
-	if (error.isAxiosError) {
-		return res.status(error.response?.status ?? 500).send(
-			error.response?.data ?? {
-				message: Language.middleware.guardian.serverError,
-			}
-		)
-	}
-
-	// TODO: Abstract error handling out to a its own middleware and attach a logger to it
-	// Let NextJS handle all other errors like normal
-	throw error
 }
 
 const response = {
@@ -77,7 +50,6 @@ const response = {
 	unprocessibleEntity,
 	badRequest,
 	json,
-	serverError,
 }
 
 export default response
