@@ -36,7 +36,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	)
 
 	if (!previousDocument) {
-		return Response.notFound(res)
+		return Response.notFound()
 	}
 
 	const data = {

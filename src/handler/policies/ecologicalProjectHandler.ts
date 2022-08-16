@@ -35,7 +35,7 @@ async function EcologicalProjectHandler(
 	)
 
 	if (!previousDocument) {
-		return Response.notFound(res)
+		return Response.notFound()
 	}
 
 	const data = {
