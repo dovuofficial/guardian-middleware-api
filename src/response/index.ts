@@ -6,36 +6,38 @@ import GuardianMiddlewareApiError from 'src/utils/GuardianMiddlewareApiError'
 const { notAllowed } = Language.middleware.onlyPostResponse
 
 function methodNotAllowed(method: string) {
-	throw new GuardianMiddlewareApiError(
-		StatusCode.METHOD_NOT_ALLOWED,
-		notAllowed(method)
-	)
+	throwApiError(StatusCode.METHOD_NOT_ALLOWED, notAllowed(method))
 }
 
 function unauthorised(message: string) {
-	errorResponse(StatusCode.UNAUTHORIZED, message)
+	throwApiError(StatusCode.UNAUTHORIZED, message)
 }
 
 function unprocessibleEntity(errors?: string | Array<string>) {
-	throw new GuardianMiddlewareApiError(
+	throwApiError(
 		StatusCode.UNPROCESSIBLE_ENTITY,
 		Language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY],
-		errors && (errors instanceof Array ? errors : [errors])
+		errors
 	)
 }
 
 function badRequest() {
-	errorResponse(StatusCode.BAD_REQUEST)
+	throwApiError(StatusCode.BAD_REQUEST)
 }
 
 function notFound() {
-	errorResponse(StatusCode.NOT_FOUND)
+	throwApiError(StatusCode.NOT_FOUND)
 }
 
-function errorResponse(statusCode: StatusCode, message?: string) {
+function throwApiError(
+	statusCode: StatusCode,
+	message?: string,
+	errors?: string | Array<string>
+) {
 	throw new GuardianMiddlewareApiError(
 		statusCode,
-		message || Language.errorCode[statusCode]
+		message || Language.errorCode[statusCode],
+		errors && (errors instanceof Array ? errors : [errors])
 	)
 }
 
