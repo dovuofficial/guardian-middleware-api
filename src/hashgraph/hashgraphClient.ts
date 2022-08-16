@@ -16,17 +16,17 @@ const client = () => {
 	const { network, accountId, privateKey } = config
 
 	if (!network) {
-		throw Error(
+		throw new Error(
 			`Network from environment could not match for any hedera network. Change your "HEDERA_NETWORK" environment variable to either: "testnet", "previewnet" or "mainnet"`
 		)
 	}
 	if (!accountId) {
-		throw Error(
+		throw new Error(
 			`Account ID from environment could not match for any hedera network. Change your "HEDERA_OPERATOR_ACCOUNT_ID" environment variable to a valid hedera account id`
 		)
 	}
 	if (!privateKey) {
-		throw Error(
+		throw new Error(
 			`Private key from environment could not match for any hedera network. Change your "HEDERA_OPERATOR_PRIVATE_KEY" environment variable to a valid hedera private key`
 		)
 	}

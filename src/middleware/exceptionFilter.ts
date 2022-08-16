@@ -2,7 +2,8 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { ApiError } from 'next/dist/server/api-utils'
 import StatusCode from 'src/constants/status'
 import { components } from 'src/spec/openapi'
-import GuardianApiError from 'src/utils/GuardianApiError'
+import GuardianMiddlewareApiError from 'src/utils/GuardianMiddlewareApiError'
+import { AxiosError } from 'axios'
 
 type ErrorApiResponse = components['schemas']['ErrorResponse']
 
@@ -13,7 +14,9 @@ function getExceptionStatus(exception: unknown) {
 }
 
 function getExceptionErrors(exception: unknown) {
-	return exception instanceof GuardianApiError ? exception.errors : undefined
+	return exception instanceof GuardianMiddlewareApiError
+		? exception.errors
+		: undefined
 }
 
 function getExceptionMessage(exception: unknown) {
@@ -28,6 +31,18 @@ function isError(exception: unknown): exception is Error {
 	return exception instanceof Error
 }
 
+function getIsGuardianException(exception: AxiosError) {
+	const axiosConfig = exception.isAxiosError && exception.config
+
+	if (!axiosConfig) {
+		return false
+	}
+
+	const guardianBaseUrl = new URL(process.env.GUARDIAN_API_URL)
+	const requestBaseUrl = new URL(axiosConfig.baseURL)
+	return requestBaseUrl.host === guardianBaseUrl.host
+}
+
 function exceptionFilter(handler: NextApiHandler) {
 	return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 		try {
@@ -39,6 +54,7 @@ function exceptionFilter(handler: NextApiHandler) {
 			const message = getExceptionMessage(exception)
 			const stack = getExceptionStack(exception)
 			const errors = getExceptionErrors(exception)
+			const isGuardianException = getIsGuardianException(exception)
 
 			// @ts-ignore
 			const auth = req.accessToken ?? 'Not Authenticated'
@@ -47,6 +63,7 @@ function exceptionFilter(handler: NextApiHandler) {
 			const userAgent = headers['user-agent']
 
 			const requestContext = {
+				isGuardianException,
 				url,
 				auth,
 				referer,

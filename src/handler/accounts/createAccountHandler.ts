@@ -1,6 +1,5 @@
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
-import language from 'src/constants/language'
 import validateCredentials from 'src/validators/validateCredentials'
 import { components } from 'src/spec/openapi'
 import { CreateAccountDto } from 'src/guardian/account'

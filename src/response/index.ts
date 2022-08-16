@@ -1,12 +1,12 @@
 import Language from 'src/constants/language'
 import StatusCode from 'src/constants/status'
 import { NextApiResponse } from 'next'
-import GuardianApiError from 'src/utils/GuardianApiError'
+import GuardianMiddlewareApiError from 'src/utils/GuardianMiddlewareApiError'
 
 const { notAllowed } = Language.middleware.onlyPostResponse
 
 function methodNotAllowed(method: string) {
-	throw new GuardianApiError(
+	throw new GuardianMiddlewareApiError(
 		StatusCode.METHOD_NOT_ALLOWED,
 		notAllowed(method)
 	)
@@ -17,7 +17,7 @@ function unauthorised(message: string) {
 }
 
 function unprocessibleEntity(errors?: string | Array<string>) {
-	throw new GuardianApiError(
+	throw new GuardianMiddlewareApiError(
 		StatusCode.UNPROCESSIBLE_ENTITY,
 		Language.errorCode[StatusCode.UNPROCESSIBLE_ENTITY],
 		errors && (errors instanceof Array ? errors : [errors])
@@ -33,7 +33,7 @@ function notFound() {
 }
 
 function errorResponse(statusCode: StatusCode, message?: string) {
-	throw new GuardianApiError(
+	throw new GuardianMiddlewareApiError(
 		statusCode,
 		message || Language.errorCode[statusCode]
 	)

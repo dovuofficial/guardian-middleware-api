@@ -7,7 +7,7 @@ import onlyGet from 'src/middleware/onlyGet'
 // Mocks
 import MockedApiResponse from '@mocks/apiResponse'
 import MockedApiRequest from '@mocks/apiRequest'
-import GuardianApiError from 'src/utils/GuardianApiError'
+import GuardianMiddlewareApiError from 'src/utils/GuardianMiddlewareApiError'
 
 const { onlyPostResponse } = Language.middleware
 

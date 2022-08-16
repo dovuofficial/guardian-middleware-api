@@ -1,6 +1,6 @@
 import { ApiError } from 'next/dist/server/api-utils'
 
-export default class GuardianApiError extends ApiError {
+export default class GuardianMiddlewareApiError extends ApiError {
 	readonly errors: Array<string> | undefined
 
 	constructor(
