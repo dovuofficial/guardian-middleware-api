@@ -1,7 +1,6 @@
 import Response from 'src/response'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import hmac from 'src/utils/hmac'
-import Crypto from 'crypto'
+import { generateStringToSign, validateSignature } from 'src/utils/hmac'
 import config from 'src/config'
 import language from 'src/constants/language'
 
@@ -65,26 +64,18 @@ function withHmac(handler: NextApiHandler) {
 			return Response.unauthorised(language.middleware.hmac.requestTooOld)
 		}
 
-		let stringToSign = ''
-		if (body) {
-			const contentHash = Crypto.createHash('sha256')
-				.update(JSON.stringify(body))
-				.digest('base64')
+		const stringToSign = generateStringToSign(
+			verb,
+			host,
+			url,
+			headerDate,
+			headerContentHash as string
+		)
 
-			if (body && contentHash !== headerContentHash) {
-				return Response.unauthorised(
-					language.middleware.hmac.invalidContentHash
-				)
-			}
-
-			stringToSign = `${verb}\n${url}\n${headerDate};${host};${contentHash}`
-		} else {
-			stringToSign = `${verb}\n${url}\n${headerDate};${host}`
-		}
-
-		const isSignatureValid = hmac.validateSignature(
+		const isSignatureValid = validateSignature(
 			stringToSign,
-			headerSignature as string
+			headerSignature as string,
+			config.hmacAuthKey
 		)
 
 		if (!isSignatureValid) {

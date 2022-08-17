@@ -1,8 +1,9 @@
 import StatusCode from 'src/constants/status'
 import Config from 'src/config'
-import Hmac from 'src/utils/hmac'
+import { generateHeaders, generateHmac } from 'src/utils/hmac'
 import axios from 'axios'
 import Crypto from 'crypto'
+import config from 'src/config'
 
 const { testAuthUrl } = Config
 describe('Test authentication route', () => {
@@ -50,28 +51,17 @@ describe('Test authentication route', () => {
 
 		const mockRequestBody = { foo: 'bar', baz: 'qux', quux: 'corge' }
 
-		var verb = 'POST'
-		const url = new URL(testAuthUrl)
-		var host = url.host
-		var path = url.pathname
-		const date = new Date().toUTCString()
-		const contentHash = Crypto.createHash('sha256')
-			.update(JSON.stringify(mockRequestBody))
-			.digest('base64')
+		const headers = generateHeaders(
+			'POST',
+			config.hmacAuthKey,
+			testAuthUrl,
+			mockRequestBody
+		)
 
-		const stringToSign = `${verb}\n${path}\n${date};${host};${contentHash}`
+		const response = await axios.post(testAuthUrl, mockRequestBody, {
+			headers,
+		})
 
-		const signature = Hmac.generateHmac(stringToSign)
-
-		const config = {
-			headers: {
-				'x-content-sha256': contentHash,
-				'x-signature': signature,
-				'x-date': date,
-			},
-		}
-
-		const response = await axios.post(testAuthUrl, mockRequestBody, config)
 		expect(response.status).toBe(StatusCode.OK)
 	})
 
@@ -83,24 +73,9 @@ describe('Test authentication route', () => {
 			return
 		}
 
-		var verb = 'GET'
-		const url = new URL(testAuthUrl)
-		var host = url.host
-		var path = url.pathname
-		const date = new Date().toUTCString()
+		const headers = generateHeaders('GET', config.hmacAuthKey, testAuthUrl)
 
-		const stringToSign = `${verb}\n${path}\n${date};${host}`
-
-		const signature = Hmac.generateHmac(stringToSign)
-
-		const config = {
-			headers: {
-				'x-signature': signature,
-				'x-date': date,
-			},
-		}
-
-		const response = await axios.get(testAuthUrl, config)
+		const response = await axios.get(testAuthUrl, { headers })
 
 		expect(response.status).toBe(StatusCode.OK)
 	})

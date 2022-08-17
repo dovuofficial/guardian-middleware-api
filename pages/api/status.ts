@@ -7,9 +7,14 @@ const { statusRequest } = Language
 export interface StatusResponse {
 	message: string
 	environment_status: {
+		hederaNetwork: string
 		hederaAccountId: boolean
 		hederaPrivateKey: boolean
+		guardianApiUrl: boolean
+		hmacEnabled: boolean
 		hmacAuthKey: boolean
+		registryUsername: boolean
+		registryPassword: boolean
 	}
 	meta: { hint: string }
 }
@@ -27,9 +32,14 @@ function ConnectionStatusHandler(
 	return res.json({
 		message: statusRequest.message,
 		environment_status: {
+			hederaNetwork: config.network,
 			hederaAccountId: !!config.accountId,
 			hederaPrivateKey: !!config.privateKey,
+			guardianApiUrl: !!config.guardianApiUrl,
+			hmacEnabled: !!config.hmacEnabled,
 			hmacAuthKey: !!config.hmacAuthKey && config.hmacAuthKeyValid(),
+			registryUsername: !!config.registryUsername,
+			registryPassword: !!config.registryPassword,
 		},
 		meta: {
 			hint: statusRequest.meta_hint,

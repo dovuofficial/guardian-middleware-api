@@ -40,7 +40,12 @@ test("Check external '/api/status' returns a valid response, is it ready to be u
 	expect(meta.hint).toBe(Language.statusRequest.meta_hint)
 
 	// Status
+	expect(environment_status.hederaNetwork).toBe('testnet')
 	expect(environment_status.hederaAccountId).toBe(true)
 	expect(environment_status.hederaPrivateKey).toBe(true)
+	expect(environment_status.guardianApiUrl).toBe(true)
+	expect(environment_status.hmacEnabled).toBe(true)
 	expect(environment_status.hmacAuthKey).toBe(true)
+	expect(environment_status.registryUsername).toBe(true)
+	expect(environment_status.registryPassword).toBe(true)
 })
