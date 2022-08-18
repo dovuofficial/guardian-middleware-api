@@ -1,7 +1,6 @@
-import Tags from './tags'
-import Roles from './roles'
+import tags from './tags'
 
-export interface Config {
+interface Config {
 	hmacAuthKeyValid: () => boolean
 	network: string
 	accountId: string
@@ -10,12 +9,14 @@ export interface Config {
 	hmacAuthKey: string
 	encryptionKey: string
 	apiUrl: string
-	hideStatus: string
+	hideStatus: boolean
 	testAuthUrl: string
+	testCoolFarmPolicyId: string
+	testAgreCalcPolicyId: string
 	guardianApiUrl: string
 	registryUsername: string
 	registryPassword: string
-	roles: object
+	tags: object
 }
 
 export enum Role {
@@ -53,7 +54,7 @@ const hmacAuthKeyValid = (): boolean =>
 const booleanValue = (value: string): boolean =>
 	Boolean(value && value.toLowerCase() === 'true')
 
-export default {
+const config: Config = {
 	hmacAuthKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
 	accountId: HEDERA_OPERATOR_ACCOUNT_ID,
@@ -69,6 +70,7 @@ export default {
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
-	tags: Tags,
-	roles: Roles,
+	tags,
 }
+
+export default config

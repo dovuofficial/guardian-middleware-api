@@ -6,7 +6,7 @@ const { statusRequest } = Language
 
 export interface StatusResponse {
 	message: string
-	environment_status: {
+	environmentStatus: {
 		hederaNetwork: string
 		hederaAccountId: boolean
 		hederaPrivateKey: boolean
@@ -31,7 +31,7 @@ function ConnectionStatusHandler(
 
 	return res.json({
 		message: statusRequest.message,
-		environment_status: {
+		environmentStatus: {
 			hederaNetwork: config.network,
 			hederaAccountId: !!config.accountId,
 			hederaPrivateKey: !!config.privateKey,

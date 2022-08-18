@@ -1,9 +1,7 @@
 import StatusCode from 'src/constants/status'
 import Config from 'src/config'
-import { generateHeaders } from 'src/utils/hmac'
 import axios from 'axios'
 import hmacAxios from 'src/apiClient/hmacApiClient'
-import config from 'src/config'
 
 const { testAuthUrl } = Config
 describe('Test authentication route', () => {

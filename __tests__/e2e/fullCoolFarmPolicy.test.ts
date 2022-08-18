@@ -23,8 +23,7 @@ describe('Test Cool Farm policy flow', () => {
 	const verifier = `ci_verifier_${isoDate}`
 	const password = 'secret'
 	const policyId = config.testCoolFarmPolicyId
-	const registryUsername = config.registryUsername
-	const registryPassword = config.registryPassword
+	const { registryUsername, registryPassword } = config
 
 	it.only('should have the correct environment variables', () => {
 		expect(config.apiUrl).toBeDefined()
