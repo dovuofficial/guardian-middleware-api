@@ -1,8 +1,8 @@
 import StatusCode from 'src/constants/status'
 import Config from 'src/config'
-import { generateHeaders, generateHmac } from 'src/utils/hmac'
+import { generateHeaders } from 'src/utils/hmac'
 import axios from 'axios'
-import Crypto from 'crypto'
+import hmacAxios from 'src/apiClient/hmacApiClient'
 import config from 'src/config'
 
 const { testAuthUrl } = Config
@@ -51,16 +51,7 @@ describe('Test authentication route', () => {
 
 		const mockRequestBody = { foo: 'bar', baz: 'qux', quux: 'corge' }
 
-		const headers = generateHeaders(
-			'POST',
-			config.hmacAuthKey,
-			testAuthUrl,
-			mockRequestBody
-		)
-
-		const response = await axios.post(testAuthUrl, mockRequestBody, {
-			headers,
-		})
+		const response = await hmacAxios.post(testAuthUrl, mockRequestBody)
 
 		expect(response.status).toBe(StatusCode.OK)
 	})
@@ -73,9 +64,7 @@ describe('Test authentication route', () => {
 			return
 		}
 
-		const headers = generateHeaders('GET', config.hmacAuthKey, testAuthUrl)
-
-		const response = await axios.get(testAuthUrl, { headers })
+		const response = await hmacAxios.get(testAuthUrl)
 
 		expect(response.status).toBe(StatusCode.OK)
 	})
