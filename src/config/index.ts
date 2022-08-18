@@ -1,5 +1,3 @@
-import tags from './tags'
-
 interface Config {
 	hmacAuthKeyValid: () => boolean
 	network: string
@@ -16,18 +14,6 @@ interface Config {
 	guardianApiUrl: string
 	registryUsername: string
 	registryPassword: string
-	tags: object
-}
-
-export enum Role {
-	STANDARD_REGISTRY = 'ADMINISTRATOR',
-	VERIFIER = 'VERIFIER',
-	REGISTRANT = 'REGISTRANT',
-}
-
-export enum MRV {
-	AGRECALC = 'agrecalc',
-	COOL_FARM_TOOL = 'cool-farm-tool',
 }
 
 const {
@@ -70,7 +56,6 @@ const config: Config = {
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
-	tags,
 }
 
 export default config

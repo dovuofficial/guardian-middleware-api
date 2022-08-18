@@ -2,9 +2,8 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
-import language from 'src/constants/language'
 import validateProjectRegistrationApplication from 'src/validators/validateProjectRegistrationApplication'
-import Config from 'src/config'
+import { Tag } from 'src/config/guardianTags'
 
 type ProjectRegistration = components['schemas']['ProjectRegistration']
 
@@ -26,7 +25,7 @@ async function RegisterProjectHandler(
 		return
 	}
 
-	const tag = Config.tags.initialApplicationSubmission
+	const tag = Tag.initialApplicationSubmission
 
 	const data = {
 		document: body,

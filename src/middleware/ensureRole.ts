@@ -2,7 +2,7 @@ import { NextApiHandler, NextApiResponse } from 'next'
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Language from 'src/constants/language'
 import Response from 'src/response'
-import { Role } from 'src/config'
+import { Role } from 'src/config/guardianTags'
 
 const ensureRole =
 	(role: Role) =>

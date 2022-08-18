@@ -1,4 +1,4 @@
-import { Role } from 'src/config'
+import { Role } from 'src/config/guardianTags'
 import StatusCode from '../status'
 
 const language = {

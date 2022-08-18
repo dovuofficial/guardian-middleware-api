@@ -5,7 +5,7 @@ import mrvSubmissionHandler from 'src/handler/policies/mrvSubmissionHandler'
 import withAuthentication from 'src/middleware/withAuthentication'
 import withHmac from 'src/middleware/withHmac'
 import ensureRole from 'src/middleware/ensureRole'
-import { Role } from 'src/config'
+import { Role } from 'src/config/guardianTags'
 import exceptionFilter from 'src/middleware/exceptionFilter'
 
 export default prepare(

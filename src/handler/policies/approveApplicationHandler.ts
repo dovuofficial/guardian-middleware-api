@@ -3,6 +3,7 @@ import Response from 'src/response'
 import Config from 'src/config'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
+import { Tag } from 'src/config/guardianTags'
 
 type UserDid = components['schemas']['UserDid']
 
@@ -18,7 +19,7 @@ async function ApproveApplicationHandler(
 	const { policyId, did } = req.query
 	const { engine } = req.context
 
-	const tag = Config.tags.approveApplicationBlocks
+	const tag = Tag.approveApplicationBlocks
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
@@ -35,13 +36,13 @@ async function ApproveApplicationHandler(
 
 	const submission = {
 		document,
-		tag: Config.tags.approveBtn,
+		tag: Tag.approveBtn,
 	}
 
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Config.tags.approveApplicationBtn,
+		Tag.approveApplicationBtn,
 		submission
 	)
 

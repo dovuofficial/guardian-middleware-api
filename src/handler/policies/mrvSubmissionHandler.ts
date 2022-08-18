@@ -2,9 +2,8 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
-import language from 'src/constants/language'
 import validateMrvDocumentSubmission from 'src/validators/validateMrvDocumentSubmission'
-import config from 'src/config'
+import { Tag } from 'src/config/guardianTags'
 
 type MeasurementReportingVerification =
 	components['schemas']['MeasurementReportingVerification']
@@ -32,7 +31,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	const previousDocument = await engine.retrievePreviousBlockContext(
 		policyId as string,
 		did as string,
-		config.tags.approveEcologicalProject
+		Tag.approveEcologicalProject
 	)
 
 	if (!previousDocument) {
@@ -47,7 +46,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		config.tags.mrvSubmission,
+		Tag.mrvSubmission,
 		data
 	)
 

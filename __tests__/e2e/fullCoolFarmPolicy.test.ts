@@ -25,7 +25,7 @@ describe('Test Cool Farm policy flow', () => {
 	const policyId = config.testCoolFarmPolicyId
 	const { registryUsername, registryPassword } = config
 
-	it.only('should have the correct environment variables', () => {
+	it('should have the correct environment variables', () => {
 		expect(config.apiUrl).toBeDefined()
 		expect(config.testCoolFarmPolicyId).toBeDefined()
 		expect(config.hmacAuthKey).toBeDefined()
