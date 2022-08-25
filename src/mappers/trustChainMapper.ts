@@ -1,7 +1,8 @@
-export interface TrustChainData {
-	token: string
-}
-export default (guardianTrustChainBlockData): TrustChainData =>
+import { components } from 'src/spec/openapi'
+
+type TrustChainDocument = components['schemas']['TrustChainDocument']
+
+export default (guardianTrustChainBlockData): TrustChainDocument =>
 	guardianTrustChainBlockData.map(
 		({ vpDocument, mintDocument, policyDocument, documents }) => ({
 			hash: vpDocument.hash,
