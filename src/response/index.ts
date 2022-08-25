@@ -41,7 +41,10 @@ function throwApiError(
 	)
 }
 
-function json(res: NextApiResponse, data: Record<string, any>) {
+function json(
+	res: NextApiResponse,
+	data: Record<string, any> | Array<Record<string, any>>
+) {
 	res.json({ data })
 }
 
