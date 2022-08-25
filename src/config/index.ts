@@ -1,7 +1,4 @@
-import Tags from './tags'
-import Roles from './roles'
-
-export interface Config {
+interface Config {
 	hmacAuthKeyValid: () => boolean
 	network: string
 	accountId: string
@@ -10,23 +7,13 @@ export interface Config {
 	hmacAuthKey: string
 	encryptionKey: string
 	apiUrl: string
-	hideStatus: string
+	hideStatus: boolean
 	testAuthUrl: string
+	testCoolFarmPolicyId: string
+	testAgreCalcPolicyId: string
 	guardianApiUrl: string
 	registryUsername: string
 	registryPassword: string
-	roles: object
-}
-
-export enum Role {
-	STANDARD_REGISTRY = 'ADMINISTRATOR',
-	VERIFIER = 'VERIFIER',
-	REGISTRANT = 'REGISTRANT',
-}
-
-export enum MRV {
-	AGRECALC = 'agrecalc',
-	COOL_FARM_TOOL = 'cool-farm-tool',
 }
 
 const {
@@ -38,6 +25,8 @@ const {
 	API_URL,
 	HIDE_STATUS,
 	TEST_AUTH_URL,
+	TEST_COOL_FARM_POLICY_ID,
+	TEST_AGRECALC_POLICY_ID,
 	ENCRYPTION_KEY,
 	GUARDIAN_API_URL,
 	STANDARD_REGISTRY_USERNAME,
@@ -51,7 +40,7 @@ const hmacAuthKeyValid = (): boolean =>
 const booleanValue = (value: string): boolean =>
 	Boolean(value && value.toLowerCase() === 'true')
 
-export default {
+const config: Config = {
 	hmacAuthKeyValid,
 	network: HEDERA_NETWORK.toLowerCase(),
 	accountId: HEDERA_OPERATOR_ACCOUNT_ID,
@@ -62,9 +51,11 @@ export default {
 	apiUrl: API_URL,
 	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
+	testCoolFarmPolicyId: TEST_COOL_FARM_POLICY_ID,
+	testAgreCalcPolicyId: TEST_AGRECALC_POLICY_ID,
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
-	tags: Tags,
-	roles: Roles,
 }
+
+export default config

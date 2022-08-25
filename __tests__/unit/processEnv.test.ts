@@ -25,7 +25,7 @@ test('Make sure that hedera account id is comprised of numbers', () => {
 	const sections = HEDERA_OPERATOR_ACCOUNT_ID.split('.')
 
 	sections.forEach((section) => {
-		expect(Number.isInteger(parseInt(section))).toBe(true)
+		expect(Number.isInteger(parseInt(section, 10))).toBe(true)
 	})
 })
 

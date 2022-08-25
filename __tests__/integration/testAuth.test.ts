@@ -1,8 +1,7 @@
 import StatusCode from 'src/constants/status'
 import Config from 'src/config'
-import Hmac from 'src/utils/hmac'
 import axios from 'axios'
-import Crypto from 'crypto'
+import hmacAxios from 'src/apiClient/hmacApiClient'
 
 const { testAuthUrl } = Config
 describe('Test authentication route', () => {
@@ -50,28 +49,8 @@ describe('Test authentication route', () => {
 
 		const mockRequestBody = { foo: 'bar', baz: 'qux', quux: 'corge' }
 
-		var verb = 'POST'
-		const url = new URL(testAuthUrl)
-		var host = url.host
-		var path = url.pathname
-		const date = new Date().toUTCString()
-		const contentHash = Crypto.createHash('sha256')
-			.update(JSON.stringify(mockRequestBody))
-			.digest('base64')
+		const response = await hmacAxios.post(testAuthUrl, mockRequestBody)
 
-		const stringToSign = `${verb}\n${path}\n${date};${host};${contentHash}`
-
-		const signature = Hmac.generateHmac(stringToSign)
-
-		const config = {
-			headers: {
-				'x-content-sha256': contentHash,
-				'x-signature': signature,
-				'x-date': date,
-			},
-		}
-
-		const response = await axios.post(testAuthUrl, mockRequestBody, config)
 		expect(response.status).toBe(StatusCode.OK)
 	})
 
@@ -83,24 +62,7 @@ describe('Test authentication route', () => {
 			return
 		}
 
-		var verb = 'GET'
-		const url = new URL(testAuthUrl)
-		var host = url.host
-		var path = url.pathname
-		const date = new Date().toUTCString()
-
-		const stringToSign = `${verb}\n${path}\n${date};${host}`
-
-		const signature = Hmac.generateHmac(stringToSign)
-
-		const config = {
-			headers: {
-				'x-signature': signature,
-				'x-date': date,
-			},
-		}
-
-		const response = await axios.get(testAuthUrl, config)
+		const response = await hmacAxios.get(testAuthUrl)
 
 		expect(response.status).toBe(StatusCode.OK)
 	})

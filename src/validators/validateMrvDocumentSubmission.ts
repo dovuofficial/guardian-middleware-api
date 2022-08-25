@@ -1,6 +1,6 @@
 import Joi from 'joi'
+import { MRV } from 'src/config/guardianTags'
 import { components } from 'src/spec/openapi'
-import { MRV } from 'src/config'
 
 type MeasurementReportingVerification =
 	components['schemas']['MeasurementReportingVerification']

@@ -2,9 +2,8 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
-import language from 'src/constants/language'
 import validateEcologicalProjectSubmission from 'src/validators/validateEcologicalProjectSubmission'
-import Config from 'src/config'
+import { Tag } from 'src/config/guardianTags'
 
 type EcologicalProject = components['schemas']['EcologicalProject']
 
@@ -31,7 +30,7 @@ async function EcologicalProjectHandler(
 	const previousDocument = await engine.retrievePreviousBlockContext(
 		policyId as string,
 		did as string,
-		Config.tags.approveApplicationBlocks
+		Tag.approveApplicationBlocks
 	)
 
 	if (!previousDocument) {
@@ -46,7 +45,7 @@ async function EcologicalProjectHandler(
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Config.tags.createEcologicalProject,
+		Tag.createEcologicalProject,
 		data
 	)
 

@@ -35,4 +35,4 @@ jobs:
             - run: yarn lint
             - run: yarn format
             - run: yarn types
-            - run: yarn test
+            - run: yarn test:unit

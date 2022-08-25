@@ -1,6 +1,6 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
-import Config from 'src/config'
+import { Tag } from 'src/config/guardianTags'
 import { NextApiResponse } from 'next'
 
 async function ApproveMrvRequestHandler(
@@ -14,7 +14,7 @@ async function ApproveMrvRequestHandler(
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
-		Config.tags.approveMrvRequest
+		Tag.approveMrvRequest
 	)
 
 	const document = submissions.data?.find(
@@ -29,13 +29,13 @@ async function ApproveMrvRequestHandler(
 
 	const submission = {
 		document,
-		tag: Config.tags.approveBtn,
+		tag: Tag.approveBtn,
 	}
 
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Config.tags.approveMrvRequestBtn,
+		Tag.approveMrvRequestBtn,
 		submission
 	)
 

@@ -1,6 +1,5 @@
 // @ts-nocheck
 // App imports
-import Config from 'src/config'
 import Language from 'src/constants/language'
 import withAuthentication from 'src/middleware/withAuthentication'
 

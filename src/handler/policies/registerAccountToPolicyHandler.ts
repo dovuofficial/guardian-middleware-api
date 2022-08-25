@@ -1,6 +1,6 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
-import Config, { Role } from 'src/config'
+import { Role, Tag } from 'src/config/guardianTags'
 import { NextApiResponse } from 'next'
 import language from 'src/constants/language'
 
@@ -19,7 +19,7 @@ async function RegisterAccountToPolicyHandler(
 		)
 	}
 
-	const tag = Config.tags.chooseRole
+	const tag = Tag.chooseRole
 
 	await engine.executeBlockViaTag(req.accessToken, policyId as string, tag, {
 		role,
