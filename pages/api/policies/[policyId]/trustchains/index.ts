@@ -14,5 +14,5 @@ export default prepare(
 	withHmac,
 	useGuardianContext,
 	withAuthentication,
-	ensureRole(Role.REGISTRANT)
+	ensureRole(Role.STANDARD_REGISTRY)
 )(trustChainsHandler)

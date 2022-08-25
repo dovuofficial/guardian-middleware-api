@@ -2,7 +2,6 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { Tag } from 'src/config/guardianTags'
-import config from 'src/config'
 import trustChainMapper from 'src/mappers/trustChainMapper'
 
 async function TrustChainsHandler(
@@ -11,25 +10,23 @@ async function TrustChainsHandler(
 ) {
 	const { policyId } = req.query
 	const { guardian } = req.context
+	const { accessToken } = req
 
-	// 😅 Impersonate the Standard registry to get data from a given block
-	const { accessToken } = await guardian.account.login({
-		username: config.registryUsername,
-		password: config.registryPassword,
-	})
-
+	// Fetch the id of the Verified Presentation UI block
 	const verifiedPresentationBlockId = await guardian.policies.blockByTag(
 		accessToken,
 		policyId as string,
 		Tag.verifiedPresentationGrid
 	)
 
+	// Fetch the Verified Presentation block data
 	const verifiedPresentationBlock = await guardian.policies.blockById(
 		accessToken,
 		policyId as string,
 		verifiedPresentationBlockId
 	)
 
+	// Extract the Trust Chain hash ids from the Verified Presentation block data
 	const trustChainHashes = verifiedPresentationBlock.data.reduce(
 		(acc, block) => {
 			acc.push(block.hash)
@@ -45,8 +42,7 @@ async function TrustChainsHandler(
 		Tag.trustChainBlock
 	)
 
-	// iterate over the trust chain hashes and fetch the blocks
-
+	// Iterate over the Trust Chain hashes and fetch the blocks
 	const trustChainData = await Promise.all(
 		trustChainHashes.map(async (trustChainHash) => {
 			await guardian.policies.sendToBlock(
@@ -67,6 +63,7 @@ async function TrustChainsHandler(
 		})
 	)
 
+	// Map the trust chain data to a simplified flatter format
 	const mappedResponse = trustChainMapper(trustChainData)
 
 	Response.json(res, mappedResponse)
