@@ -33,10 +33,27 @@ const language = {
 		},
 		validate: {
 			message: 'Validation errors',
+			invalidRole:
+				"Invalid role type. Must be 'registrant' or 'verifier'",
 		},
 		guardian: {
 			serverError:
 				'💥 Guardian API server error… your guess is as good as ours… 🤷‍♂️',
+		},
+		hmac: {
+			noHost: 'Missing "host" in header',
+			noSignature: 'Missing HMAC "x-signature" in header',
+			noDate: 'Missing "x-date" in header',
+			invalidDate:
+				'"x-date" header should be an ISO 8601 UTC date string',
+			noContentHash:
+				'Missing "x-content-sha256" in header. This should be a base64 encoded sha256 hash of the request body',
+			requestTooOld:
+				'Request "x-date" is too old. Please re-create the request.',
+			invalidContentHash:
+				'Request body hash does not match the hash provided in the header for "x-content-sha256"',
+			invalidSignature:
+				'HMAC signature is invalid. Please make sure you are using the correct key and following the correct format.',
 		},
 	},
 

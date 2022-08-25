@@ -14,17 +14,17 @@ function withAuthentication(handler: NextApiHandler) {
 		const { authorization } = req.headers
 
 		if (!authorization) {
-			return Response.unauthorised(res, noAccessToken)
+			return Response.unauthorised(noAccessToken)
 		}
 
 		const [type, accessToken] = authorization?.split(' ') || []
 
 		if (type?.toLowerCase() !== 'bearer') {
-			return Response.unauthorised(res, invalidAuthType(type))
+			return Response.unauthorised(invalidAuthType(type))
 		}
 
 		if (!accessToken) {
-			return Response.unauthorised(res, noAccessToken)
+			return Response.unauthorised(noAccessToken)
 		}
 
 		req.accessToken = accessToken

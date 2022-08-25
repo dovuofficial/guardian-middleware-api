@@ -24,7 +24,7 @@ async function ApproveEcologicalProjectHandler(
 	)
 
 	if (!document) {
-		return Response.notFound(res)
+		return Response.notFound()
 	}
 
 	const submission = {

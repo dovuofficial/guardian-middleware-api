@@ -24,7 +24,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	)
 
 	if (validationErrors) {
-		return Response.unprocessibleEntity(res, validationErrors)
+		return Response.unprocessibleEntity(validationErrors)
 	}
 
 	const did = await engine.getCurrentUserDid(accessToken)
@@ -36,7 +36,7 @@ async function MrvSubmissionHandler(req: MRVRequest, res: NextApiResponse) {
 	)
 
 	if (!previousDocument) {
-		return Response.notFound(res)
+		return Response.notFound()
 	}
 
 	const data = {

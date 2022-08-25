@@ -16,14 +16,10 @@ const mockedApiResponse = MockedApiResponse.mock()
 
 test('Expect that a request with no authorization header fails', async () => {
 	const mockedApiRequest = MockedApiRequest.mock()
-	const response = await handlerWithMiddleware(
-		mockedApiRequest,
-		mockedApiResponse
-	)
 
-	expect(response.error.message).toBe(
-		withAuthenticationResponse.noAccessToken
-	)
+	expect(() =>
+		handlerWithMiddleware(mockedApiRequest, mockedApiResponse)
+	).toThrowError(withAuthenticationResponse.noAccessToken)
 })
 
 test('Expect that a request with a JWT is successfull', async () => {

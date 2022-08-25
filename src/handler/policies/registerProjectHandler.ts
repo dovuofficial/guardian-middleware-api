@@ -22,7 +22,7 @@ async function RegisterProjectHandler(
 	const validationErrors = validateProjectRegistrationApplication(body)
 
 	if (validationErrors) {
-		Response.unprocessibleEntity(res, validationErrors)
+		Response.unprocessibleEntity(validationErrors)
 		return
 	}
 

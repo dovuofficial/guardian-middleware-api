@@ -3,11 +3,12 @@ import Response from 'src/response'
 import { testApiHandler } from 'next-test-api-route-handler'
 import StatusCode from 'src/constants/status'
 import language from 'src/constants/language'
+import exceptionFilter from 'src/middleware/exceptionFilter'
 
 describe('Response', () => {
 	it('responds with method not allowed', async () => {
 		await testApiHandler<{ message: string }>({
-			handler: (_, res) => Response.methodNotAllowed(res, 'GET'),
+			handler: exceptionFilter(() => Response.methodNotAllowed('GET')),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(405)
@@ -21,7 +22,7 @@ describe('Response', () => {
 	it('responds with unauthorised', async () => {
 		const message = 'You are not authorised to access this resource'
 		await testApiHandler<{ message: string }>({
-			handler: (_, res) => Response.unauthorised(res, message),
+			handler: exceptionFilter(() => Response.unauthorised(message)),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(401)
@@ -33,7 +34,9 @@ describe('Response', () => {
 	it('responds with unprocessible entity with error messages', async () => {
 		const errors = ['Should be an integer', 'Should be a string']
 		await testApiHandler<{ errors: string | Array<string> }>({
-			handler: (_, res) => Response.unprocessibleEntity(res, errors),
+			handler: exceptionFilter(() =>
+				Response.unprocessibleEntity(errors)
+			),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(422)
@@ -47,7 +50,7 @@ describe('Response', () => {
 	})
 	it('responds with unprocessible entity', async () => {
 		await testApiHandler<{ errors: string | Array<string> }>({
-			handler: (_, res) => Response.unprocessibleEntity(res),
+			handler: exceptionFilter(() => Response.unprocessibleEntity()),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(422)
@@ -61,7 +64,7 @@ describe('Response', () => {
 	})
 	it('responds with bad request', async () => {
 		await testApiHandler<null>({
-			handler: (_, res) => Response.badRequest(res),
+			handler: exceptionFilter(() => Response.badRequest()),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(400)
@@ -75,7 +78,7 @@ describe('Response', () => {
 	it('responds with json', async () => {
 		const data = { foo: 'bar' }
 		await testApiHandler<{ data: Record<string, unknown> }>({
-			handler: (_, res) => Response.json(res, data),
+			handler: exceptionFilter((_, res) => Response.json(res, data)),
 			test: async ({ fetch }) => {
 				const res = await fetch()
 				expect(res.status).toBe(200)

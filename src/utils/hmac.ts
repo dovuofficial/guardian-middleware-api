@@ -3,7 +3,7 @@ import Crypto from 'crypto'
 
 function generateHmac(payloadAsString: string): string {
 	if (typeof payloadAsString !== 'string') {
-		throw Error('Your payload object must be converted in to a string')
+		throw new Error('Your payload object must be converted in to a string')
 	}
 
 	return Crypto.createHmac('sha256', config.hmacAuthKey)

@@ -53,7 +53,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/UnprocessableErrorResponse"
+							"$ref": "#/components/schemas/ErrorResponse"
 						}
 					}
 				}
@@ -122,8 +122,29 @@
 						"properties": {
 							"message": {
 								"type": "string"
+							},
+							"statusCode": {
+								"type": "number"
+							},
+							"timestamp": {
+								"type": "string"
+							},
+							"path": {
+								"type": "string"
+							},
+							"errors": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
 							}
-						}
+						},
+						"required": [
+							"message",
+							"statusCode",
+							"timestamp",
+							"path"
+						]
 					}
 				}
 			},

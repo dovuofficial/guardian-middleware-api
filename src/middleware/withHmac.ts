@@ -3,6 +3,7 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import hmac from 'src/utils/hmac'
 import Crypto from 'crypto'
 import config from 'src/config'
+import language from 'src/constants/language'
 
 /**
  * We follow Microsoft's implementation of HMAC for securing the API.
@@ -32,54 +33,36 @@ function withHmac(handler: NextApiHandler) {
 		} = headers
 
 		if (!host) {
-			return Response.unauthorised(res, 'Missing "host" in header')
+			return Response.unauthorised(language.middleware.hmac.noHost)
 		}
 
 		if (!headerSignature) {
-			return Response.unauthorised(
-				res,
-				'Missing HMAC "signature" in header'
-			)
+			return Response.unauthorised(language.middleware.hmac.noSignature)
 		}
 
 		if (!headerDate) {
-			return Response.unauthorised(
-				res,
-				'Missing "x-date" in header. This should be an ISO 8601 UTC date string'
-			)
+			return Response.unauthorised(language.middleware.hmac.noDate)
 		}
 
 		if (typeof headerDate !== 'string') {
-			return Response.unauthorised(
-				res,
-				'"x-date" header should be an ISO 8601 UTC date string'
-			)
+			return Response.unauthorised(language.middleware.hmac.invalidDate)
 		}
 
 		if (body && !headerContentHash) {
-			return Response.unauthorised(
-				res,
-				'Missing "x-content-sha256" in header. This should be a base64 encoded sha256 hash of the request body'
-			)
+			return Response.unauthorised(language.middleware.hmac.noContentHash)
 		}
 
 		let requestDate
 		try {
 			requestDate = new Date(headerDate as string)
 		} catch (e) {
-			return Response.unauthorised(
-				res,
-				'"x-date" header should be an ISO 8601 UTC date string'
-			)
+			return Response.unauthorised(language.middleware.hmac.invalidDate)
 		}
 
 		const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000)
 
 		if (requestDate.getTime() < fifteenMinutesAgo.getTime()) {
-			return Response.unauthorised(
-				res,
-				'Request "x-date" is too old. Please re-create the request.'
-			)
+			return Response.unauthorised(language.middleware.hmac.requestTooOld)
 		}
 
 		let stringToSign = ''
@@ -90,8 +73,7 @@ function withHmac(handler: NextApiHandler) {
 
 			if (body && contentHash !== headerContentHash) {
 				return Response.unauthorised(
-					res,
-					'Request body hash does not match the hash provided in the header for "x-content-sha256"'
+					language.middleware.hmac.invalidContentHash
 				)
 			}
 
@@ -107,8 +89,7 @@ function withHmac(handler: NextApiHandler) {
 
 		if (!isSignatureValid) {
 			return Response.unauthorised(
-				res,
-				'You are not authorised to access this resource'
+				language.middleware.hmac.invalidSignature
 			)
 		}
 

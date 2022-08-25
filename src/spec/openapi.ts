@@ -263,7 +263,11 @@ export interface components {
 		}
 		ErrorResponse: {
 			error?: {
-				message?: string
+				message: string
+				statusCode: number
+				timestamp: string
+				path: string
+				errors?: string[]
 			}
 		}
 		UnprocessableErrorResponse: {
@@ -423,7 +427,7 @@ export interface components {
 		/** Unprocessable entity */
 		422: {
 			content: {
-				'application/json': components['schemas']['UnprocessableErrorResponse']
+				'application/json': components['schemas']['ErrorResponse']
 			}
 		}
 	}
