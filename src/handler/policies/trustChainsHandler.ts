@@ -3,6 +3,7 @@ import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { Tag } from 'src/config/guardianTags'
 import config from 'src/config'
+import trustChainMapper from 'src/mappers/trustChainMapper'
 
 async function TrustChainsHandler(
 	req: GuardianMiddlewareRequest,
@@ -66,7 +67,9 @@ async function TrustChainsHandler(
 		})
 	)
 
-	Response.json(res, trustChainData)
+	const mappedResponse = trustChainMapper(trustChainData)
+
+	Response.json(res, mappedResponse)
 }
 
 export default TrustChainsHandler

@@ -2,6 +2,7 @@ import { AxiosInstance, AxiosResponse } from 'axios'
 
 export interface BlockData {
 	data?: BlockData[] // Feels naughty 👹
+	hash?: string
 	id: string
 	uiMetaData: { title: string; description: string }
 	blocks?: Array<{ id: string }>
