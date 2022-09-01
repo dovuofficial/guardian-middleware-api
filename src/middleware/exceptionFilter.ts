@@ -7,10 +7,17 @@ import { AxiosError } from 'axios'
 
 type ErrorApiResponse = components['schemas']['ErrorResponse']
 
-function getExceptionStatus(exception: unknown) {
-	return exception instanceof ApiError
-		? exception.statusCode
-		: StatusCode.INTERNAL_SERVER_ERROR
+function getExceptionStatus(exception: ApiError | AxiosError) {
+	if (exception instanceof ApiError) {
+		return exception.statusCode || StatusCode.INTERNAL_SERVER_ERROR
+	}
+	if (getIsGuardianException(exception)) {
+		return (
+			(exception as AxiosError).response?.status ||
+			StatusCode.INTERNAL_SERVER_ERROR
+		)
+	}
+	return StatusCode.INTERNAL_SERVER_ERROR
 }
 
 function getExceptionErrors(exception: unknown) {
@@ -19,8 +26,17 @@ function getExceptionErrors(exception: unknown) {
 		: undefined
 }
 
-function getExceptionMessage(exception: unknown) {
-	return isError(exception) ? exception.message : `Internal Server Error`
+function getExceptionMessage(exception: ApiError | AxiosError) {
+	if (isError(exception)) {
+		return exception.message || `Internal Server Error`
+	}
+	if (getIsGuardianException(exception)) {
+		return (
+			(exception as AxiosError).response?.statusText ||
+			`Internal Server Error`
+		)
+	}
+	return `Internal Server Error`
 }
 
 function getExceptionStack(exception: unknown) {
@@ -70,6 +86,7 @@ function exceptionFilter(handler: NextApiHandler) {
 				userAgent,
 				message,
 				errors,
+				statusCode,
 			}
 
 			if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
