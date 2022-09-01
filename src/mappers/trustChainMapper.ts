@@ -8,6 +8,8 @@ export default (guardianTrustChainBlockData): TrustChainDocument =>
 			hash: vpDocument.hash,
 			tokenId: mintDocument.tokenId,
 			mintDate: mintDocument.date,
+			mintAmount:
+				documents[0].document.document.credentialSubject[0].amount,
 			topicId: vpDocument.document.topicId,
 			issuer: {
 				did: mintDocument.issuer,
@@ -50,6 +52,7 @@ export default (guardianTrustChainBlockData): TrustChainDocument =>
 					createDate: document.createDate,
 					updateDate: document.updateDate,
 					proof: { ...document.document.proof },
+					type: document.type,
 				})
 			),
 		})
