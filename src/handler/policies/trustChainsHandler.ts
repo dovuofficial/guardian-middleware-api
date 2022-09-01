@@ -42,26 +42,30 @@ async function TrustChainsHandler(
 		Tag.trustChainBlock
 	)
 
-	// Iterate over the Trust Chain hashes and fetch the blocks
-	const trustChainData = await Promise.all(
-		trustChainHashes.map(async (trustChainHash) => {
-			await guardian.policies.sendToBlock(
-				accessToken,
-				policyId as string,
-				trustChainBlockId,
-				{
-					filterValue: trustChainHash,
-				}
-			)
-			const trustChainBlock = await guardian.policies.blockById(
-				accessToken,
-				policyId as string,
-				trustChainBlockId
-			)
+	const trustChainData = []
 
-			return trustChainBlock.data
-		})
-	)
+	// We require these to be sent sequentially as the server keeps the state of the filter between requests
+	// eslint-disable-next-line no-restricted-syntax
+	for (const trustChainHash of trustChainHashes) {
+		// eslint-disable-next-line no-await-in-loop
+		await guardian.policies.sendToBlock(
+			accessToken,
+			policyId as string,
+			trustChainBlockId,
+			{
+				filterValue: trustChainHash,
+			}
+		)
+
+		// eslint-disable-next-line no-await-in-loop
+		const trustChainBlock = await guardian.policies.blockById(
+			accessToken,
+			policyId as string,
+			trustChainBlockId
+		)
+
+		trustChainData.push(trustChainBlock.data)
+	}
 
 	// Map the trust chain data to a simplified flatter format
 	const mappedResponse = trustChainMapper(trustChainData)
