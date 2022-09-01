@@ -434,6 +434,7 @@ export interface components {
 			tokenId: string
 			/** Format: date-time */
 			mintDate: string
+			mintAmount: string
 			topicId: string
 			issuer: components['schemas']['Issuer']
 			/** Format: date-time */
@@ -487,6 +488,7 @@ export interface components {
 			/** Format: date-time */
 			updateDate: string
 			proof: components['schemas']['Proof']
+			type: string
 		}
 	}
 	responses: {

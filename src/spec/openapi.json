@@ -449,6 +449,9 @@
 						"type": "string",
 						"format": "date-time"
 					},
+					"mintAmount": {
+						"type": "string"
+					},
 					"topicId": {
 						"type": "string"
 					},
@@ -485,6 +488,7 @@
 					"issuer",
 					"messageId",
 					"mintDate",
+					"mintAmount",
 					"policy",
 					"proof",
 					"tokenId",
@@ -621,6 +625,9 @@
 					},
 					"proof": {
 						"$ref": "#/components/schemas/Proof"
+					},
+					"type": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -632,7 +639,8 @@
 					"proof",
 					"title",
 					"updateDate",
-					"visible"
+					"visible",
+					"type"
 				],
 				"title": "TrustChain"
 			}
@@ -1082,6 +1090,7 @@
 											"hash": "FR35TKVXtwnGvPWzQd1DS46tqc6Up9B5QvQBH4UzBrk3",
 											"tokenId": "0.0.47858839",
 											"mintDate": "2022-08-18T16:27:25.645Z",
+											"mintAmount": "0.3000",
 											"topicId": "0.0.47858844",
 											"issuer": {
 												"did": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784",
@@ -1129,7 +1138,8 @@
 														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..bNNjnjhR83T4K8OnEc8eYsJAOhUQVDmthKsjcRTE4vetx-92dUz39byz8qtFQkyp3Swzca0ODm8gJrjr_Wz7CQ"
-													}
+													},
+													"type": "mint"
 												},
 												{
 													"title": "Cool Farm Tool MRV Submission Review",
@@ -1149,7 +1159,8 @@
 														"verificationMethod": "did:hedera:testnet:2nhyskNTBLEA7EhFQu8bBJGzs1t42RpsGtdiVRfsxz9T;hedera:testnet:tid=0.0.47929788#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..LTz5nO_3mq7fXiMKsFrE6UfNDrc7J9gLKVvKXsOvruljWbuVzaUdB0eIvxFs5_K5YZRWzNITvPJ_3zHjtr2pAw"
-													}
+													},
+													"type": "issue_request(Approved)"
 												},
 												{
 													"title": "Cool Farm Tool Documentation Request",
@@ -1169,7 +1180,8 @@
 														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..2b-SxSFuLbRPEAtJpqWkZzwFGypcxkw48YY5Sf0vVnnK06ZcP5fMzUxozXpM1YsTUUZdv3fisCN2-89srCHLDA"
-													}
+													},
+													"type": "issue_request"
 												},
 												{
 													"title": "Ecological Project Review",
@@ -1189,7 +1201,8 @@
 														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..1Y0OP-wW8BAup3JmlGIrm8eZBN2OuWzUlFR5F9Um2NsjvC3mI5vzKT1rBK5w0b_BR8WlGSb1rDCwycMdDqSuAQ"
-													}
+													},
+													"type": "farm(Approved)"
 												},
 												{
 													"title": "Ecological Project Registration",
@@ -1209,7 +1222,8 @@
 														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..5q_We6qnhlVrfEg8YDZQAUoryzdrRMSBmgojv0HIUeXrtF5w4XPRQMzm2lFa9MiqJo0dpYNQpkWDk_ANfDI_DA"
-													}
+													},
+													"type": "farm"
 												},
 												{
 													"title": "Initial Application Review",
@@ -1229,7 +1243,8 @@
 														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eJA7l1WCpeVf6qAN0_8vX_hCOTmt274fENN-E0jc6kmOYGON1EoR5wfwhLnU3vnvWyPHL8W90VbJuDssHrXiCQ"
-													}
+													},
+													"type": "registrant(Approved)"
 												},
 												{
 													"title": "DOVU Project Initial Application",
@@ -1249,7 +1264,8 @@
 														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
 														"proofPurpose": "assertionMethod",
 														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..fy8HstPV5Lx5d4dH964TSX1f91_PKLzOwMO5gSqf46DcWimdak2B79LFSrm7_ufZBufpLpafI_P7yrbFrzm_Cg"
-													}
+													},
+													"type": "registrant"
 												}
 											]
 										}
