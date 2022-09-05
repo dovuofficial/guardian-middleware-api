@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "99d890ee-704e-4cf5-8008-a8887b5d500f",
+		"_postman_id": "327b3273-7002-4520-9d37-68c387c128ff",
 		"name": "Guardian Middleware API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21575808"
@@ -756,7 +756,7 @@
 												}
 											],
 											"cookie": [],
-											"body": null
+											"body": ""
 										}
 									]
 								}
@@ -955,7 +955,7 @@
 												}
 											],
 											"cookie": [],
-											"body": null
+											"body": ""
 										}
 									]
 								}
@@ -1000,6 +1000,37 @@
 									"response": []
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "Trust Chains",
+					"item": [
+						{
+							"name": "Returns all trust chains for a policy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/trustchains",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"trustchains"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "62f27a007fe3fa7b888e8496",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},

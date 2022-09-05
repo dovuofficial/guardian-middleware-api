@@ -428,6 +428,221 @@
 						]
 					}
 				]
+			},
+			"TrustChains": {
+				"type": "array",
+				"items": {
+					"$ref": "#/components/schemas/TrustChainDocument"
+				}
+			},
+			"TrustChainDocument": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"hash": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"mintDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"mintAmount": {
+						"type": "string"
+					},
+					"topicId": {
+						"type": "string"
+					},
+					"issuer": {
+						"$ref": "#/components/schemas/Issuer"
+					},
+					"createDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updateDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"messageId": {
+						"type": "string"
+					},
+					"proof": {
+						"$ref": "#/components/schemas/Proof"
+					},
+					"policy": {
+						"$ref": "#/components/schemas/Policy"
+					},
+					"trustChain": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/TrustChain"
+						}
+					}
+				},
+				"required": [
+					"createDate",
+					"hash",
+					"issuer",
+					"messageId",
+					"mintDate",
+					"mintAmount",
+					"policy",
+					"proof",
+					"tokenId",
+					"topicId",
+					"trustChain",
+					"updateDate"
+				],
+				"title": "Trust Chain Document"
+			},
+			"Issuer": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"did": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": ["did", "username"],
+				"title": "Issuer"
+			},
+			"Policy": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"version": {
+						"type": "string"
+					},
+					"issuer": {
+						"$ref": "#/components/schemas/Issuer"
+					},
+					"createDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updateDate": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"createDate",
+					"description",
+					"id",
+					"issuer",
+					"name",
+					"updateDate",
+					"version"
+				],
+				"title": "Policy"
+			},
+			"Proof": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"verificationMethod": {
+						"type": "string"
+					},
+					"proofPurpose": {
+						"type": "string"
+					},
+					"challenge": {
+						"type": "string",
+						"format": "integer"
+					},
+					"jws": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"created",
+					"jws",
+					"proofPurpose",
+					"type",
+					"verificationMethod"
+				],
+				"title": "Proof"
+			},
+			"TrustChain": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"visible": {
+						"type": "boolean"
+					},
+					"issuer": {
+						"$ref": "#/components/schemas/Issuer"
+					},
+					"messageId": {
+						"anyOf": [
+							{
+								"type": "null"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"issuanceDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updateDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"proof": {
+						"$ref": "#/components/schemas/Proof"
+					},
+					"type": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"createDate",
+					"description",
+					"issuanceDate",
+					"issuer",
+					"messageId",
+					"proof",
+					"title",
+					"updateDate",
+					"visible",
+					"type"
+				],
+				"title": "TrustChain"
 			}
 		},
 		"securitySchemes": {
@@ -816,6 +1031,248 @@
 					},
 					"401": {
 						"$ref": "#/components/responses/401"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/trustchains": {
+			"get": {
+				"tags": ["policies"],
+				"summary": "Fetches all the trust chains for a policy",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TrustChains"
+								},
+								"example": {
+									"data": [
+										{
+											"hash": "FR35TKVXtwnGvPWzQd1DS46tqc6Up9B5QvQBH4UzBrk3",
+											"tokenId": "0.0.47858839",
+											"mintDate": "2022-08-18T16:27:25.645Z",
+											"mintAmount": "0.3000",
+											"topicId": "0.0.47858844",
+											"issuer": {
+												"did": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784",
+												"username": "ci_registrant_2022-08-18T16:25:41.029Z"
+											},
+											"createDate": "2022-08-18T16:27:39.215Z",
+											"updateDate": "2022-08-18T16:27:39.215Z",
+											"messageId": "1660840060.001426846",
+											"proof": {
+												"type": "Ed25519Signature2018",
+												"created": "2022-08-18T16:27:25Z",
+												"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
+												"proofPurpose": "authentication",
+												"challenge": "123",
+												"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..unyaGp6RH6MADEMkkm-hBih4houAt2epNfD8qoSPWOWi3cyUyuR3KTiWtwWY1L6XMI6faGHv4mf-W-BTKVRdCw"
+											},
+											"policy": {
+												"id": "62f238427fe3fa7b888e846f",
+												"name": "dovu_ccp_mrv_cool_farm_tool_alpha",
+												"description": "",
+												"version": "1.0.0",
+												"issuer": {
+													"did": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041",
+													"username": "dovuauthority"
+												},
+												"createDate": "2022-08-09T10:34:42.351Z",
+												"updateDate": "2022-08-09T10:34:42.351Z"
+											},
+											"trustChain": [
+												{
+													"title": "Carbon Offset Token",
+													"description": "Token[s] minted.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041",
+														"username": "dovuauthority"
+													},
+													"messageId": "1660840054.895120003",
+													"issuanceDate": "2022-08-18T16:27:25.647Z",
+													"createDate": "2022-08-18T16:27:34.332Z",
+													"updateDate": "2022-08-18T16:27:34.332Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:27:25Z",
+														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..bNNjnjhR83T4K8OnEc8eYsJAOhUQVDmthKsjcRTE4vetx-92dUz39byz8qtFQkyp3Swzca0ODm8gJrjr_Wz7CQ"
+													},
+													"type": "mint"
+												},
+												{
+													"title": "Cool Farm Tool MRV Submission Review",
+													"description": "Cool Farm Tool  Submission processed.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:2nhyskNTBLEA7EhFQu8bBJGzs1t42RpsGtdiVRfsxz9T;hedera:testnet:tid=0.0.47929788",
+														"username": "ci_verifier_2022-08-18T16:25:41.029Z"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:27:25.529Z",
+													"createDate": "2022-08-18T16:27:25.604Z",
+													"updateDate": "2022-08-18T16:27:25.604Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:27:25Z",
+														"verificationMethod": "did:hedera:testnet:2nhyskNTBLEA7EhFQu8bBJGzs1t42RpsGtdiVRfsxz9T;hedera:testnet:tid=0.0.47929788#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..LTz5nO_3mq7fXiMKsFrE6UfNDrc7J9gLKVvKXsOvruljWbuVzaUdB0eIvxFs5_K5YZRWzNITvPJ_3zHjtr2pAw"
+													},
+													"type": "issue_request(Approved)"
+												},
+												{
+													"title": "Cool Farm Tool Documentation Request",
+													"description": "Registrant submitted Cool Farm Tool Documentation to Issuer.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784",
+														"username": "ci_registrant_2022-08-18T16:25:41.029Z"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:27:15.135Z",
+													"createDate": "2022-08-18T16:27:15.176Z",
+													"updateDate": "2022-08-18T16:27:15.176Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:27:15Z",
+														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..2b-SxSFuLbRPEAtJpqWkZzwFGypcxkw48YY5Sf0vVnnK06ZcP5fMzUxozXpM1YsTUUZdv3fisCN2-89srCHLDA"
+													},
+													"type": "issue_request"
+												},
+												{
+													"title": "Ecological Project Review",
+													"description": "Ecological Project registration request processed.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041",
+														"username": "dovuauthority"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:27:04.791Z",
+													"createDate": "2022-08-18T16:27:04.804Z",
+													"updateDate": "2022-08-18T16:27:04.804Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:27:04Z",
+														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..1Y0OP-wW8BAup3JmlGIrm8eZBN2OuWzUlFR5F9Um2NsjvC3mI5vzKT1rBK5w0b_BR8WlGSb1rDCwycMdDqSuAQ"
+													},
+													"type": "farm(Approved)"
+												},
+												{
+													"title": "Ecological Project Registration",
+													"description": "Ecological Project registration request submitted to Issuer.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784",
+														"username": "ci_registrant_2022-08-18T16:25:41.029Z"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:26:54.426Z",
+													"createDate": "2022-08-18T16:26:54.445Z",
+													"updateDate": "2022-08-18T16:26:54.445Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:26:54Z",
+														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..5q_We6qnhlVrfEg8YDZQAUoryzdrRMSBmgojv0HIUeXrtF5w4XPRQMzm2lFa9MiqJo0dpYNQpkWDk_ANfDI_DA"
+													},
+													"type": "farm"
+												},
+												{
+													"title": "Initial Application Review",
+													"description": "DOVU project initial application processed.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041",
+														"username": "dovuauthority"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:26:42.927Z",
+													"createDate": "2022-08-18T16:26:42.961Z",
+													"updateDate": "2022-08-18T16:26:42.961Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:26:42Z",
+														"verificationMethod": "did:hedera:testnet:HJsroiv4k6ggwnyXWUEokcopxRaeehAPUJhp63zjd6Zx;hedera:testnet:tid=0.0.47650041#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eJA7l1WCpeVf6qAN0_8vX_hCOTmt274fENN-E0jc6kmOYGON1EoR5wfwhLnU3vnvWyPHL8W90VbJuDssHrXiCQ"
+													},
+													"type": "registrant(Approved)"
+												},
+												{
+													"title": "DOVU Project Initial Application",
+													"description": "Application submitted to Issuer.",
+													"visible": true,
+													"issuer": {
+														"did": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784",
+														"username": "ci_registrant_2022-08-18T16:25:41.029Z"
+													},
+													"messageId": null,
+													"issuanceDate": "2022-08-18T16:26:27.986Z",
+													"createDate": "2022-08-18T16:26:28.044Z",
+													"updateDate": "2022-08-18T16:26:28.044Z",
+													"proof": {
+														"type": "Ed25519Signature2018",
+														"created": "2022-08-18T16:26:28Z",
+														"verificationMethod": "did:hedera:testnet:8jUQXcED8fpRsS8EhhyEmHABPKDnaCZn9YfYmn79qZB5;hedera:testnet:tid=0.0.47929784#did-root-key",
+														"proofPurpose": "assertionMethod",
+														"jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..fy8HstPV5Lx5d4dH964TSX1f91_PKLzOwMO5gSqf46DcWimdak2B79LFSrm7_ufZBufpLpafI_P7yrbFrzm_Cg"
+													},
+													"type": "registrant"
+												}
+											]
+										}
+									]
+								}
+							}
+						}
 					}
 				}
 			}

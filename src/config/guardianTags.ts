@@ -29,6 +29,11 @@ export enum Tag {
 
 	// Weirdness needed for all document approval
 	approveBtn = 'Option_0',
+
+	// The Verified Presentation Grid block
+	verifiedPresentationGrid = 'vp_grid',
+
+	trustChainBlock = 'trustChainBlock',
 }
 
 export enum Role {

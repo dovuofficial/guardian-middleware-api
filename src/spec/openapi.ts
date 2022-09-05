@@ -143,6 +143,29 @@ export interface paths {
 			}
 		}
 	}
+	'/policies/{policyId}/trustchains': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'application/json': components['schemas']['TrustChains']
+					}
+				}
+			}
+		}
+	}
 	'/policies/{policyId}/approve/application/{did}': {
 		put: {
 			parameters: {
@@ -404,6 +427,69 @@ export interface components {
 					field3: number
 					field4: number
 			  }
+		TrustChains: components['schemas']['TrustChainDocument'][]
+		/** Trust Chain Document */
+		TrustChainDocument: {
+			hash: string
+			tokenId: string
+			/** Format: date-time */
+			mintDate: string
+			mintAmount: string
+			topicId: string
+			issuer: components['schemas']['Issuer']
+			/** Format: date-time */
+			createDate: string
+			/** Format: date-time */
+			updateDate: string
+			messageId: string
+			proof: components['schemas']['Proof']
+			policy: components['schemas']['Policy']
+			trustChain: components['schemas']['TrustChain'][]
+		}
+		/** Issuer */
+		Issuer: {
+			did: string
+			username: string
+		}
+		/** Policy */
+		Policy: {
+			id: string
+			name: string
+			description: string
+			version: string
+			issuer: components['schemas']['Issuer']
+			/** Format: date-time */
+			createDate: string
+			/** Format: date-time */
+			updateDate: string
+		}
+		/** Proof */
+		Proof: {
+			type: string
+			/** Format: date-time */
+			created: string
+			verificationMethod: string
+			proofPurpose: string
+			/** Format: integer */
+			challenge?: string
+			jws: string
+		}
+		/** TrustChain */
+		TrustChain: {
+			title: string
+			description: string
+			visible: boolean
+			issuer: components['schemas']['Issuer']
+			messageId: Partial<unknown> & Partial<string>
+			/** Format: date-time */
+			issuanceDate: string
+			/** Format: date-time */
+			createDate: string
+			/** Format: date-time */
+			updateDate: string
+			proof: components['schemas']['Proof']
+			type: string
+		}
 	}
 	responses: {
 		/** Bad request */
