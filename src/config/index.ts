@@ -14,6 +14,7 @@ interface Config {
 	guardianApiUrl: string
 	registryUsername: string
 	registryPassword: string
+	publicTrustChainAccess: boolean
 }
 
 const {
@@ -31,6 +32,7 @@ const {
 	GUARDIAN_API_URL,
 	STANDARD_REGISTRY_USERNAME,
 	STANDARD_REGISTRY_PASSWORD,
+	PUBLIC_TRUST_CHAIN_ACCESS,
 } = process.env
 
 const AUTH_KEY_MIN_LENGTH = 10
@@ -56,6 +58,7 @@ const config: Config = {
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
+	publicTrustChainAccess: true, // booleanValue(PUBLIC_TRUST_CHAIN_ACCESS),
 }
 
 export default config

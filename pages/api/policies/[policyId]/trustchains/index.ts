@@ -7,12 +7,16 @@ import ensureRole from 'src/middleware/ensureRole'
 import { Role } from 'src/config/guardianTags'
 import exceptionFilter from 'src/middleware/exceptionFilter'
 import onlyGet from 'src/middleware/onlyGet'
+import config from 'src/config'
+
+const isProtected = !config.publicTrustChainAccess
+const emptyHandler = (handler) => (req, res) => handler(req, res)
 
 export default prepare(
 	exceptionFilter,
 	onlyGet,
-	withHmac,
 	useGuardianContext,
-	withAuthentication,
-	ensureRole(Role.STANDARD_REGISTRY)
+	isProtected ? withHmac : emptyHandler,
+	isProtected ? withAuthentication : emptyHandler,
+	isProtected ? ensureRole(Role.STANDARD_REGISTRY) : emptyHandler
 )(trustChainsHandler)
