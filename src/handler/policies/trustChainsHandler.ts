@@ -16,6 +16,8 @@ async function TrustChainsHandler(
 	let { accessToken } = req
 
 	if (config.publicTrustChainAccess) {
+		res.setHeader('Access-Control-Allow-Origin', '*')
+
 		// 😅 Impersonate the Standard registry to get the trust chain data
 		const account: AccountLoginResponse = await guardian.account.login({
 			username: config.registryUsername,
