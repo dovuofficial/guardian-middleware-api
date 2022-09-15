@@ -58,7 +58,7 @@ const config: Config = {
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
-	publicTrustChainAccess: true, // booleanValue(PUBLIC_TRUST_CHAIN_ACCESS),
+	publicTrustChainAccess: booleanValue(PUBLIC_TRUST_CHAIN_ACCESS),
 }
 
 export default config
