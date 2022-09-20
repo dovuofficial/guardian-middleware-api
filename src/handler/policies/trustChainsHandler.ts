@@ -6,6 +6,19 @@ import trustChainMapper from 'src/mappers/trustChainMapper'
 import { AccountLoginResponse } from 'src/guardian/account'
 import config from 'src/config'
 
+const fetchAccessToken = async (req: GuardianMiddlewareRequest, guardian) => {
+	if (config.publicTrustChainAccess) {
+		// 😅 Impersonate the Standard registry to get the trust chain data
+		const account: AccountLoginResponse = await guardian.account.login({
+			username: config.registryUsername,
+			password: config.registryPassword,
+		})
+
+		return account?.accessToken
+	}
+	return req.accessToken
+}
+
 async function TrustChainsHandler(
 	req: GuardianMiddlewareRequest,
 	res: NextApiResponse
@@ -13,18 +26,10 @@ async function TrustChainsHandler(
 	const { policyId } = req.query
 	const { guardian } = req.context
 
-	let { accessToken } = req
+	const accessToken = await fetchAccessToken(req, guardian)
 
 	if (config.publicTrustChainAccess) {
 		res.setHeader('Access-Control-Allow-Origin', '*')
-
-		// 😅 Impersonate the Standard registry to get the trust chain data
-		const account: AccountLoginResponse = await guardian.account.login({
-			username: config.registryUsername,
-			password: config.registryPassword,
-		})
-
-		accessToken = account?.accessToken
 	}
 
 	// Fetch the id of the Verified Presentation UI block
