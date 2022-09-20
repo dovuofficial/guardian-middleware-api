@@ -96,7 +96,7 @@ async function TrustChainsHandler(
 			new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
 	)
 
-	// // Sort each trust chain flow with the most recent last
+	// Sort each trust chain flow with the most recent last
 	mappedResponse.forEach((trustchain) => {
 		trustchain.trustChain.sort(
 			(a, b) =>
