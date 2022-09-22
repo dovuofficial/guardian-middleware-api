@@ -11,9 +11,15 @@
  *
  */
 
+import exceptionFilter from 'src/middleware/exceptionFilter'
+
+const generateMiddleware = (...fns) => [exceptionFilter, ...fns]
+
 const prepare =
 	(...fns) =>
 	(x) =>
-		fns.reverse().reduce((v, f) => f(v), x)
+		generateMiddleware(...fns)
+			.reverse()
+			.reduce((v, f) => f(v), x)
 
 export default prepare
