@@ -1,5 +1,11 @@
 # Guardian Middleware API
 
+## Release version of DOVU Guardian Policies
+
+This API is currently configured for template policies for [DOVU IWA Policies Alpha - 0.1.0](https://github.com/dovuofficial/guardian-policies/releases/tag/0.1.0)
+
+To comply for 0.2.0, request validation classes need to be updated. mainly to use a flat JSON structure.
+
 ## Developing and testing locally
 
 ### Setup your environment variables
