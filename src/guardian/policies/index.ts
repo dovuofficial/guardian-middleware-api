@@ -31,8 +31,7 @@ const ENDPOINTS = {
 	publishFn: (policyId: string) => `/policies/${policyId}/publish`,
 	updateFn: (policyId: string) => `/policies/${policyId}`,
 	blocksFn: (policyId: string) => `/policies/${policyId}/blocks`,
-	policyInfoByIdFn: (policyId: string) =>
-		`/policies/${policyId}`,
+	policyInfoByIdFn: (policyId: string) => `/policies/${policyId}`,
 	blockByIdFn: (policyId: string, uuid: string) =>
 		`/policies/${policyId}/blocks/${uuid}`,
 	blockByTagFn: (policyId: string, tag: string) =>
@@ -93,7 +92,11 @@ const list = async (api: AxiosInstance, accessToken: string) => {
 	return result.data
 }
 
-const fetchSinglePolicy = async (api: AxiosInstance, accessToken: string, id: string) => {
+const fetchSinglePolicy = async (
+	api: AxiosInstance,
+	accessToken: string,
+	id: string
+) => {
 	const result = await api.get<Record<string, unknown>>(
 		ENDPOINTS.policyInfoByIdFn(id),
 		{
@@ -220,10 +223,7 @@ export interface Policies {
 		token: string,
 		name: string
 	) => Promise<Record<string, unknown>>
-	policyById: (
-		token: string,
-		id: string
-	) => Promise<Record<string, unknown>>
+	policyById: (token: string, id: string) => Promise<Record<string, unknown>>
 	blockById: (
 		token: string,
 		policyId: string,

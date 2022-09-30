@@ -11,7 +11,10 @@ async function FetchTokenInformation(
 	const { policyId } = req.query
 	const { guardian } = req.context
 
-	const data = await guardian.policies.policyById(accessToken, String(policyId))
+	const data = await guardian.policies.policyById(
+		accessToken,
+		String(policyId)
+	)
 
 	const mintTokenPath = [
 		Tag.verifierWorkflow,
@@ -25,7 +28,7 @@ async function FetchTokenInformation(
 		const tag = tagPath.shift()
 
 		if (tag) {
-			const updated = data.children.find(child => child.tag === tag)
+			const updated = data.children.find((child) => child.tag === tag)
 
 			return traverseToBlock(updated, tagPath)
 		}
@@ -36,7 +39,7 @@ async function FetchTokenInformation(
 	const block = traverseToBlock(data.config, mintTokenPath)
 
 	Response.json(res, {
-		policy_token_id: block.tokenId
+		policy_token_id: block.tokenId,
 	})
 }
 
