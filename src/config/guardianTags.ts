@@ -34,6 +34,14 @@ export enum Tag {
 	verifiedPresentationGrid = 'vp_grid',
 
 	trustChainBlock = 'trustChainBlock',
+
+	// The Mint Token block
+	mintToken = 'mint_token',
+
+	// Path to mint token
+	verifierWorkflow = 'verifier_workflow',
+	approveIssueRequestsPage = 'approve_issue_requests_page',
+	mintTokenParent = 'mit_token',
 }
 
 export enum Role {
