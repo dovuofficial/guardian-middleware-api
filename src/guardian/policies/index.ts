@@ -31,6 +31,8 @@ const ENDPOINTS = {
 	publishFn: (policyId: string) => `/policies/${policyId}/publish`,
 	updateFn: (policyId: string) => `/policies/${policyId}`,
 	blocksFn: (policyId: string) => `/policies/${policyId}/blocks`,
+	policyInfoByIdFn: (policyId: string) =>
+		`/policies/${policyId}`,
 	blockByIdFn: (policyId: string, uuid: string) =>
 		`/policies/${policyId}/blocks/${uuid}`,
 	blockByTagFn: (policyId: string, tag: string) =>
@@ -89,6 +91,29 @@ const list = async (api: AxiosInstance, accessToken: string) => {
 	)
 
 	return result.data
+}
+
+const fetchSinglePolicy = async (api: AxiosInstance, accessToken: string, id: string) => {
+	const result = await api.get<Record<string, unknown>>(
+		ENDPOINTS.policyInfoByIdFn(id),
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	)
+
+	return result.data
+}
+
+const policyById = async (api: AxiosInstance, accessToken: string, id) => {
+	const policy = await fetchSinglePolicy(api, accessToken, id)
+
+	if (!policy) {
+		throw new Error('Policy was not found by id')
+	}
+
+	return policy
 }
 
 const policyByName = async (api: AxiosInstance, accessToken: string, name) => {
@@ -195,6 +220,10 @@ export interface Policies {
 		token: string,
 		name: string
 	) => Promise<Record<string, unknown>>
+	policyById: (
+		token: string,
+		id: string
+	) => Promise<Record<string, unknown>>
 	blockById: (
 		token: string,
 		policyId: string,
@@ -217,6 +246,7 @@ const policies = (api: AxiosInstance): Policies => ({
 	blocks: (token, policyId) => blocks(api, token, policyId),
 	blockByTag: (token, policyId, tag) => blockByTag(api, token, policyId, tag),
 	policyByName: (token, name) => policyByName(api, token, name),
+	policyById: (token, id) => policyById(api, token, id),
 	blockById: (token, policyId, uuid) => blockById(api, token, policyId, uuid),
 	sendToBlock: (token, policyId, uuid, payload) =>
 		sendToBlock(api, token, policyId, uuid, payload),
