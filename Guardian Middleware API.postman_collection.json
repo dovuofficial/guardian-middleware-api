@@ -1118,27 +1118,22 @@
 				{
 					"name": "Get token id for policy",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/policies/:policyId/role/:roleType",
+							"raw": "{{baseUrl}}/policies/:policyId/token",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"policies",
 								":policyId",
-								"role",
-								":roleType"
+								"token"
 							],
 							"variable": [
 								{
 									"key": "policyId",
 									"value": "62f27a007fe3fa7b888e8496"
-								},
-								{
-									"key": "roleType",
-									"value": "registrant"
 								}
 							]
 						}
