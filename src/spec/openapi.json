@@ -956,7 +956,7 @@
 			}
 		},
 		"/policies/{policyId}/token": {
-			"post": {
+			"get": {
 				"tags": ["policies"],
 				"summary": "Get the token id connected to a policy",
 				"parameters": [
