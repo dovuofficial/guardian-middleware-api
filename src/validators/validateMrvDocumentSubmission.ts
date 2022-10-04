@@ -20,15 +20,6 @@ const agrecalcSchema = Joi.object<MeasurementReportingVerification>({
 	field3: Joi.number().required(),
 	field4: Joi.number().required(),
 	field5: Joi.number().required(),
-	field6: Joi.number().required(),
-	field7: Joi.number().required(),
-	field8: Joi.number().required(),
-	field9: Joi.number().required(),
-	field10: Joi.number().required(),
-	field11: Joi.number().required(),
-	field12: Joi.number().required(),
-	field13: Joi.number().required(),
-	field14: Joi.number().required(),
 })
 
 const getSchemaFromPath = (mrvType: string) => {

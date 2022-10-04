@@ -113,15 +113,15 @@ describe('Test Cool Farm policy flow', () => {
 			)
 
 			const data = {
-				field0: `Project ${isoDate}`,
-				field1: 'Project Location',
-				field2: 57779,
-				field3: 'Illum commodi quidem dolorem voluptatibus.',
-				field4: 'Porro qui error earum quia iure praesentium molestiae.',
-				field5: 'Aut necessitatibus voluptatem quae nemo reiciendis officia et aperiam quia.',
-				field6: 'Quia maiores vel et reprehenderit eius fugiat quae nihil.',
-				field7: 'Aliquid et sint sint assumenda nostrum eum.',
-				field8: 'Quia explicabo dolorum minima perspiciatis suscipit odit explicabo aut amet.',
+				field0: `Matt Farm ${isoDate}`,
+				field1: 'Paignton',
+				field2: 420,
+				field3: 'Fancy Soil',
+				field4: 'A Cat',
+				field5: 'We grow grass',
+				field6: 'No we do not',
+				field7: 'No, we do not...',
+				field8: 'No',
 			}
 
 			const response = await hmacAxios.post(
@@ -170,28 +170,19 @@ describe('Test Cool Farm policy flow', () => {
 			)
 
 			const data = {
-				field0: 'uuid13',
-				field1: `Project ${isoDate}`,
-				field2: 'Project description',
-				field3: registrant,
-				field4: {
-					field0: 'dovu.market',
-					field1: 'England',
-					field2: 'Micro',
-				},
-				field5: {
-					field0: 'uuid',
-					field1: 'GeoJSON Location',
-					field2: 'Removal',
-					field3: 'N/A',
-					field4: 'N/A',
-					field5: 'N/A',
-					field6: 1,
-					field7: 'N/A',
-					field8: 'Developer of project',
-					field9: 'Sponsor (optional)',
-					field10: 'Claim Tokens (number)',
-				},
+				field0: '1234',
+				field1: `Matt's Farm ${isoDate}`,
+				field2: "This is a description about Matt's farm",
+				field3: 'Matt Smithies',
+				field4: 'Ecological Project Info - Link to Project Data',
+				field5: 'Ecological Project Info - Country: The host country for the project',
+				field6: 'Ecological Project Info - Project Scale: One from the list of - Micro, Small, Medium, or Large',
+				field7: 'Modular Benefit Project - Unique identifier ',
+				field8: 'Modular Benefit Project - Geographic Location',
+				field9: 'Modular Benefit Project - Targeted Benefit Type',
+				field10: 'Modular Benefit Project - Developer(s)',
+				field11: 'Modular Benefit Project - Sponsor(s)',
+				field12: 'Modular Benefit Project - Claim Tokens',
 			}
 
 			const response = await hmacAxios.post(
@@ -240,11 +231,11 @@ describe('Test Cool Farm policy flow', () => {
 			)
 
 			const data = {
-				field0: `Test MRV Field 1 ${isoDate}`,
-				field1: 100,
-				field2: 'Test MRV Field 3',
-				field3: 200,
-				field4: 300,
+				field0: `Grass ${isoDate}`,
+				field1: 2022,
+				field2: 'N/A',
+				field3: 1000,
+				field4: 70170,
 			}
 
 			const response = await hmacAxios.post(
