@@ -113,7 +113,7 @@ export interface paths {
 		}
 	}
 	'/policies/{policyId}/token': {
-		post: {
+		get: {
 			parameters: {
 				path: {
 					policyId: string
@@ -404,18 +404,29 @@ export interface components {
 		}
 		MeasurementReportingVerification:
 			| {
+					/** @description Total CO2e emissions from farming */
 					field0: number
+					/** @description CARBON SEQUESTRATION (soil) - Total CO2e from soil carbon sequestration */
 					field1: number
+					/** @description Total CO2e emissions from farming (inc. Soil Carbon) */
 					field2: number
+					/** @description (Mintable KGs) Net emissions from land use (inc SoilCarbon) */
 					field3: number
+					/** @description Emissions per hectare (inc. Soil Carbon) */
 					field4: number
+					/** @description Farm and enterprise output - KG */
 					field5: number
 			  }
 			| {
+					/** @description Crop type */
 					field0: string
+					/** @description Year / Vintage */
 					field1: number
+					/** @description Farm-gate amount (crop output weight) */
 					field2: string
+					/** @description Emission yield per Ha */
 					field3: number
+					/** @description Negative GHG KG Emissions (Mintable KG) */
 					field4: number
 			  }
 		TrustChains: components['schemas']['TrustChainDocument'][]
