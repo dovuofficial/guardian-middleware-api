@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "327b3273-7002-4520-9d37-68c387c128ff",
+		"_postman_id": "2cd803de-d61c-4005-8963-2f6c475a5a20",
 		"name": "Guardian Middleware API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21575808"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -1024,8 +1023,7 @@
 									"variable": [
 										{
 											"key": "policyId",
-											"value": "62f27a007fe3fa7b888e8496",
-											"type": "string"
+											"value": "62f27a007fe3fa7b888e8496"
 										}
 									]
 								}
@@ -1114,6 +1112,91 @@
 							],
 							"cookie": [],
 							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get token id for policy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/policies/:policyId/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policies",
+								":policyId",
+								"token"
+							],
+							"variable": [
+								{
+									"key": "policyId",
+									"value": "62f27a007fe3fa7b888e8496"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get token id for policy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/policies/:policyId/token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"policies",
+										":policyId",
+										"token"
+									],
+									"variable": [
+										{
+											"key": "policyId",
+											"value": "632b33532e11b6094416fc14"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"2b-Xg7quyabEBSGbH1YAtO2VWZzqrs\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Sep 2022 10:48:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"policy_token_id\": \"0.0.48310942\"\n    }\n}"
 						}
 					]
 				}
