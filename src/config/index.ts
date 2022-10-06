@@ -5,7 +5,6 @@ interface Config {
 	privateKey: string
 	hmacEnabled: boolean
 	hmacAuthKey: string
-	encryptionKey: string
 	apiUrl: string
 	hideStatus: boolean
 	testAuthUrl: string
@@ -28,7 +27,6 @@ const {
 	TEST_AUTH_URL,
 	TEST_COOL_FARM_POLICY_ID,
 	TEST_AGRECALC_POLICY_ID,
-	ENCRYPTION_KEY,
 	GUARDIAN_API_URL,
 	STANDARD_REGISTRY_USERNAME,
 	STANDARD_REGISTRY_PASSWORD,
@@ -49,7 +47,6 @@ const config: Config = {
 	privateKey: HEDERA_OPERATOR_PRIVATE_KEY,
 	hmacEnabled: booleanValue(HMAC_ENABLED),
 	hmacAuthKey: HMAC_SECRET_KEY,
-	encryptionKey: ENCRYPTION_KEY,
 	apiUrl: API_URL,
 	hideStatus: booleanValue(HIDE_STATUS),
 	testAuthUrl: TEST_AUTH_URL,
