@@ -298,22 +298,28 @@
 					{
 						"properties": {
 							"field0": {
-								"type": "number"
+								"type": "number",
+								"description": "Total CO2e emissions from farming"
 							},
 							"field1": {
-								"type": "number"
+								"type": "number",
+								"description": "CARBON SEQUESTRATION (soil) - Total CO2e from soil carbon sequestration"
 							},
 							"field2": {
-								"type": "number"
+								"type": "number",
+								"description": "Total CO2e emissions from farming (inc. Soil Carbon) "
 							},
 							"field3": {
-								"type": "number"
+								"type": "number",
+								"description": "(Mintable KGs) Net emissions from land use (inc SoilCarbon) "
 							},
 							"field4": {
-								"type": "number"
+								"type": "number",
+								"description": "Emissions per hectare (inc. Soil Carbon)"
 							},
 							"field5": {
-								"type": "number"
+								"type": "number",
+								"description": "Farm and enterprise output - KG"
 							}
 						},
 						"required": [
@@ -328,19 +334,24 @@
 					{
 						"properties": {
 							"field0": {
-								"type": "string"
+								"type": "string",
+								"description": "Crop type"
 							},
 							"field1": {
-								"type": "number"
+								"type": "number",
+								"description": "Year / Vintage"
 							},
 							"field2": {
-								"type": "string"
+								"type": "string",
+								"description": "Farm-gate amount (crop output weight)"
 							},
 							"field3": {
-								"type": "number"
+								"type": "number",
+								"description": "Emission yield per Ha"
 							},
 							"field4": {
-								"type": "number"
+								"type": "number",
+								"description": "Negative GHG KG Emissions (Mintable KG)"
 							}
 						},
 						"required": [
