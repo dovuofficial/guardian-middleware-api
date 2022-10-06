@@ -112,6 +112,31 @@ export interface paths {
 			}
 		}
 	}
+	'/policies/{policyId}/token': {
+		post: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				422: components['responses']['422']
+			}
+		}
+	}
 	'/policies/{policyId}/mrv/{mrv_type}': {
 		post: {
 			parameters: {
