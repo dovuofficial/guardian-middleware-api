@@ -1,6 +1,5 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
-import Config from 'src/config'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
 import { Tag } from 'src/config/guardianTags'
