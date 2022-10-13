@@ -113,7 +113,7 @@ export interface paths {
 		}
 	}
 	'/policies/{policyId}/token': {
-		post: {
+		get: {
 			parameters: {
 				path: {
 					policyId: string
@@ -326,28 +326,19 @@ export interface components {
 		}
 		/**
 		 * @example {
-		 *   "field0": "uuid",
-		 *   "field1": "Illum commodi quidem dolorem voluptatibus.",
-		 *   "field2": "A at mollitia corporis molestiae ut debitis.",
-		 *   "field3": "owner",
-		 *   "field4": {
-		 *     "field0": "dovu.market",
-		 *     "field1": "England",
-		 *     "field2": "Micro"
-		 *   },
-		 *   "field5": {
-		 *     "field0": "uuid",
-		 *     "field1": "GeoJSON Location",
-		 *     "field2": "Removal",
-		 *     "field3": "N/A",
-		 *     "field4": "N/A",
-		 *     "field5": "N/A",
-		 *     "field6": "N/A",
-		 *     "field7": "N/A",
-		 *     "field8": "Developer of project",
-		 *     "field9": "Sponsor (optional)",
-		 *     "field10": "Claim Tokens (number)"
-		 *   }
+		 *   "field0": "1234",
+		 *   "field1": "Matt's Farm",
+		 *   "field2": "This is a description about Matt's farm",
+		 *   "field3": "Matt Smithies",
+		 *   "field4": "Ecological Project Info - Link to Project Data",
+		 *   "field5": "Ecological Project Info - Country: The host country for the project",
+		 *   "field6": "Ecological Project Info - Project Scale: One from the list of - Micro, Small, Medium, or Large",
+		 *   "field7": "Modular Benefit Project - Unique identifier ",
+		 *   "field8": "Modular Benefit Project - Geographic Location",
+		 *   "field9": "Modular Benefit Project - Targeted Benefit Type",
+		 *   "field10": "Modular Benefit Project - Developer(s)",
+		 *   "field11": "Modular Benefit Project - Sponsor(s)",
+		 *   "field12": "Modular Benefit Project - Claim Tokens"
 		 * }
 		 */
 		EcologicalProject: {
@@ -359,40 +350,24 @@ export interface components {
 			field2?: string
 			/** @description Owners of the project, can be account_id, did, or something non-PII */
 			field3?: string
-			/** @description Ecological Project Information */
-			field4?: {
-				/** @description Link to Project Data: A verified link to more project data like marketing materials or a website */
-				field0?: string
-				/** @description Country: The host country for the project */
-				field1?: string
-				/** @description Project Scale: One from the list of - Micro, Small, Medium, or Large */
-				field2?: string
-			}
-			/** @description Ecological Project Information */
-			field5?: {
-				/** @description Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP. */
-				field0?: string
-				/** @description Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs) */
-				field1?: string
-				/** @description Targeted Benefit Type */
-				field2?: string
-				/** @description Carbon (Reduction/Removal + Natural/Technology) */
-				field3?: string
-				/** @description Water */
-				field4?: string
-				/** @description Nitrogen */
-				field5?: string
-				/** @description Phosphorus */
-				field6?: string
-				/** @description Sediment */
-				field7?: string
-				/** @description Developer(s) */
-				field8?: string
-				/** @description Sponsor(s) */
-				field9?: string
-				/** @description Claim Tokens */
-				field10?: string
-			}
+			/** @description Ecological Project Info - Link to Project Data: A verified link to more project data like marketing materials or a website */
+			field4?: string
+			/** @description Ecological Project Info - Country: The host country for the project */
+			field5?: string
+			/** @description Ecological Project Info - Project Scale: One from the list of - Micro, Small, Medium, or Large */
+			field6?: string
+			/** @description Modular Benefit Project - Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP. */
+			field7?: string
+			/** @description Modular Benefit Project - Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs) */
+			field8?: string
+			/** @description Modular Benefit Project - Targeted Benefit Type */
+			field9?: string
+			/** @description Modular Benefit Project - Developer(s) */
+			field10?: string
+			/** @description Modular Benefit Project - Sponsor(s) */
+			field11?: string
+			/** @description Modular Benefit Project - Claim Tokens */
+			field12?: string
 		}
 		/**
 		 * @example {
@@ -429,27 +404,29 @@ export interface components {
 		}
 		MeasurementReportingVerification:
 			| {
+					/** @description Total CO2e emissions from farming */
 					field0: number
+					/** @description CARBON SEQUESTRATION (soil) - Total CO2e from soil carbon sequestration */
 					field1: number
+					/** @description Total CO2e emissions from farming (inc. Soil Carbon) */
 					field2: number
+					/** @description (Mintable KGs) Net emissions from land use (inc SoilCarbon) */
 					field3: number
+					/** @description Emissions per hectare (inc. Soil Carbon) */
 					field4: number
+					/** @description Farm and enterprise output - KG */
 					field5: number
-					field6: number
-					field7: number
-					field8: number
-					field9: number
-					field10: number
-					field11: number
-					field12: number
-					field13: number
-					field14: number
 			  }
 			| {
+					/** @description Crop type */
 					field0: string
+					/** @description Year / Vintage */
 					field1: number
+					/** @description Farm-gate amount (crop output weight) */
 					field2: string
+					/** @description Emission yield per Ha */
 					field3: number
+					/** @description Negative GHG KG Emissions (Mintable KG) */
 					field4: number
 			  }
 		TrustChains: components['schemas']['TrustChainDocument'][]

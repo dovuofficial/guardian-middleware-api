@@ -186,98 +186,58 @@
 						"type": "string",
 						"description": "Owners of the project, can be account_id, did, or something non-PII"
 					},
+
 					"field4": {
-						"type": "object",
-						"description": "Ecological Project Information",
-						"properties": {
-							"field0": {
-								"type": "string",
-								"description": "Link to Project Data: A verified link to more project data like marketing materials or a website"
-							},
-							"field1": {
-								"type": "string",
-								"description": "Country: The host country for the project"
-							},
-							"field2": {
-								"type": "string",
-								"description": "Project Scale: One from the list of - Micro, Small, Medium, or Large"
-							}
-						}
+						"type": "string",
+						"description": "Ecological Project Info - Link to Project Data: A verified link to more project data like marketing materials or a website"
 					},
 					"field5": {
-						"type": "object",
-						"description": "Ecological Project Information",
-						"properties": {
-							"field0": {
-								"type": "string",
-								"description": "Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP."
-							},
-							"field1": {
-								"type": "string",
-								"description": "Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs)"
-							},
-							"field2": {
-								"type": "string",
-								"description": "Targeted Benefit Type"
-							},
-							"field3": {
-								"type": "string",
-								"description": "Carbon (Reduction/Removal + Natural/Technology)"
-							},
-							"field4": {
-								"type": "string",
-								"description": "Water"
-							},
-							"field5": {
-								"type": "string",
-								"description": "Nitrogen"
-							},
-							"field6": {
-								"type": "string",
-								"description": "Phosphorus"
-							},
-							"field7": {
-								"type": "string",
-								"description": "Sediment"
-							},
-							"field8": {
-								"type": "string",
-								"description": "Developer(s)"
-							},
-							"field9": {
-								"type": "string",
-								"description": "Sponsor(s)"
-							},
-							"field10": {
-								"type": "string",
-								"description": "Claim Tokens"
-							}
-						}
+						"type": "string",
+						"description": "Ecological Project Info - Country: The host country for the project"
+					},
+					"field6": {
+						"type": "string",
+						"description": "Ecological Project Info - Project Scale: One from the list of - Micro, Small, Medium, or Large"
+					},
+					"field7": {
+						"type": "string",
+						"description": "Modular Benefit Project - Unique identifier (“Id”): An identifier that is issued and is independent of the project. The Id is used to establish a compound identifier linking the MBP with its host EP."
+					},
+					"field8": {
+						"type": "string",
+						"description": "Modular Benefit Project - Geographic Location (GeoJSON for Projects, Basic GNS/GPS for Programs)"
+					},
+					"field9": {
+						"type": "string",
+						"description": "Modular Benefit Project - Targeted Benefit Type"
+					},
+					"field10": {
+						"type": "string",
+						"description": "Modular Benefit Project - Developer(s)"
+					},
+					"field11": {
+						"type": "string",
+						"description": "Modular Benefit Project - Sponsor(s)"
+					},
+					"field12": {
+						"type": "string",
+						"description": "Modular Benefit Project - Claim Tokens"
 					}
 				},
 				"example": {
-					"field0": "uuid",
-					"field1": "Illum commodi quidem dolorem voluptatibus.",
-					"field2": "A at mollitia corporis molestiae ut debitis.",
-					"field3": "owner",
-					"field4": {
-						"field0": "dovu.market",
-						"field1": "England",
-						"field2": "Micro"
-					},
-					"field5": {
-						"field0": "uuid",
-						"field1": "GeoJSON Location",
-						"field2": "Removal",
-						"field3": "N/A",
-						"field4": "N/A",
-						"field5": "N/A",
-						"field6": "N/A",
-						"field7": "N/A",
-						"field8": "Developer of project",
-						"field9": "Sponsor (optional)",
-						"field10": "Claim Tokens (number)"
-					}
+					"field0": "1234",
+					"field1": "Matt's Farm",
+					"field2": "This is a description about Matt's farm",
+					"field3": "Matt Smithies",
+					"field4": "Ecological Project Info - Link to Project Data",
+					"field5": "Ecological Project Info - Country: The host country for the project",
+					"field6": "Ecological Project Info - Project Scale: One from the list of - Micro, Small, Medium, or Large",
+					"field7": "Modular Benefit Project - Unique identifier ",
+					"field8": "Modular Benefit Project - Geographic Location",
+					"field9": "Modular Benefit Project - Targeted Benefit Type",
+					"field10": "Modular Benefit Project - Developer(s)",
+					"field11": "Modular Benefit Project - Sponsor(s)",
+					"field12": "Modular Benefit Project - Claim Tokens"
 				}
 			},
 			"ProjectRegistration": {
@@ -338,49 +298,28 @@
 					{
 						"properties": {
 							"field0": {
-								"type": "number"
+								"type": "number",
+								"description": "Total CO2e emissions from farming"
 							},
 							"field1": {
-								"type": "number"
+								"type": "number",
+								"description": "CARBON SEQUESTRATION (soil) - Total CO2e from soil carbon sequestration"
 							},
 							"field2": {
-								"type": "number"
+								"type": "number",
+								"description": "Total CO2e emissions from farming (inc. Soil Carbon) "
 							},
 							"field3": {
-								"type": "number"
+								"type": "number",
+								"description": "(Mintable KGs) Net emissions from land use (inc SoilCarbon) "
 							},
 							"field4": {
-								"type": "number"
+								"type": "number",
+								"description": "Emissions per hectare (inc. Soil Carbon)"
 							},
 							"field5": {
-								"type": "number"
-							},
-							"field6": {
-								"type": "number"
-							},
-							"field7": {
-								"type": "number"
-							},
-							"field8": {
-								"type": "number"
-							},
-							"field9": {
-								"type": "number"
-							},
-							"field10": {
-								"type": "number"
-							},
-							"field11": {
-								"type": "number"
-							},
-							"field12": {
-								"type": "number"
-							},
-							"field13": {
-								"type": "number"
-							},
-							"field14": {
-								"type": "number"
+								"type": "number",
+								"description": "Farm and enterprise output - KG"
 							}
 						},
 						"required": [
@@ -389,34 +328,30 @@
 							"field2",
 							"field3",
 							"field4",
-							"field5",
-							"field6",
-							"field7",
-							"field8",
-							"field9",
-							"field10",
-							"field11",
-							"field12",
-							"field13",
-							"field14"
+							"field5"
 						]
 					},
 					{
 						"properties": {
 							"field0": {
-								"type": "string"
+								"type": "string",
+								"description": "Crop type"
 							},
 							"field1": {
-								"type": "number"
+								"type": "number",
+								"description": "Year / Vintage"
 							},
 							"field2": {
-								"type": "string"
+								"type": "string",
+								"description": "Farm-gate amount (crop output weight)"
 							},
 							"field3": {
-								"type": "number"
+								"type": "number",
+								"description": "Emission yield per Ha"
 							},
 							"field4": {
-								"type": "number"
+								"type": "number",
+								"description": "Negative GHG KG Emissions (Mintable KG)"
 							}
 						},
 						"required": [
