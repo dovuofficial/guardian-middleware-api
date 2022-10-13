@@ -3,6 +3,9 @@ version: '3.7'
 services:
     api:
         # Environment variables will automatically be added from your .env file to the container.
-        build: .
+        build:
+            context: .
+        env_file:
+            - .env.docker
         ports:
             - 3001:80

@@ -1,38 +1,17 @@
-# Install dependencies only when needed
-FROM node:16.16-alpine AS deps
+ARG BASE_IMAGE=node:16.16-alpine
+
+# ------------------------------------- #
+# Install dependencies only when needed #
+# ------------------------------------- #
+FROM $BASE_IMAGE AS deps
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# Rebuild the source code only when needed
-FROM node:16.16-alpine AS builder
-
-# add environment variables to client code
-ARG HEDERA_NETWORK
-ARG HEDERA_OPERATOR_ACCOUNT_ID
-ARG HEDERA_OPERATOR_PRIVATE_KEY
-ARG GUARDIAN_API_URL
-ARG HMAC_SECRET_KEY
-ARG ENCRYPTION_KEY
-ARG API_URL
-ARG HIDE_STATUS
-ARG TEST_AUTH_URL
-ARG STANDARD_REGISTRY_USERNAME
-ARG STANDARD_REGISTRY_PASSWORD
-ARG PUBLIC_TRUST_CHAIN_ACCESS
-
-ENV HEDERA_NETWORK=$HEDERA_NETWORK
-ENV HEDERA_OPERATOR_ACCOUNT_ID=$HEDERA_OPERATOR_ACCOUNT_ID
-ENV HEDERA_OPERATOR_PRIVATE_KEY=$HEDERA_OPERATOR_PRIVATE_KEY
-ENV GUARDIAN_API_URL=$GUARDIAN_API_URL
-ENV HMAC_SECRET_KEY=$HMAC_SECRET_KEY
-ENV ENCRYPTION_KEY=$ENCRYPTION_KEY
-ENV API_URL=$API_URL
-ENV HIDE_STATUS=$HIDE_STATUS
-ENV TEST_AUTH_URL=$TEST_AUTH_URL
-ENV STANDARD_REGISTRY_USERNAME=$STANDARD_REGISTRY_USERNAME
-ENV STANDARD_REGISTRY_PASSWORD=$STANDARD_REGISTRY_PASSWORD
-ENV PUBLIC_TRUST_CHAIN_ACCESS=$PUBLIC_TRUST_CHAIN_ACCESS
+# ---------------------------------------- #
+# Rebuild the source code only when needed #
+# ---------------------------------------- #
+FROM $BASE_IMAGE AS builder
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -42,8 +21,10 @@ ARG NODE_ENV=production
 RUN echo ${NODE_ENV}
 RUN NODE_ENV=${NODE_ENV} yarn build
 
-# Production image, copy all the files and run next
-FROM node:16.16-alpine AS runner
+# ------------------------------------------------- #
+# Production image, copy all the files and run next #
+# ------------------------------------------------- #
+FROM $BASE_IMAGE AS runner
 WORKDIR /app
 
 RUN addgroup -g 1001 -S nodejs
