@@ -6,6 +6,6 @@ services:
         build:
             context: .
         env_file:
-            - .env.docker
+            - .env.local
         ports:
             - 3001:80

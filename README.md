@@ -37,7 +37,14 @@ yarn dev
 
 We provide a Dockerfile for running the API in a container. You can use the provided docker-compose.yml file to run the API locally. Please note that this builds a production build without any debug information.
 
-Environment variables you have set in `.env.local` will be used in the container.
+Environment variables you have set in `.env.local` will be used in the container. This can be changed in the docker-compose.yml file.
+
+Please be aware that in order to reference the Guardian API from within the container, you will need to use the `host.docker.internal` hostname in your `.env.local` file. This is a special hostname that resolves to the host machine from within the container.
+
+Example:
+`GUARDIAN_API_URL=http://host.docker.internal:3000/api/v1`
+
+The following command will run the Guardian Middleware API on port 3001. You can change this in the docker-compose.yml file if required.
 
 ```bash
 docker-compose up -d --build
