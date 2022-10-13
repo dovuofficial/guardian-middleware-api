@@ -33,6 +33,16 @@ yarn install
 yarn dev
 ```
 
+### Docker Compose
+
+We provide a Dockerfile for running the API in a container. You can use the provided docker-compose.yml file to run the API locally. Please note that this builds a production build without any debug information.
+
+Environment variables you have set in `.env.local` will be used in the container.
+
+```bash
+docker-compose up -d --build
+```
+
 ### Run the linter, formatter and basic tests
 
 ```bash
@@ -147,20 +157,20 @@ function signRequest(
 
 Assumes a Standard Registry account already exists which has published a policy.
 
-- Create A New Registrant Account
-- Create A New Verifier Account
-- Assign The New Accounts To A Policy
-- Login With The Registrant Account
-- Submit An Application
-- Login With The Standard Registry Account
-- Approve The Application
-- Login With The Registrant Account
-- Submit An Ecological Project
-- Login With The Standard Registry Account
-- Approve The Ecological Project
-- Login With The Registrant Account
-- Submit A New MRV Request
-- Login With The Verifier Account
-- Approve The MRV Request
+-   Create A New Registrant Account
+-   Create A New Verifier Account
+-   Assign The New Accounts To A Policy
+-   Login With The Registrant Account
+-   Submit An Application
+-   Login With The Standard Registry Account
+-   Approve The Application
+-   Login With The Registrant Account
+-   Submit An Ecological Project
+-   Login With The Standard Registry Account
+-   Approve The Ecological Project
+-   Login With The Registrant Account
+-   Submit A New MRV Request
+-   Login With The Verifier Account
+-   Approve The MRV Request
 
 After the MRV request is approved, tokens will automatically be minted that represent the carbon described in the MRV for this Ecological Project.

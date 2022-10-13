@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+    api:
+        # Environment variables will automatically be added from your .env file to the container.
+        build: .
+        ports:
+            - 3001:80
