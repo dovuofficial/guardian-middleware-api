@@ -53,7 +53,7 @@ const createAccount = async (): Promise<HederaAccount> => {
 	const hederaClient = client()
 	const transaction = new AccountCreateTransaction()
 		.setKey(publicKey)
-		.setInitialBalance(200.0)
+		.setInitialBalance(20.0)
 
 	const txResponse = await transaction.execute(hederaClient)
 	const receipt = await txResponse.getReceipt(hederaClient)
