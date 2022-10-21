@@ -21,8 +21,11 @@ async function RegisterAccountToPolicyHandler(
 
 	const tag = Tag.chooseRole
 
+	// capitalise the first letter of the role
+	const roleTag = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()
+
 	await engine.executeBlockViaTag(req.accessToken, policyId as string, tag, {
-		role,
+		role: roleTag,
 	})
 
 	res.end()
