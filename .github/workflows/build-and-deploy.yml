@@ -60,12 +60,14 @@ jobs:
                   script: |
                       # Login to registry
                       docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-                      # Stop running container
-                      docker stop $(echo $IMAGE_NAME)
-                      # Remove old container
-                      docker rm $(echo $IMAGE_NAME)
+                      # Stop running containers
+                      docker compose down
+                      # Set environment vars
+                      DOCKER_CONTAINER_REGISTRY=$(echo $REGISTRY)
+                      DOCKER_IMAGE_NAME=$(echo $IMAGE_NAME)
+                      DOCKER_IMAGE_TAG=$(echo $GITHUB_SHA | head -c7)
+                      export DOCKER_CONTAINER_REGISTRY
+                      export DOCKER_IMAGE_NAME
+                      export DOCKER_IMAGE_TAG
                       # Run a new container from a new image
-                      docker run -d \
-                      --restart always \
-                      --name $(echo $IMAGE_NAME) \
-                      $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+                      docker compose up -d
