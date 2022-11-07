@@ -4,9 +4,8 @@ name: CI
 # Controls when the workflow will run
 on:
     # Triggers the workflow on push events but only for the main branch
-    # For testing we will run the workflow on a test branch
     push:
-        branches: [feature/dockerise]
+        branches: [main]
 
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
@@ -70,3 +69,5 @@ jobs:
                       export DOCKER_IMAGE_TAG
                       # Run a new container from a new image
                       docker compose up -d
+                      # Clean out old images
+                      docker image prune -af
