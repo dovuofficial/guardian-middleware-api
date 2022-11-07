@@ -55,7 +55,6 @@ jobs:
                   host: ${{ secrets.DROPLET_HOST }}
                   username: ${{ secrets.DROPLET_USERNAME }}
                   key: ${{ secrets.DROPLET_SSH_KEY }}
-                  passphrase: ${{ secrets.DROPLET_SSH_PASSPHRASE }}
                   envs: IMAGE_NAME,REGISTRY,{{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
                   script: |
                       # Login to registry
