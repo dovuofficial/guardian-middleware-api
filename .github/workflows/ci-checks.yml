@@ -7,8 +7,6 @@ on:
         branches: [main]
     pull_request:
         branches: [main]
-    schedule:
-        - cron: '0 9 * * *'
 
 jobs:
     build:
@@ -22,6 +20,8 @@ jobs:
             API_URL: ${{ secrets.API_URL }}
             HIDE_STATUS: ${{ secrets.HIDE_STATUS }}
             TEST_AUTH_URL: ${{ secrets.TEST_AUTH_URL }}
+            TEST_COOL_FARM_POLICY_ID: ${{ secrets.TEST_COOL_FARM_POLICY_ID }}
+            TEST_AGRECALC_POLICY_ID: ${{ secrets.TEST_AGRECALC_POLICY_ID }}
 
         steps:
             - uses: actions/checkout@v2

@@ -24,16 +24,18 @@ async function FetchTokenInformation(
 	]
 
 	// 😅 I feel Justyn already wrote this...
-	const traverseToBlock = (data, tagPath = []) => {
+	const traverseToBlock = (childData, tagPath = []) => {
 		const tag = tagPath.shift()
 
 		if (tag) {
-			const updated = data.children.find((child) => child.tag === tag)
+			const updated = childData.children.find(
+				(child) => child.tag === tag
+			)
 
 			return traverseToBlock(updated, tagPath)
 		}
 
-		return data
+		return childData
 	}
 
 	const block = traverseToBlock(data.config, mintTokenPath)
