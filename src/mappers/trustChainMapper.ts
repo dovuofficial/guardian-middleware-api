@@ -3,8 +3,8 @@ import { components } from 'src/spec/openapi'
 type TrustChainDocument = components['schemas']['TrustChainDocument']
 
 export default (guardianTrustChainBlockData): TrustChainDocument[] =>
-	guardianTrustChainBlockData.map(
-		({ vpDocument, mintDocument, policyDocument, documents }) => ({
+	guardianTrustChainBlockData
+		.map(({ vpDocument, mintDocument, policyDocument, documents }) => ({
 			hash: vpDocument.hash,
 			tokenId: mintDocument.tokenId,
 			mintDate: mintDocument.date,
@@ -55,5 +55,5 @@ export default (guardianTrustChainBlockData): TrustChainDocument[] =>
 					type: document.type,
 				})
 			),
-		})
-	)
+		}))
+		.filter((item) => !!parseFloat(item.mintAmount))
