@@ -56,4 +56,4 @@ export default (guardianTrustChainBlockData): TrustChainDocument[] =>
 				})
 			),
 		})
-	)
+	).filter(item => !!parseFloat(item.mintAmount))
