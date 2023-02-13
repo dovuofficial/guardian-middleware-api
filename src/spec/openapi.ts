@@ -142,7 +142,10 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
-					mrv_type: string
+					mrv_type:
+						| 'agrecalc'
+						| 'cool-farm-tool'
+						| 'general-supply-documentation'
 				}
 			}
 			responses: {

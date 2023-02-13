@@ -53,4 +53,5 @@ export enum Role {
 export enum MRV {
 	AGRECALC = 'agrecalc',
 	COOL_FARM_TOOL = 'cool-farm-tool',
+	GENERAL_SUPPLY_DOCUMENTATION = 'general-supply-documentation',
 }

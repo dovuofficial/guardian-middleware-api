@@ -22,6 +22,7 @@ jobs:
             TEST_AUTH_URL: ${{ secrets.TEST_AUTH_URL }}
             TEST_COOL_FARM_POLICY_ID: ${{ secrets.TEST_COOL_FARM_POLICY_ID }}
             TEST_AGRECALC_POLICY_ID: ${{ secrets.TEST_AGRECALC_POLICY_ID }}
+            TEST_GENERAL_SUPPLY_DOCUMENTATION_POLICY_ID: ${{ secrets.TEST_GENERAL_SUPPLY_DOCUMENTATION_POLICY_ID }}
 
         steps:
             - uses: actions/checkout@v2
