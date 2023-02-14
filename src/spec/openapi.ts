@@ -432,6 +432,18 @@ export interface components {
 					/** @description Negative GHG KG Emissions (Mintable KG) */
 					field4: number
 			  }
+			| {
+					/** @description Documentation Name */
+					field0: string
+					/** @description Documentation Description */
+					field1: string
+					/** @description Documentation Link */
+					field2: string
+					/** @description Carbon Mintable (Mintable KGs) */
+					field3: string
+					/** @description Documentation CID (IPFS Provenance) */
+					field4: string
+			  }
 		TrustChains: components['schemas']['TrustChainDocument'][]
 		/** Trust Chain Document */
 		TrustChainDocument: {

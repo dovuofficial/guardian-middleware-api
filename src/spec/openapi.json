@@ -361,6 +361,37 @@
 							"field3",
 							"field4"
 						]
+					},
+					{
+						"properties": {
+							"field0": {
+								"type": "string",
+								"description": "Documentation Name"
+							},
+							"field1": {
+								"type": "string",
+								"description": "Documentation Description"
+							},
+							"field2": {
+								"type": "string",
+								"description": "Documentation Link"
+							},
+							"field3": {
+								"type": "string",
+								"description": "Carbon Mintable (Mintable KGs)"
+							},
+							"field4": {
+								"type": "string",
+								"description": "Documentation CID (IPFS Provenance)"
+							}
+						},
+						"required": [
+							"field0",
+							"field1",
+							"field2",
+							"field3",
+							"field4"
+						]
 					}
 				]
 			},
