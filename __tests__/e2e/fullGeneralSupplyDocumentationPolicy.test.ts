@@ -245,7 +245,7 @@ describe('Test General Supply Documentation policy flow', () => {
 				field0: `Field 0 ${isoDate}`,
 				field1: 'Field 1',
 				field2: 'Field 2',
-				field3: 'Field 3',
+				field3: '10000',
 				field4: 'Field 4',
 			}
 
