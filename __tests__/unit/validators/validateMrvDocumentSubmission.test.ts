@@ -8,7 +8,7 @@ describe(`Validate Measurement Reporting Verification Document Submission`, () =
 				field0: 'field0',
 				field1: 'field1',
 				field2: 'field2',
-				field3: 'Illum commodi quidem dolorem voluptatibus.',
+				field3: '1000',
 				field4: 'field4',
 			}
 
