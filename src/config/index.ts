@@ -10,6 +10,7 @@ interface Config {
 	testAuthUrl: string
 	testCoolFarmPolicyId: string
 	testAgreCalcPolicyId: string
+	testGeneralSupplyDocumentationPolicyId: string
 	guardianApiUrl: string
 	registryUsername: string
 	registryPassword: string
@@ -27,6 +28,7 @@ const {
 	TEST_AUTH_URL,
 	TEST_COOL_FARM_POLICY_ID,
 	TEST_AGRECALC_POLICY_ID,
+	TEST_GENERAL_SUPPLY_DOCUMENTATION_POLICY_ID,
 	GUARDIAN_API_URL,
 	STANDARD_REGISTRY_USERNAME,
 	STANDARD_REGISTRY_PASSWORD,
@@ -52,6 +54,8 @@ const config: Config = {
 	testAuthUrl: TEST_AUTH_URL,
 	testCoolFarmPolicyId: TEST_COOL_FARM_POLICY_ID,
 	testAgreCalcPolicyId: TEST_AGRECALC_POLICY_ID,
+	testGeneralSupplyDocumentationPolicyId:
+		TEST_GENERAL_SUPPLY_DOCUMENTATION_POLICY_ID,
 	guardianApiUrl: GUARDIAN_API_URL,
 	registryUsername: STANDARD_REGISTRY_USERNAME,
 	registryPassword: STANDARD_REGISTRY_PASSWORD,
