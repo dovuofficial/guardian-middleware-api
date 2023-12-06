@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 export interface BlockData {
-	find?: Function,
-	reduce?: Function,
-	push?: Function,
+	find?: Function
+	reduce?: Function
+	push?: Function
 	data?: BlockData[] | BlockData // Feels naughty 👹
 	hash?: string
 	id: string

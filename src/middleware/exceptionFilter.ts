@@ -68,11 +68,10 @@ function jsonValidationParse(exception: AxiosError) {
 		return null
 	}
 
-	const JSON_VALID_ERROR = "JSON_SCHEMA_VALIDATION_ERROR"
+	const JSON_VALID_ERROR = 'JSON_SCHEMA_VALIDATION_ERROR'
 
 	// console.log(message)
 	if (message.includes(JSON_VALID_ERROR)) {
-
 		const error = JSON.parse(message.split('Error: ')[1])
 
 		return error.details

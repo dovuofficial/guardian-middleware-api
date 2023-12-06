@@ -16,7 +16,7 @@ async function CreateClaimHandler(req: MRVRequest, res: NextApiResponse) {
 	const { engine } = req.context
 	const { body, accessToken } = req
 
-	const tag =  QueryBlockTag[QueryRoute.CREATE_CLAIM]
+	const tag = QueryBlockTag[QueryRoute.CREATE_CLAIM]
 
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
@@ -26,7 +26,7 @@ async function CreateClaimHandler(req: MRVRequest, res: NextApiResponse) {
 
 	// console.dir(submissions, { depth: null })
 
-	const submission = submissions.data?.find(elem => elem?.id === id)
+	const submission = submissions.data?.find((elem) => elem?.id === id)
 
 	if (!submission) {
 		// TODO: Context, this might not be the best error, as it is the entity that failed to resolve.
@@ -38,7 +38,7 @@ async function CreateClaimHandler(req: MRVRequest, res: NextApiResponse) {
 		ref: submission,
 	}
 
-	 await engine.executeBlockViaTag(
+	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
 		Tag.createClaim,

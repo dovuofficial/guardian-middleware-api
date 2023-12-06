@@ -14,10 +14,10 @@ async function CreateSiteHandler(
 	req: EcologicalProjectRequest,
 	res: NextApiResponse
 ) {
-	const { policyId , id} = req.query
+	const { policyId, id } = req.query
 	const { engine } = req.context
 	const { body, accessToken } = req
-	const tag =  QueryBlockTag[QueryRoute.CREATE_SITE]
+	const tag = QueryBlockTag[QueryRoute.CREATE_SITE]
 
 	const submission = await engine.fetchBlockSubmissions(
 		accessToken,
@@ -36,12 +36,7 @@ async function CreateSiteHandler(
 		ref: submission.data,
 	}
 
-	await engine.executeBlockViaTag(
-		accessToken,
-		policyId as string,
-		tag,
-		data
-	)
+	await engine.executeBlockViaTag(accessToken, policyId as string, tag, data)
 
 	res.end()
 }
