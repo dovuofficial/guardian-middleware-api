@@ -33,7 +33,7 @@ export interface paths {
 			parameters: {
 				path: {
 					policyId: string
-					roleType: 'registrant' | 'verifier'
+					roleType: 'supplier' | 'verifier'
 				}
 			}
 			responses: {
@@ -53,36 +53,7 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/register': {
-		post: {
-			parameters: {
-				path: {
-					policyId: string
-				}
-			}
-			responses: {
-				/** OK */
-				200: {
-					headers: {
-						Date?: string
-						Connection?: string
-						'Keep-Alive'?: string
-						'Transfer-Encoding'?: string
-					}
-					content: {
-						'text/plain': string
-					}
-				}
-				422: components['responses']['422']
-			}
-			requestBody: {
-				content: {
-					'application/json': components['schemas']['ProjectRegistration']
-				}
-			}
-		}
-	}
-	'/policies/{policyId}/project': {
+	'/policies/{policyId}/projects': {
 		post: {
 			parameters: {
 				path: {
@@ -112,8 +83,8 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/token': {
-		get: {
+	'/policies/{policyId}/projects/{id}/sites': {
+		post: {
 			parameters: {
 				path: {
 					policyId: string
@@ -132,12 +103,16 @@ export interface paths {
 						'text/plain': string
 					}
 				}
-				401: components['responses']['401']
 				422: components['responses']['422']
+			}
+			requestBody: {
+				content: {
+					'application/json': components['schemas']['ProjectRegistration']
+				}
 			}
 		}
 	}
-	'/policies/{policyId}/mrv/{mrv_type}': {
+	'/policies/{policyId}/sites/{id}/claims': {
 		post: {
 			parameters: {
 				path: {
@@ -146,6 +121,7 @@ export interface paths {
 						| 'agrecalc'
 						| 'cool-farm-tool'
 						| 'general-supply-documentation'
+					id: unknown
 				}
 			}
 			responses: {
@@ -168,6 +144,67 @@ export interface paths {
 				content: {
 					'application/json': components['schemas']['MeasurementReportingVerification']
 				}
+			}
+		}
+	}
+	'/policies/{policyId}/sites/{id}/claim/{mrv_type}': {
+		/** to be deprecated. */
+		post: {
+			parameters: {
+				path: {
+					policyId: string
+					mrv_type:
+						| 'agrecalc'
+						| 'cool-farm-tool'
+						| 'general-supply-documentation'
+					id: unknown
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				422: components['responses']['422']
+			}
+			requestBody: {
+				content: {
+					'application/json': components['schemas']['MeasurementReportingVerification']
+				}
+			}
+		}
+	}
+	'/policies/{policyId}/token': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				422: components['responses']['422']
 			}
 		}
 	}
@@ -194,7 +231,33 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/approve/application/{did}': {
+	'/policies/{policyId}/approval/projects/{id}': {
+		put: {
+			parameters: {
+				path: {
+					policyId: string
+					id: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+			}
+		}
+	}
+	'/policies/{policyId}/approval/sites/{id}': {
 		put: {
 			parameters: {
 				path: {
@@ -220,7 +283,7 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/approve/project/{did}': {
+	'/policies/{policyId}/approval/claims/{id}': {
 		put: {
 			parameters: {
 				path: {
@@ -246,12 +309,14 @@ export interface paths {
 			}
 		}
 	}
-	'/policies/{policyId}/approve/mrv/{did}': {
-		put: {
+	'/policies/{policyId}/state/projects': {
+		get: {
 			parameters: {
 				path: {
 					policyId: string
-					did: string
+					status: string
+					/** One or more specific fields that refer to the previous/current document submission for the trustchain */
+					filter0: string
 				}
 			}
 			responses: {
@@ -269,6 +334,123 @@ export interface paths {
 				}
 				401: components['responses']['401']
 				404: components['responses']['404']
+				422: components['responses']['422']
+			}
+		}
+	}
+	'/policies/{policyId}/state/approve-site': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+					status: string
+					/** One or more specific fields that refer to the previous/current document submission for the trustchain */
+					filter0: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+				422: components['responses']['422']
+			}
+		}
+	}
+	'/policies/{policyId}/state/create-site': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+					status: string
+					/** One or more specific fields that refer to the previous/current document submission for the trustchain */
+					filter0: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+				422: components['responses']['422']
+			}
+		}
+	}
+	'/policies/{policyId}/state/create-claim': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+					status: string
+					/** One or more specific fields that refer to the previous/current document submission for the trustchain */
+					filter0: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+				422: components['responses']['422']
+			}
+		}
+	}
+	'/policies/{policyId}/state/approve-claim': {
+		get: {
+			parameters: {
+				path: {
+					policyId: string
+					status: string
+					/** One or more specific fields that refer to the previous/current document submission for the trustchain */
+					filter0: string
+				}
+			}
+			responses: {
+				/** OK */
+				200: {
+					headers: {
+						Date?: string
+						Connection?: string
+						'Keep-Alive'?: string
+						'Transfer-Encoding'?: string
+					}
+					content: {
+						'text/plain': string
+					}
+				}
+				401: components['responses']['401']
+				404: components['responses']['404']
+				422: components['responses']['422']
 			}
 		}
 	}
@@ -318,6 +500,7 @@ export interface components {
 				statusCode: number
 				timestamp: string
 				path: string
+				jsonValidationErrors?: string[]
 				errors?: string[]
 			}
 		}

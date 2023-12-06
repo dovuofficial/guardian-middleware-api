@@ -1,11 +1,11 @@
 {
 	"openapi": "3.0.2",
 	"info": {
-		"title": "Guardian Middleware API",
-		"description": "A simplified API for interacting with the Guardian API - https://docs.hedera.com/guardian",
-		"version": "0.0.1-alpha",
+		"title": "DOVU Digital Credit Middleware: Simplified Ecological Asset Integration",
+		"description": "This API serves as a pivotal middleware platform, interfacing seamlessly with the Hedera Hashgraph Guardian to empower the efficient management and standardization of ecological credit lifecycles. By converging the technical capabilities of the Guardian with DOVU's ecological digital credit standards, we offer an expedited, cost-effective route to green asset development. Sidestepping the high investment typically required for custom solutions, DOVU's operating system ensures rapid deployment and adherence to consistent standards, freeing users to concentrate on environmental impact without infrastructural overhead. Streamlining the complexities of ecological credit transactions, DOVU's middleware API is the key to unlocking a sustainable future with ease and precision.",
+		"version": "0.1.0",
 		"contact": {
-			"name": "DOVU",
+			"name": "DOVU Support",
 			"url": "https://www.dovu.earth",
 			"email": "support@dovu.earth"
 		}
@@ -627,10 +627,20 @@
 	],
 	"tags": [
 		{
-			"name": "accounts"
+			"name": "accounts",
+			"description": "This section of the API deals with account management. It allows users to create accounts, authenticate, and manage their details. Endpoints under this tag are essential for ensuring that only authorized users can access the system and perform actions according to their roles."
 		},
 		{
-			"name": "policies"
+			"name": "policies",
+			"description": "This tag addresses the management of policies related to ecological and carbon credit lifecycle. It includes creating policies, assigning roles, and managing submissions for sites and claims. Each submission must reference back to the originating document or entity, ensuring a traceable and verifiable workflow. This reference mechanism is facilitated through the state API endpoints, which allow users to query and manage the status of different components within a policy's lifecycle. These endpoints are key to maintaining a coherent and auditable trail from project inception through to credit issuance."
+		},
+		{
+			"name": "approval",
+			"description": "The approval endpoints facilitate the progression of entities through their lifecycle within a policy's scope. These endpoints are pivotal for transitioning projects, sites, and claims to their subsequent stages by authorized roles. When a site or claim is approved, the ID provided in the endpoint is a direct reference to the state tracked by the system, ensuring that all actions are aligned with the entity's current status. This allows for a streamlined, traceable, and consistent approval process, simplifying the integration of various lifecycle stages within the policy framework."
+		},
+		{
+			"name": "state",
+			"description": "The state tag facilitates a focused overview of a policy's lifecycle, tailored to the roles interacting with it. By segmenting access to lifecycle stages, the tag ensures that suppliers, verifiers, and other stakeholders can securely access only the data relevant to their function. This role-based access empowers stakeholders to make informed decisions and take appropriate actions within the policy workflow. It simplifies the complex ecosystem, providing a clear path through the policy's progress while upholding the integrity of the trust chain. Use role-specific endpoints like /policies/{policyId}/state/{entityState} to seamlessly navigate and manage the states pertinent to your role in the workflow."
 		}
 	],
 	"paths": {
@@ -716,7 +726,7 @@
 		"/policies/{policyId}/role/{roleType}": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Assigns account to policy with a given role",
+				"summary": "The standard registry to assign an account to a policy with a given role",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -732,7 +742,7 @@
 						"in": "path",
 						"schema": {
 							"type": "string",
-							"enum": ["registrant", "verifier"]
+							"enum": ["supplier", "verifier"]
 						},
 						"required": true,
 						"example": "registrant"
@@ -782,78 +792,10 @@
 				}
 			}
 		},
-		"/policies/{policyId}/register": {
+		"/policies/{policyId}/projects": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Registers a new project application from DOVU",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ProjectRegistration"
-							}
-						}
-					}
-				},
-				"parameters": [
-					{
-						"name": "policyId",
-						"in": "path",
-						"schema": {
-							"type": "string"
-						},
-						"required": true,
-						"example": "62d98142a8075c6027dfcf90"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"headers": {
-							"Date": {
-								"schema": {
-									"type": "string",
-									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
-								}
-							},
-							"Connection": {
-								"schema": {
-									"type": "string",
-									"example": "keep-alive"
-								}
-							},
-							"Keep-Alive": {
-								"schema": {
-									"type": "string",
-									"example": "timeout=5"
-								}
-							},
-							"Transfer-Encoding": {
-								"schema": {
-									"type": "string",
-									"example": "chunked"
-								}
-							}
-						},
-						"content": {
-							"text/plain": {
-								"schema": {
-									"type": "string"
-								},
-								"example": null
-							}
-						}
-					},
-					"422": {
-						"$ref": "#/components/responses/422"
-					}
-				}
-			}
-		},
-		"/policies/{policyId}/project": {
-			"post": {
-				"tags": ["policies"],
-				"summary": "Registers a new Ecological Project from DOVU",
+				"summary": "A Supplier can register a new ecological project, this is considered the 'root' level definition",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -921,10 +863,19 @@
 				}
 			}
 		},
-		"/policies/{policyId}/token": {
-			"get": {
+		"/policies/{policyId}/projects/{id}/sites": {
+			"post": {
 				"tags": ["policies"],
-				"summary": "Get the token id connected to a policy",
+				"summary": "A supplier can register a new site that is connected to an approved project for a policy",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProjectRegistration"
+							}
+						}
+					}
+				},
 				"parameters": [
 					{
 						"name": "policyId",
@@ -976,17 +927,14 @@
 					},
 					"422": {
 						"$ref": "#/components/responses/422"
-					},
-					"401": {
-						"$ref": "#/components/responses/401"
 					}
 				}
 			}
 		},
-		"/policies/{policyId}/mrv/{mrv_type}": {
+		"/policies/{policyId}/sites/{id}/claims": {
 			"post": {
 				"tags": ["policies"],
-				"summary": "Submits a new MRV document to a given EP",
+				"summary": "A supplier can submit a new claim with MRV data points as evidence to prove alignment to a methodology.",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -1018,6 +966,165 @@
 						},
 						"required": true,
 						"example": "agrecalc"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"example": "6543d0149494a2ae74af310a"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/sites/{id}/claim/{mrv_type}": {
+			"post": {
+				"tags": ["policies"],
+				"description": "to be deprecated.",
+				"summary": "[DEPRECATED] A supplier can submit a new claim with MRV data points as evidence to prove alignment to a methodology.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MeasurementReportingVerification"
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "mrv_type",
+						"in": "path",
+						"schema": {
+							"enum": [
+								"agrecalc",
+								"cool-farm-tool",
+								"general-supply-documentation"
+							]
+						},
+						"required": true,
+						"example": "agrecalc"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"example": "6543d0149494a2ae74af310a"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/token": {
+			"get": {
+				"tags": ["policies"],
+				"summary": "Get the token id connected to a policy",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
 					}
 				],
 				"responses": {
@@ -1309,10 +1416,81 @@
 				}
 			}
 		},
-		"/policies/{policyId}/approve/application/{did}": {
+		"/policies/{policyId}/approval/projects/{id}": {
 			"put": {
 				"tags": ["approval"],
-				"summary": "Approves an application through a Standard Registry",
+				"summary": "A standard registry can approve a new supplier created project with all details.",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "6543d0149494a2ae74af310a"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/approval/sites/{id}": {
+			"put": {
+				"tags": ["approval"],
+				"summary": "A standard registry can approve a site that is connected to an approved project for a supplier",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -1380,10 +1558,10 @@
 				}
 			}
 		},
-		"/policies/{policyId}/approve/project/{did}": {
+		"/policies/{policyId}/approval/claims/{id}": {
 			"put": {
 				"tags": ["approval"],
-				"summary": "Approves an Ecological Project through a Standard Registry",
+				"summary": " A verifier can approve a claim (MRV) submission connected to a particular site for a project, the registry cannot approve a claim.",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -1451,10 +1629,10 @@
 				}
 			}
 		},
-		"/policies/{policyId}/approve/mrv/{did}": {
-			"put": {
-				"tags": ["approval"],
-				"summary": "Approves an MRV submission connected to a EP through a Verifier",
+		"/policies/{policyId}/state/projects": {
+			"get": {
+				"tags": ["state"],
+				"summary": "Allow the standard registry to get the current status of any, and all projects that have been submitted to a DOVU standard policy",
 				"parameters": [
 					{
 						"name": "policyId",
@@ -1466,13 +1644,23 @@
 						"example": "62d98142a8075c6027dfcf90"
 					},
 					{
-						"name": "did",
+						"name": "status",
 						"in": "path",
 						"schema": {
 							"type": "string"
 						},
 						"required": true,
-						"example": "did:hedera:testnet:DNenc37ybL93AmGhEhNrujUvLGQ2cC93JcZgFXVt5iYE;hedera:testnet:tid=0.0.47859693"
+						"example": "approved"
+					},
+					{
+						"name": "filter0",
+						"description": "One or more specific fields that refer to the previous/current document submission for the trustchain",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "uuid"
 					}
 				],
 				"responses": {
@@ -1515,6 +1703,345 @@
 					},
 					"401": {
 						"$ref": "#/components/responses/401"
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/state/approve-site": {
+			"get": {
+				"tags": ["state"],
+				"summary": "Allow the standard registry to get the current projects to connect to a related site to be approved.",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "status",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "approved"
+					},
+					{
+						"name": "filter0",
+						"description": "One or more specific fields that refer to the previous/current document submission for the trustchain",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "uuid"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/state/create-site": {
+			"get": {
+				"tags": ["state"],
+				"summary": "Allow the supplier role to get access to all projects before the create site submission process, to connect a project to a brand-new site.",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "status",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "approved"
+					},
+					{
+						"name": "filter0",
+						"description": "One or more specific fields that refer to the previous/current document submission for the trustchain",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "uuid"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/state/create-claim": {
+			"get": {
+				"tags": ["state"],
+				"summary": "Allow the Supplier role to get access to all sites that have been approved before creating a new claim to formulate the flow between a project, site, and a (MRV) claim.",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "status",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "approved"
+					},
+					{
+						"name": "filter0",
+						"description": "One or more specific fields that refer to the previous/current document submission for the trustchain",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "uuid"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
+					},
+					"404": {
+						"$ref": "#/components/responses/404"
+					}
+				}
+			}
+		},
+		"/policies/{policyId}/state/approve-claim": {
+			"get": {
+				"tags": ["state"],
+				"summary": "Allow the verfier Role in the system, the ability to check all of the claims that have been submitted through a supplier to approve before the minting of new digitial ecological tokens.",
+				"parameters": [
+					{
+						"name": "policyId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "62d98142a8075c6027dfcf90"
+					},
+					{
+						"name": "status",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "approved"
+					},
+					{
+						"name": "filter0",
+						"description": "One or more specific fields that refer to the previous/current document submission for the trustchain",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true,
+						"example": "uuid"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Mon, 25 Jul 2022 16:08:13 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							},
+							"Transfer-Encoding": {
+								"schema": {
+									"type": "string",
+									"example": "chunked"
+								}
+							}
+						},
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								},
+								"example": null
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/components/responses/401"
+					},
+					"422": {
+						"$ref": "#/components/responses/422"
 					},
 					"404": {
 						"$ref": "#/components/responses/404"
@@ -1522,5 +2049,6 @@
 				}
 			}
 		}
+
 	}
 }
