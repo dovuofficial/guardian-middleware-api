@@ -28,8 +28,9 @@ async function CreateAccountHandler(
 
 	const userData: CreateAccountDto = {
 		...userCredentials,
-		// This doesn't need to be a registrant (the API handles the registration)
+		// This doesn't need to be a supplier (the API handles the registration)
 		role: 'USER',
+		password_confirmation: userCredentials.password,
 	}
 
 	await guardian.account.register(userData)
