@@ -13,7 +13,7 @@ async function RegisterAccountToPolicyHandler(
 
 	const role = (roleType as string)?.toUpperCase()
 
-	if (role !== Role.REGISTRANT && role !== Role.VERIFIER) {
+	if (role !== Role.SUPPLIER && role !== Role.VERIFIER) {
 		return Response.unprocessibleEntity(
 			language.middleware.validate.invalidRole
 		)

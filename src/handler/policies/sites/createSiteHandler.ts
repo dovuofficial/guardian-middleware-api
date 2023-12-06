@@ -2,8 +2,7 @@ import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
-import validateEcologicalProjectSubmission from 'src/validators/validateEcologicalProjectSubmission'
-import { Tag } from 'src/config/guardianTags'
+import { QueryBlockTag, QueryRoute } from 'src/config/guardianTags'
 
 type EcologicalProject = components['schemas']['EcologicalProject']
 
@@ -11,45 +10,40 @@ interface EcologicalProjectRequest extends GuardianMiddlewareRequest {
 	body: EcologicalProject
 }
 
-async function EcologicalProjectHandler(
+async function CreateSiteHandler(
 	req: EcologicalProjectRequest,
 	res: NextApiResponse
 ) {
-	const { policyId } = req.query
+	const { policyId , id} = req.query
 	const { engine } = req.context
 	const { body, accessToken } = req
+	const tag =  QueryBlockTag[QueryRoute.CREATE_SITE]
 
-	const validationErrors = validateEcologicalProjectSubmission(body)
-
-	if (validationErrors) {
-		return Response.unprocessibleEntity(validationErrors)
-	}
-
-	const did = await engine.getCurrentUserDid(accessToken)
-
-	const previousDocument = await engine.retrievePreviousBlockContext(
+	const submission = await engine.fetchBlockSubmissions(
+		accessToken,
 		policyId as string,
-		did as string,
-		Tag.approveApplicationBlocks
+		tag
 	)
 
-	if (!previousDocument) {
+	// @ts-ignore
+	if (submission?.data?.id !== id) {
+		// TODO: Context, this might not be the best error, as it is the entity that failed to resolve.
 		return Response.notFound()
 	}
 
 	const data = {
 		document: body,
-		ref: previousDocument,
+		ref: submission.data,
 	}
 
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Tag.createEcologicalProject,
+		tag,
 		data
 	)
 
 	res.end()
 }
 
-export default EcologicalProjectHandler
+export default CreateSiteHandler

@@ -1,26 +1,24 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
 import Response from 'src/response'
-import { Tag } from 'src/config/guardianTags'
+import { QueryBlockTag, QueryRoute, Tag } from 'src/config/guardianTags'
 import { NextApiResponse } from 'next'
 
-async function ApproveEcologicalProjectHandler(
+async function ApproveClaimHandler(
 	req: GuardianMiddlewareRequest,
 	res: NextApiResponse
 ) {
 	const { accessToken } = req
-	const { policyId, did } = req.query
+	const { policyId, id } = req.query
 	const { engine } = req.context
 
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
-		Tag.approveEcologicalProject
+		QueryBlockTag[QueryRoute.APPROVE_CLAIM]
 	)
 
-	const document = submissions.data.find(
-		// TODO: Temporary, we need a way of returning an identifier.
-		(submission) =>
-			submission.owner === did && submission.option.status !== 'Approved'
+	const document = submissions.data?.find(
+		(submission) => submission?.id === id
 	)
 
 	if (!document) {
@@ -35,11 +33,11 @@ async function ApproveEcologicalProjectHandler(
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Tag.approveEcologicalProjectBtn,
+		Tag.approveClaimRequestBtn,
 		submission
 	)
 
 	res.end()
 }
 
-export default ApproveEcologicalProjectHandler
+export default ApproveClaimHandler

@@ -1,26 +1,24 @@
-import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
-import Response from 'src/response'
-import { Tag } from 'src/config/guardianTags'
+import { GuardianMiddlewareRequest } from '../../../context/useGuardianContext'
+import Response from '../../../response'
+import { QueryBlockTag, QueryRoute, Tag } from '../../../config/guardianTags'
 import { NextApiResponse } from 'next'
 
-async function ApproveMrvRequestHandler(
+async function ApproveSiteHandler(
 	req: GuardianMiddlewareRequest,
 	res: NextApiResponse
 ) {
 	const { accessToken } = req
-	const { policyId, did } = req.query
+	const { policyId, id } = req.query
 	const { engine } = req.context
 
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
-		Tag.approveMrvRequest
+		QueryBlockTag[QueryRoute.APPROVE_SITE]
 	)
 
 	const document = submissions.data?.find(
-		// TODO: Temporary, we need a way of returning an identifier.
-		(submission) =>
-			submission.owner === did && submission.option.status !== 'Approved'
+		(submission) => submission?.id === id
 	)
 
 	if (!document) {
@@ -35,11 +33,11 @@ async function ApproveMrvRequestHandler(
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Tag.approveMrvRequestBtn,
+		Tag.approveSiteBtn,
 		submission
 	)
 
 	res.end()
 }
 
-export default ApproveMrvRequestHandler
+export default ApproveSiteHandler
