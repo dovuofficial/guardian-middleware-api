@@ -8,11 +8,11 @@ const language = {
 				'A role can only be enforced when connected to a policy',
 			policyDoesNotExist: 'A policy cannot be found with that id',
 			[Role.STANDARD_REGISTRY]:
-				'Only a "STANDARD_REGISTRY" policy owner may approve an application',
+				'Only a "STANDARD_REGISTRY" policy owner may approve a project, site or query related block data',
 			[Role.VERIFIER]:
-				'Only a user with the role "VERIFIER" make approve an MRV block',
-			[Role.REGISTRANT]:
-				'Only a user with the role "REGISTRANT" may submit this document',
+				'Only a user with the role "VERIFIER" make approve an claim (MRV) block or query related block data',
+			[Role.SUPPLIER]:
+				'Only a user with the role "SUPPLIER" may submit this document or query related block data',
 		},
 		withAuthenticationResponse: {
 			noAccessToken:
@@ -24,13 +24,16 @@ const language = {
 			notAllowed: (method: string) =>
 				`Method ${method} is not allowed on this route`,
 		},
+		queryResponse: {
+			invalidType: (validValues: string) =>
+				`The policy can only query types of ${validValues}. Please update your request.`,
+		},
 		ensureMrv: {
 			unknownMrv: 'No MRV found with that id',
 		},
 		validate: {
 			message: 'Validation errors',
-			invalidRole:
-				"Invalid role type. Must be 'registrant' or 'verifier'",
+			invalidRole: "Invalid role type. Must be 'supplier' or 'verifier'",
 		},
 		guardian: {
 			serverError:
