@@ -70,6 +70,7 @@ interface LoginCredentialsDto {
 export interface CreateAccountDto {
 	username: string
 	password: string
+	password_confirmation: string
 	role: 'USER'
 }
 export interface Accounts {
