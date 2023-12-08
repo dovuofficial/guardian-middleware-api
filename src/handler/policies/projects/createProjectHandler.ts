@@ -1,8 +1,6 @@
 import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
-import Response from 'src/response'
 import { NextApiResponse } from 'next'
 import { components } from 'src/spec/openapi'
-import validateProjectRegistrationApplication from 'src/validators/validateProjectRegistrationApplication'
 import { Tag } from 'src/config/guardianTags'
 
 type ProjectRegistration = components['schemas']['ProjectRegistration']
@@ -10,7 +8,7 @@ type ProjectRegistration = components['schemas']['ProjectRegistration']
 interface RegisterProjectRequest extends GuardianMiddlewareRequest {
 	body: ProjectRegistration
 }
-async function RegisterProjectHandler(
+async function CreateProjectHandler(
 	req: RegisterProjectRequest,
 	res: NextApiResponse
 ) {
@@ -18,14 +16,7 @@ async function RegisterProjectHandler(
 	const { engine } = req.context
 	const { body, accessToken } = req
 
-	const validationErrors = validateProjectRegistrationApplication(body)
-
-	if (validationErrors) {
-		Response.unprocessibleEntity(validationErrors)
-		return
-	}
-
-	const tag = Tag.initialApplicationSubmission
+	const tag = Tag.initialProjectSubmission
 
 	const data = {
 		document: body,
@@ -36,4 +27,4 @@ async function RegisterProjectHandler(
 	res.end()
 }
 
-export default RegisterProjectHandler
+export default CreateProjectHandler

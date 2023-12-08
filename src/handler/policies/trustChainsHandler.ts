@@ -52,6 +52,7 @@ async function TrustChainsHandler(
 			acc.push(block.hash)
 			return acc
 		},
+		// @ts-ignore
 		[] as string[]
 	)
 

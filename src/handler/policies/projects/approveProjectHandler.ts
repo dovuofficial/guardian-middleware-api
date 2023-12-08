@@ -1,8 +1,8 @@
-import { GuardianMiddlewareRequest } from 'src/context/useGuardianContext'
-import Response from 'src/response'
+import { GuardianMiddlewareRequest } from '../../../context/useGuardianContext'
+import Response from '../../../response'
 import { NextApiResponse } from 'next'
-import { components } from 'src/spec/openapi'
-import { Tag } from 'src/config/guardianTags'
+import { components } from '../../../spec/openapi'
+import { QueryBlockTag, QueryRoute, Tag } from '../../../config/guardianTags'
 
 type UserDid = components['schemas']['UserDid']
 
@@ -10,26 +10,26 @@ interface ApproveApplicationRequest extends GuardianMiddlewareRequest {
 	body: UserDid
 }
 
-async function ApproveApplicationHandler(
+async function ApproveProjectHandler(
 	req: ApproveApplicationRequest,
 	res: NextApiResponse
 ) {
 	const { accessToken } = req
-	const { policyId, did } = req.query
+	const { policyId, id } = req.query
 	const { engine } = req.context
 
-	const tag = Tag.approveApplicationBlocks
 	const submissions = await engine.fetchBlockSubmissions(
 		accessToken,
 		policyId as string,
-		tag
+		QueryBlockTag[QueryRoute.PROJECTS]
 	)
 
 	const document = submissions.data?.find(
-		(submission) => submission.owner === did
+		(submission) => submission?.id === id
 	)
 
 	if (!document) {
+		// TODO: Context, this might not be the best error, as it is the entity that failed to resolve.
 		return Response.notFound()
 	}
 
@@ -41,11 +41,11 @@ async function ApproveApplicationHandler(
 	await engine.executeBlockViaTag(
 		accessToken,
 		policyId as string,
-		Tag.approveApplicationBtn,
+		Tag.approveProjectBtn,
 		submission
 	)
 
 	res.end()
 }
 
-export default ApproveApplicationHandler
+export default ApproveProjectHandler

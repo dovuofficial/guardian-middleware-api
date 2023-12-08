@@ -59,12 +59,33 @@ function getIsGuardianException(exception: AxiosError) {
 	return requestBaseUrl.host === guardianBaseUrl.host
 }
 
+function jsonValidationParse(exception: AxiosError) {
+	const message = exception?.response?.data?.message
+
+	console.log(exception?.response?.data)
+
+	if (!message) {
+		return null
+	}
+
+	const JSON_VALID_ERROR = 'JSON_SCHEMA_VALIDATION_ERROR'
+
+	// console.log(message)
+	if (message.includes(JSON_VALID_ERROR)) {
+		const error = JSON.parse(message.split('Error: ')[1])
+
+		return error.details
+	}
+
+	return null
+}
+
 function exceptionFilter(handler: NextApiHandler) {
 	return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 		try {
 			await handler(req, res)
 		} catch (exception) {
-			const { url, headers } = req
+			const { url, headers, body } = req
 
 			const statusCode = getExceptionStatus(exception)
 			const message = getExceptionMessage(exception)
@@ -99,19 +120,26 @@ function exceptionFilter(handler: NextApiHandler) {
 				console.debug(stack)
 			}
 
+			// TODO: Remove Temporary JSON validation check
+			const jsonValidationErrors = jsonValidationParse(exception)
+
 			const timestamp = new Date().toISOString()
+
+			const updatedStatusCode = jsonValidationErrors ? 422 : statusCode
 
 			const responseBody: ErrorApiResponse = {
 				error: {
 					message,
-					statusCode,
+					// TODO: Temporary JSON validation error catch (to delete)
+					statusCode: updatedStatusCode,
 					timestamp,
+					jsonValidationErrors,
 					path: req.url,
 					...(errors ? { errors } : {}),
 				},
 			}
 
-			res.status(statusCode).send(responseBody)
+			res.status(updatedStatusCode).send(responseBody)
 		}
 	}
 }

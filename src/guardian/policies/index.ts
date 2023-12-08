@@ -1,7 +1,10 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 
 export interface BlockData {
-	data?: BlockData[] // Feels naughty 👹
+	find?: Function
+	reduce?: Function
+	push?: Function
+	data?: BlockData[] | BlockData // Feels naughty 👹
 	hash?: string
 	id: string
 	uiMetaData: { title: string; description: string }

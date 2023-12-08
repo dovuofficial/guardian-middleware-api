@@ -1,6 +1,6 @@
-import StatusCode from 'src/constants/status'
-import hmacAxios from 'src/apiClient/hmacApiClient'
-import config from 'src/config'
+import StatusCode from '../../../src/constants/status'
+import hmacAxios from '../../../src/apiClient/hmacApiClient'
+import config from '../../../src/config'
 
 const SECONDS = 1000
 const TEN_SECONDS = 10 * SECONDS

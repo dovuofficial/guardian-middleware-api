@@ -1,16 +1,16 @@
-import onlyPut from 'src/middleware/onlyPut'
+import onlyPost from 'src/middleware/onlyPost'
 import prepare from 'src/utils/prepare'
 import useGuardianContext from 'src/context/useGuardianContext'
-import approveEcologicalProjectHandler from 'src/handler/policies/approveEcologicalProjectHandler'
+import createProjectHandler from 'src/handler/policies/projects/createProjectHandler'
 import withAuthentication from 'src/middleware/withAuthentication'
 import withHmac from 'src/middleware/withHmac'
 import ensureRole from 'src/middleware/ensureRole'
 import { Role } from 'src/config/guardianTags'
 
 export default prepare(
-	onlyPut,
+	onlyPost,
 	withHmac,
 	useGuardianContext,
 	withAuthentication,
-	ensureRole(Role.STANDARD_REGISTRY)
-)(approveEcologicalProjectHandler)
+	ensureRole(Role.SUPPLIER)
+)(createProjectHandler)

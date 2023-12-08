@@ -1,6 +1,6 @@
-import StatusCode from 'src/constants/status'
-import hmacAxios from 'src/apiClient/hmacApiClient'
-import config from 'src/config'
+import StatusCode from '../../../src/constants/status'
+import hmacAxios from '../../../src/apiClient/hmacApiClient'
+import config from '../../../src/config'
 
 const SECONDS = 1000
 const TEN_SECONDS = 10 * SECONDS
@@ -116,7 +116,7 @@ describe('Test General Supply Documentation policy flow', () => {
 		ONE_MINUTE
 	)
 	it(
-		'submits a new application',
+		'submits a new project',
 		async () => {
 			const { accessToken } = await loginResponseData(
 				registrant,
@@ -149,7 +149,7 @@ describe('Test General Supply Documentation policy flow', () => {
 		ONE_MINUTE
 	)
 	it(
-		'approves the application',
+		'approves the project',
 		async () => {
 			await new Promise((r) => setTimeout(r, TEN_SECONDS))
 			const { did } = await loginResponseData(registrant, password)
@@ -172,7 +172,7 @@ describe('Test General Supply Documentation policy flow', () => {
 		ONE_MINUTE
 	)
 	it(
-		'submits an ecological project',
+		'submits a site',
 		async () => {
 			await new Promise((r) => setTimeout(r, TEN_SECONDS))
 			const { accessToken } = await loginResponseData(
@@ -210,7 +210,7 @@ describe('Test General Supply Documentation policy flow', () => {
 		ONE_MINUTE
 	)
 	it(
-		'approves the ecological project',
+		'approves the site',
 		async () => {
 			await new Promise((r) => setTimeout(r, TEN_SECONDS))
 			const { did } = await loginResponseData(registrant, password)

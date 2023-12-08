@@ -4,6 +4,6 @@
 export default {
 	user: 'USER',
 	standardRegistry: 'STANDARD_REGISTRY',
-	registrant: 'REGISTRANT',
+	supplier: 'SUPPLIER',
 	verifier: 'VERIFIER',
 }
